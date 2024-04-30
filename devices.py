@@ -72,6 +72,33 @@ def GetDevicesSummary():
 
 GetDevicesSummary()
 
+def GetDeviceData(api_token, server, device_id):
+    # Define the API endpoint to get data for a specific device.
+    url = f"http://{server}/api/devices/{device_id}"
+
+    # Define headers with authorization token.
+    auth_token = [("authorization", "Bearer %s" % api_token)]
+
+    # Make a GET request to the API endpoint.
+    response = requests.get(url, headers=dict(auth_token))
+
+    # Check if the request was successful.
+    if response.status_code == 200:
+        # Parse the response JSON.
+        device_data = response.json()
+        return device_data
+    else:
+        # Print error message if request failed.
+        print(f"Failed to get device data: {response.text}")
+        return None
+
+device_id = "0004a30b00fef714"
+
+# Get data for the specified device.
+device_data = GetDeviceData(api_token, server, device_id)
+if device_data is not None:
+    print("Device Data:")
+    print(device_data)
 
 # Sacar la info de EVENTOS Y FRAMES DE DEVICES
 
