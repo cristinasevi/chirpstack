@@ -47,6 +47,31 @@ def GetGateways():
     return gateway_services
 GetGateways()
 
+def GetGatewaysSummary():
+    # The API token (retrieved using the web-interface).
+    global api_token
+    # Connect without using TLS.
+    channel = grpc.insecure_channel(server)
+
+    client = api.ApplicationServiceStub(channel)
+
+    # Define the API key meta-data.
+    auth_token = [("authorization", "Bearer %s" % api_token)]
+
+    # Construct request.
+    gateway = api.ListApplicationRequest()
+    gateway.limit = 10000
+
+    resp = client.List(gateway, metadata=auth_token)
+
+    gateway_summaries = {}
+    for gateway in resp.result:
+        client = api.GatewayServiceStub(channel)
+        print(gateway)
+
+    return gateway_summaries
+GetGatewaysSummary()
+
 def PostGateways():
     auth_token = [("authorization", "Bearer %s" % api_token)]
     try:
