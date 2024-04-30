@@ -45,7 +45,7 @@ def GetGateways():
         print(gateway)
 
     return gateway_services
-#GetGateways()
+GetGateways()
 
 def PostGateways():
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -62,7 +62,7 @@ def PostGateways():
     except requests.exceptions.RequestException as e:
         print("Error de conexión:", e)
 
-#PostGateways()
+PostGateways()
 
 def PutGateways(gateway_body):
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -158,7 +158,7 @@ def GetGatewayStats():
     except requests.exceptions.RequestException as e:
         print("Error de conexión:", e)
 
-#GetGatewayStats()
+GetGatewayStats()
 
 def DeleteGateway(gateway_id, server, api_token):
     url = f"http://{server}/api/gateways/{gateway_id}"
@@ -179,5 +179,5 @@ def DeleteGateway(gateway_id, server, api_token):
 
 gateway_id = "0000000000000001"
 
-#DeleteGateway(gateway_id, server, api_token)
+DeleteGateway(gateway_id, server, api_token)
 
