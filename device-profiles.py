@@ -1,0 +1,1 @@
+#get /api/device-profiles/{id}
