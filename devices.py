@@ -119,6 +119,62 @@ device_activations = GetDeviceActivations(api_token, server, device_id)
 if device_activations:
     print("Activaciones del dispositivo:", device_activations)
 
+def GetDeviceEvents(api_token, server, device_id):
+    # Define the API endpoint to get events for a specific device.
+    url = f"http://{server}/api/devices/{device_id}/events"
+
+    # Define headers with authorization token.
+    auth_token = [("authorization", "Bearer %s" % api_token)]
+
+    # Make a GET request to the API endpoint.
+    response = requests.get(url, headers=dict(auth_token))
+
+    # Check if the request was successful.
+    if response.status_code == 200:
+        # Parse the response JSON.
+        events = response.json()
+        return events
+    else:
+        # Print error message if request failed.
+        print(f"Failed to get device events: {response.text}")
+        return None
+
+device_id = "0004a30b00fef714"
+
+# Get events for the specified device.
+events = GetDeviceEvents(api_token, server, device_id)
+if events is not None:
+    for event in events:
+        print(f"Event ID: {event['id']}, Type: {event['type']}, Timestamp: {event['timestamp']}, Data: {event['data']}")
+
+def GetDeviceFrames(api_token, server, device_id):
+    # Define the API endpoint to get frames for a specific device.
+    url = f"http://{server}/api/devices/{device_id}/frames"
+
+    # Define headers with authorization token.
+    auth_token = [("authorization", "Bearer %s" % api_token)]
+
+    # Make a GET request to the API endpoint.
+    response = requests.get(url, headers=dict(auth_token))
+
+    # Check if the request was successful.
+    if response.status_code == 200:
+        # Parse the response JSON.
+        frames = response.json()
+        return frames
+    else:
+        # Print error message if request failed.
+        print(f"Failed to get frames: {response.text}")
+        return None
+
+device_id = "0004a30b00fef714"
+
+# Get frames for the specified device.
+frames = GetDeviceFrames(api_token, server, device_id)
+if frames is not None:
+    for frame in frames:
+        print(f"Timestamp: {frame['timestamp']}, Data: {frame['data']}")
+
 def GetDeviceKeys(api_token, server, device_id):
     url = f"http://{server}/api/devices/{device_id}/keys"
     auth_token = {"authorization": f"Bearer {api_token}"}
