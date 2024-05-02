@@ -100,7 +100,7 @@ if device_data is not None:
     print("Device Data:")
     print(device_data)
 
-def GetDeviceActivations(api_token, server, device_id):
+def GetDeviceActivation(api_token, server, device_id):
     url = f"http://{server}/api/devices/{device_id}/activation"
     auth_token = [("authorization", "Bearer %s" % api_token)]
     
@@ -114,12 +114,12 @@ def GetDeviceActivations(api_token, server, device_id):
 
 device_id = "0004a30b00fef714"
 
-device_activations = GetDeviceActivations(api_token, server, device_id)
+device_activations = GetDeviceActivation(api_token, server, device_id)
 
 if device_activations:
     print("Device Activations::", device_activations)
 
-def DeleteDeviceActivations(api_token, server, dev_eui):
+def DeleteDeviceActivation(api_token, server, dev_eui):
     url = f"http://{server}/api/devices/{dev_eui}/activation"
     auth_token = [("authorization", "Bearer %s" % api_token)]
     
@@ -132,7 +132,7 @@ def DeleteDeviceActivations(api_token, server, dev_eui):
 
 dev_eui = "0000000000000001"
 
-DeleteDeviceActivations(api_token, server, dev_eui)
+DeleteDeviceActivation(api_token, server, dev_eui)
 
 def PostDeviceActivation(api_token, server, dev_eui, activation_data):
     url = f"http://{server}/api/devices/{dev_eui}/activate"
