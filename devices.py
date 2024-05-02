@@ -238,17 +238,18 @@ device_keys = GetDeviceKeys(api_token, server, device_id)
 if device_keys:
     print("Device Keys:", device_keys)
 
-def DeleteDeviceKeys(api_token, server, device_id):
-    url = f"http://{server}/api/devices/{device_id}/keys"
+def DeleteDeviceKeys(api_token, server, dev_eui):
+    url = f"http://{server}/api/devices/{dev_eui}/keys"
     auth_token = [("authorization", "Bearer %s" % api_token)]
     
     response = requests.delete(url, headers=dict(auth_token))
     
-    if response.status_code == 204:
-        print(f"Claves del dispositivo {device_id} eliminadas con éxito.")
+    if response.status_code == 200:
+        print(f"Claves del dispositivo {dev_eui} eliminadas con éxito.")
     else:
-        print(f"Error al eliminar las claves del dispositivo {device_id}. Código de estado: {response.status_code}")
+        print(f"Error al eliminar las claves del dispositivo {dev_eui}. Código de estado: {response.status_code}")
 
-device_id = "0000000000000001"
+dev_eui = "0000000000000001"
+# key: 43 68 65 6d 69 6b 20 5a 61 72 61 67 6f 7a 61 20
 
-DeleteDeviceKeys(api_token, server, device_id)
+DeleteDeviceKeys(api_token, server, dev_eui)
