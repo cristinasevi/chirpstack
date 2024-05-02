@@ -119,20 +119,20 @@ device_activations = GetDeviceActivations(api_token, server, device_id)
 if device_activations:
     print("Device Activations::", device_activations)
 
-def DeleteDeviceActivations(api_token, server, device_id):
-    url = f"http://{server}/api/devices/{device_id}/activations"
+def DeleteDeviceActivations(api_token, server, dev_eui):
+    url = f"http://{server}/api/devices/{dev_eui}/activation"
     auth_token = [("authorization", "Bearer %s" % api_token)]
     
     response = requests.delete(url, headers=dict(auth_token))
     
-    if response.status_code == 204:
-        print(f"Activación del dispositivo {device_id} eliminada con éxito.")
+    if response.status_code == 200:
+        print(f"Activación del dispositivo {dev_eui} eliminada con éxito.")
     else:
         print(f"Error al eliminar la activación del dispositivo: {response.status_code}")
 
-device_id = "0004a30b00fef714"
+dev_eui = "0000000000000001"
 
-DeleteDeviceActivations(api_token, server, device_id)
+DeleteDeviceActivations(api_token, server, dev_eui)
 
 def PostDeviceActivation(api_token, server, dev_eui, activation_data):
     url = f"http://{server}/api/devices/{dev_eui}/activate"
