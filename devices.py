@@ -117,7 +117,22 @@ device_id = "0004a30b00fef714"
 device_activations = GetDeviceActivations(api_token, server, device_id)
 
 if device_activations:
-    print("Activaciones del dispositivo:", device_activations)
+    print("Device Activations::", device_activations)
+
+def DeleteDeviceActivations(api_token, server, device_id):
+    url = f"http://{server}/api/devices/{device_id}/activations"
+    auth_token = [("authorization", "Bearer %s" % api_token)]
+    
+    response = requests.delete(url, headers=dict(auth_token))
+    
+    if response.status_code == 204:
+        print(f"Activación del dispositivo {device_id} eliminada con éxito.")
+    else:
+        print(f"Error al eliminar la activación del dispositivo: {response.status_code}")
+
+device_id = "0004a30b00fef714"
+
+DeleteDeviceActivations(api_token, server, device_id)
 
 def GetDeviceEvents(api_token, server, device_id):
     # Define the API endpoint to get events for a specific device.
