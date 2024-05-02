@@ -100,5 +100,21 @@ if device_data is not None:
     print("Device Data:")
     print(device_data)
 
-# Sacar la info de EVENTOS Y FRAMES DE DEVICES
+def GetDeviceKeys(api_token, server, device_id):
+    url = f"http://{server}/api/devices/{device_id}/keys"
+    auth_token = {"authorization": f"Bearer {api_token}"}
+    
+    response = requests.get(url, headers=dict(auth_token))
+    
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print(f"Failed to get device keys: {response.status_code}")
+        return None
 
+device_id = "0004a30b00fef714"
+
+device_keys = GetDeviceKeys(api_token, server, device_id)
+
+if device_keys:
+    print("Device Keys:", device_keys)
