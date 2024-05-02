@@ -100,6 +100,25 @@ if device_data is not None:
     print("Device Data:")
     print(device_data)
 
+def GetDeviceActivations(api_token, server, device_id):
+    url = f"http://{server}/api/devices/{device_id}/activation"
+    auth_token = [("authorization", "Bearer %s" % api_token)]
+    
+    response = requests.get(url, headers=dict(auth_token))
+    
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print(f"Error al obtener las activaciones del dispositivo: {response.status_code}")
+        return None
+
+device_id = "0004a30b00fef714"
+
+device_activations = GetDeviceActivations(api_token, server, device_id)
+
+if device_activations:
+    print("Activaciones del dispositivo:", device_activations)
+
 def GetDeviceKeys(api_token, server, device_id):
     url = f"http://{server}/api/devices/{device_id}/keys"
     auth_token = {"authorization": f"Bearer {api_token}"}
