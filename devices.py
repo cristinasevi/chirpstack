@@ -134,6 +134,35 @@ device_id = "0004a30b00fef714"
 
 DeleteDeviceActivations(api_token, server, device_id)
 
+def PostDeviceActivation(api_token, server, dev_eui, activation_data):
+    url = f"http://{server}/api/devices/{dev_eui}/activate"
+    auth_token = [("authorization", "Bearer %s" % api_token)]
+    
+    response = requests.post(url, json=activation_data, headers=dict(auth_token))
+    
+    if response.status_code == 200:
+        print("Activación del dispositivo exitosa.")
+    else:
+        print(f"Error al activar el dispositivo: {response.status_code}")
+
+dev_eui = "0000000000000001"
+
+activation_data = {
+    "deviceActivation": {
+        "aFCntDown": 0,
+        "appSKey": "0b3f97455e1e0910952bdcd12f08e752",
+        "devAddr": "00497fad",
+        "devEUI": "0000000000000001",
+        "fCntUp": 138,
+        "fNwkSIntKey": "3f196e3d5e1bcfedd938292c409cf0bc",
+        "nFCntDown": 0,
+        "nwkSEncKey": "3f196e3d5e1bcfedd938292c409cf0bc",
+        "sNwkSIntKey": "3f196e3d5e1bcfedd938292c409cf0bc"
+    }
+}
+
+PostDeviceActivation(api_token, server, dev_eui, activation_data)
+
 def GetDeviceEvents(api_token, server, device_id):
     # Define the API endpoint to get events for a specific device.
     url = f"http://{server}/api/devices/{device_id}/events"
