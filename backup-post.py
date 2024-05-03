@@ -48,8 +48,9 @@ def PostDeviceActivationXLSX(api_token, server, xlsx_file, start_row, end_row):
                         activation_data = {
                             "deviceActivation": {
                                 "aFCntDown": 0,  
-                                "appSKey": 0,
+                                "appSKey": "00000000000000000000000000000000",
                                 "devAddr": row.iloc[4][3:11],
+                                "devEUI": row.iloc[2][3:19],
                                 "fCntUp": 138, 
                                 "fNwkSIntKey": row.iloc[5][3:35],
                                 "nFCntDown": 0,  
