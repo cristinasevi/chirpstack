@@ -1,0 +1,1527 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.11 (Ubuntu 12.11-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 12.11 (Ubuntu 12.11-0ubuntu0.20.04.1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: chirpstack_ns; Type: DATABASE; Schema: -; Owner: chirpstack_ns
+--
+
+CREATE DATABASE chirpstack_ns WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';
+
+
+ALTER DATABASE chirpstack_ns OWNER TO chirpstack_ns;
+
+\connect chirpstack_ns
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: code_migration; Type: TABLE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE TABLE public.code_migration (
+    id text NOT NULL,
+    applied_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.code_migration OWNER TO chirpstack_ns;
+
+--
+-- Name: device; Type: TABLE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE TABLE public.device (
+    dev_eui bytea NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    device_profile_id uuid NOT NULL,
+    service_profile_id uuid NOT NULL,
+    routing_profile_id uuid NOT NULL,
+    skip_fcnt_check boolean DEFAULT false NOT NULL,
+    reference_altitude double precision NOT NULL,
+    mode character(1) NOT NULL,
+    is_disabled boolean NOT NULL
+);
+
+
+ALTER TABLE public.device OWNER TO chirpstack_ns;
+
+--
+-- Name: device_activation; Type: TABLE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE TABLE public.device_activation (
+    id bigint NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    dev_eui bytea NOT NULL,
+    join_eui bytea NOT NULL,
+    dev_addr bytea NOT NULL,
+    f_nwk_s_int_key bytea NOT NULL,
+    s_nwk_s_int_key bytea NOT NULL,
+    nwk_s_enc_key bytea NOT NULL,
+    dev_nonce integer NOT NULL,
+    join_req_type smallint NOT NULL
+);
+
+
+ALTER TABLE public.device_activation OWNER TO chirpstack_ns;
+
+--
+-- Name: device_activation_id_seq; Type: SEQUENCE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE SEQUENCE public.device_activation_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.device_activation_id_seq OWNER TO chirpstack_ns;
+
+--
+-- Name: device_activation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER SEQUENCE public.device_activation_id_seq OWNED BY public.device_activation.id;
+
+
+--
+-- Name: device_multicast_group; Type: TABLE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE TABLE public.device_multicast_group (
+    dev_eui bytea NOT NULL,
+    multicast_group_id uuid NOT NULL,
+    created_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.device_multicast_group OWNER TO chirpstack_ns;
+
+--
+-- Name: device_profile; Type: TABLE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE TABLE public.device_profile (
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    device_profile_id uuid NOT NULL,
+    supports_class_b boolean NOT NULL,
+    class_b_timeout integer NOT NULL,
+    ping_slot_period integer NOT NULL,
+    ping_slot_dr integer NOT NULL,
+    ping_slot_freq bigint NOT NULL,
+    supports_class_c boolean NOT NULL,
+    class_c_timeout integer NOT NULL,
+    mac_version character varying(10) NOT NULL,
+    reg_params_revision character varying(20) NOT NULL,
+    rx_delay_1 integer NOT NULL,
+    rx_dr_offset_1 integer NOT NULL,
+    rx_data_rate_2 integer NOT NULL,
+    rx_freq_2 bigint NOT NULL,
+    factory_preset_freqs bigint[],
+    max_eirp integer NOT NULL,
+    max_duty_cycle integer NOT NULL,
+    supports_join boolean NOT NULL,
+    rf_region character varying(20) NOT NULL,
+    supports_32bit_fcnt boolean NOT NULL,
+    adr_algorithm_id character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.device_profile OWNER TO chirpstack_ns;
+
+--
+-- Name: device_queue; Type: TABLE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE TABLE public.device_queue (
+    id bigint NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    dev_eui bytea,
+    frm_payload bytea,
+    f_cnt integer NOT NULL,
+    f_port integer NOT NULL,
+    confirmed boolean NOT NULL,
+    is_pending boolean NOT NULL,
+    timeout_after timestamp with time zone,
+    emit_at_time_since_gps_epoch bigint,
+    dev_addr bytea,
+    retry_after timestamp with time zone
+);
+
+
+ALTER TABLE public.device_queue OWNER TO chirpstack_ns;
+
+--
+-- Name: device_queue_id_seq; Type: SEQUENCE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE SEQUENCE public.device_queue_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.device_queue_id_seq OWNER TO chirpstack_ns;
+
+--
+-- Name: device_queue_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER SEQUENCE public.device_queue_id_seq OWNED BY public.device_queue.id;
+
+
+--
+-- Name: gateway; Type: TABLE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE TABLE public.gateway (
+    gateway_id bytea NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    first_seen_at timestamp with time zone,
+    last_seen_at timestamp with time zone,
+    location point NOT NULL,
+    altitude double precision NOT NULL,
+    gateway_profile_id uuid,
+    routing_profile_id uuid NOT NULL,
+    tls_cert bytea,
+    service_profile_id uuid
+);
+
+
+ALTER TABLE public.gateway OWNER TO chirpstack_ns;
+
+--
+-- Name: gateway_board; Type: TABLE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE TABLE public.gateway_board (
+    id smallint NOT NULL,
+    gateway_id bytea NOT NULL,
+    fpga_id bytea,
+    fine_timestamp_key bytea
+);
+
+
+ALTER TABLE public.gateway_board OWNER TO chirpstack_ns;
+
+--
+-- Name: gateway_profile; Type: TABLE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE TABLE public.gateway_profile (
+    gateway_profile_id uuid NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    channels smallint[] NOT NULL,
+    stats_interval bigint NOT NULL
+);
+
+
+ALTER TABLE public.gateway_profile OWNER TO chirpstack_ns;
+
+--
+-- Name: gateway_profile_extra_channel; Type: TABLE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE TABLE public.gateway_profile_extra_channel (
+    id bigint NOT NULL,
+    gateway_profile_id uuid NOT NULL,
+    modulation character varying(10) NOT NULL,
+    frequency integer NOT NULL,
+    bandwidth integer NOT NULL,
+    bitrate integer NOT NULL,
+    spreading_factors smallint[]
+);
+
+
+ALTER TABLE public.gateway_profile_extra_channel OWNER TO chirpstack_ns;
+
+--
+-- Name: gateway_profile_extra_channel_id_seq; Type: SEQUENCE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE SEQUENCE public.gateway_profile_extra_channel_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.gateway_profile_extra_channel_id_seq OWNER TO chirpstack_ns;
+
+--
+-- Name: gateway_profile_extra_channel_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER SEQUENCE public.gateway_profile_extra_channel_id_seq OWNED BY public.gateway_profile_extra_channel.id;
+
+
+--
+-- Name: multicast_group; Type: TABLE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE TABLE public.multicast_group (
+    id uuid NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    mc_addr bytea,
+    mc_nwk_s_key bytea,
+    f_cnt integer NOT NULL,
+    group_type character(1) NOT NULL,
+    dr integer NOT NULL,
+    frequency bigint NOT NULL,
+    ping_slot_period integer NOT NULL,
+    routing_profile_id uuid NOT NULL,
+    service_profile_id uuid NOT NULL
+);
+
+
+ALTER TABLE public.multicast_group OWNER TO chirpstack_ns;
+
+--
+-- Name: multicast_queue; Type: TABLE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE TABLE public.multicast_queue (
+    id bigint NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    schedule_at timestamp with time zone NOT NULL,
+    emit_at_time_since_gps_epoch bigint,
+    multicast_group_id uuid NOT NULL,
+    gateway_id bytea NOT NULL,
+    f_cnt integer NOT NULL,
+    f_port integer NOT NULL,
+    frm_payload bytea,
+    updated_at timestamp with time zone NOT NULL,
+    retry_after timestamp with time zone
+);
+
+
+ALTER TABLE public.multicast_queue OWNER TO chirpstack_ns;
+
+--
+-- Name: multicast_queue_id_seq; Type: SEQUENCE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE SEQUENCE public.multicast_queue_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.multicast_queue_id_seq OWNER TO chirpstack_ns;
+
+--
+-- Name: multicast_queue_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER SEQUENCE public.multicast_queue_id_seq OWNED BY public.multicast_queue.id;
+
+
+--
+-- Name: routing_profile; Type: TABLE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE TABLE public.routing_profile (
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    routing_profile_id uuid NOT NULL,
+    as_id character varying(255),
+    ca_cert text DEFAULT ''::text NOT NULL,
+    tls_cert text DEFAULT ''::text NOT NULL,
+    tls_key text DEFAULT ''::text NOT NULL
+);
+
+
+ALTER TABLE public.routing_profile OWNER TO chirpstack_ns;
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE TABLE public.schema_migrations (
+    version bigint NOT NULL,
+    dirty boolean NOT NULL
+);
+
+
+ALTER TABLE public.schema_migrations OWNER TO chirpstack_ns;
+
+--
+-- Name: service_profile; Type: TABLE; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE TABLE public.service_profile (
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    service_profile_id uuid NOT NULL,
+    ul_rate integer NOT NULL,
+    ul_bucket_size integer NOT NULL,
+    ul_rate_policy character(4) NOT NULL,
+    dl_rate integer NOT NULL,
+    dl_bucket_size integer NOT NULL,
+    dl_rate_policy character(4) NOT NULL,
+    add_gw_metadata boolean NOT NULL,
+    dev_status_req_freq integer NOT NULL,
+    report_dev_status_battery boolean NOT NULL,
+    report_dev_status_margin boolean NOT NULL,
+    dr_min integer NOT NULL,
+    dr_max integer NOT NULL,
+    channel_mask bytea,
+    pr_allowed boolean NOT NULL,
+    hr_allowed boolean NOT NULL,
+    ra_allowed boolean NOT NULL,
+    nwk_geo_loc boolean NOT NULL,
+    target_per integer NOT NULL,
+    min_gw_diversity integer NOT NULL,
+    gws_private boolean DEFAULT false NOT NULL
+);
+
+
+ALTER TABLE public.service_profile OWNER TO chirpstack_ns;
+
+--
+-- Name: device_activation id; Type: DEFAULT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.device_activation ALTER COLUMN id SET DEFAULT nextval('public.device_activation_id_seq'::regclass);
+
+
+--
+-- Name: device_queue id; Type: DEFAULT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.device_queue ALTER COLUMN id SET DEFAULT nextval('public.device_queue_id_seq'::regclass);
+
+
+--
+-- Name: gateway_profile_extra_channel id; Type: DEFAULT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.gateway_profile_extra_channel ALTER COLUMN id SET DEFAULT nextval('public.gateway_profile_extra_channel_id_seq'::regclass);
+
+
+--
+-- Name: multicast_queue id; Type: DEFAULT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.multicast_queue ALTER COLUMN id SET DEFAULT nextval('public.multicast_queue_id_seq'::regclass);
+
+
+--
+-- Data for Name: code_migration; Type: TABLE DATA; Schema: public; Owner: chirpstack_ns
+--
+
+COPY public.code_migration (id, applied_at) FROM stdin;
+migrate_to_cluster_keys	2022-07-22 14:33:02.493994+02
+migrate_to_golang_migrate	2022-07-22 14:33:02.507509+02
+\.
+
+
+--
+-- Data for Name: device; Type: TABLE DATA; Schema: public; Owner: chirpstack_ns
+--
+
+COPY public.device (dev_eui, created_at, updated_at, device_profile_id, service_profile_id, routing_profile_id, skip_fcnt_check, reference_altitude, mode, is_disabled) FROM stdin;
+\\x0004a30b00fd9c34	2022-12-22 17:19:41.762869+01	2023-07-31 12:24:23.579723+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fdcce1	2022-12-22 17:19:41.717966+01	2023-07-31 12:24:23.605892+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b01005249	2022-12-22 17:19:41.732834+01	2023-07-31 12:24:24.330322+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fe0904	2022-12-22 17:19:41.507007+01	2024-03-06 16:35:50.771984+01	0d77f5a0-d567-4fe0-bad1-89360042cfae	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b01005325	2022-12-22 17:19:41.625877+01	2023-07-31 12:24:24.357379+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b010024d3	2022-12-22 17:19:41.777726+01	2024-03-06 18:25:15.10747+01	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b01005d25	2022-12-22 17:19:41.747697+01	2023-07-31 12:24:24.38349+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fdee0f	2022-12-22 17:19:41.611228+01	2023-07-31 12:24:23.634909+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fe029f	2022-12-22 17:19:41.703229+01	2023-07-31 12:24:23.668346+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b00f9fbbe	2022-12-22 17:19:41.897623+01	2023-07-31 12:24:19.860049+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fe03d7	2022-12-22 17:19:41.476402+01	2023-07-31 12:24:23.697434+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fa0ffc	2022-12-22 17:19:41.882034+01	2023-07-31 12:24:20.274535+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fa402b	2022-12-22 17:19:41.91258+01	2023-07-31 12:24:23.280997+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00ffd35c	2022-12-22 17:19:41.655457+01	2023-07-31 12:24:23.965602+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b00ffdef0	2023-01-12 12:57:32.621197+01	2023-07-31 12:24:23.996249+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fca777	2022-12-22 17:19:41.581632+01	2023-07-31 12:24:23.366011+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00ffe7d3	2022-12-22 17:19:41.596291+01	2023-07-31 12:24:24.021959+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00ffe7d5	2022-12-22 17:19:41.82284+01	2023-07-31 12:24:24.048222+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00ffe95a	2022-12-22 17:19:41.808078+01	2023-07-31 12:24:24.069942+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b01002eb2	2023-01-31 11:57:21.418637+01	2023-07-31 12:24:24.184023+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b010036b1	2022-12-22 17:19:41.792927+01	2023-07-31 12:24:24.210859+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fca96b	2022-12-22 17:19:41.552083+01	2023-07-31 12:24:23.391301+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fca9cc	2022-12-22 17:19:41.837874+01	2023-07-31 12:24:23.416377+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fcd5f5	2022-12-22 17:19:41.461407+01	2023-07-31 12:24:23.441922+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b00fcf09b	2022-12-22 17:19:41.521756+01	2023-07-31 12:24:23.472577+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b01003755	2022-12-22 17:19:41.64085+01	2023-07-31 12:24:24.237754+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b0100488b	2023-02-10 14:01:24.15613+01	2023-07-31 12:24:24.26558+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b00fcf3a2	2022-12-22 17:19:41.537307+01	2023-07-31 12:24:23.49955+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b01004a5f	2023-01-31 11:55:12.517659+01	2023-07-31 12:24:24.297279+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fe1f28	2023-01-12 13:01:14.802086+01	2023-07-31 12:24:23.749759+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fe251b	2022-12-22 17:19:41.430873+01	2023-07-31 12:24:23.782462+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00ffc7ae	2022-12-22 17:19:41.566906+01	2023-07-31 12:24:23.889395+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fd4b72	2022-12-22 17:19:41.41555+01	2023-07-31 12:24:23.52518+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fd9baf	2022-12-22 17:19:41.491724+01	2023-07-31 12:24:23.551191+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00ffc8ee	2022-12-22 17:19:41.670501+01	2023-07-31 12:24:23.915095+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b010af2c3	2023-07-31 12:17:33.294985+02	2023-07-31 15:29:49.795383+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b010d1cd0	2023-07-31 12:17:33.354758+02	2023-07-31 15:25:19.095209+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b010b0ffc	2023-07-31 12:17:33.255351+02	2023-07-31 15:31:01.987625+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b010d21c1	2023-07-31 12:17:33.27714+02	2023-07-31 15:37:34.262181+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b00ffc930	2022-12-22 17:19:41.687985+01	2023-07-31 12:24:23.940855+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b010af069	2023-07-31 12:17:33.213507+02	2023-07-31 15:39:48.538184+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b010ab7a0	2023-07-31 12:17:33.326979+02	2023-07-31 15:48:13.247981+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b010aab64	2023-07-31 12:17:33.236386+02	2023-08-08 15:47:31.303072+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b00fa11fe	2022-12-22 17:19:42.443171+01	2023-07-31 12:24:20.635024+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fa1241	2022-12-22 17:19:42.098056+01	2023-07-31 12:24:20.81666+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9dc30	2022-12-22 17:19:42.232055+01	2023-07-31 12:24:18.276659+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fa130e	2022-12-22 17:19:42.172405+01	2023-07-31 12:24:20.997719+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9d594	2022-12-22 17:19:42.709389+01	2023-07-31 12:24:17.549028+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9f1b7	2022-12-22 17:19:42.533573+01	2023-07-31 12:24:18.67777+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fa2d06	2022-12-22 17:19:42.276579+01	2023-07-31 12:24:22.137336+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fa2709	2022-12-22 17:19:42.201945+01	2023-07-31 12:24:21.769069+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f986d5	2022-12-22 17:19:42.679484+01	2024-03-07 15:58:00.275029+01	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b00fa17b4	2022-12-22 17:19:42.350272+01	2023-07-31 12:24:21.355387+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f98b5c	2022-12-22 17:19:42.412745+01	2023-07-31 12:24:14.718168+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fa2fdc	2022-12-22 17:19:42.067976+01	2023-07-31 12:24:22.593101+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9f377	2022-12-22 17:19:42.112923+01	2023-07-31 12:24:19.037987+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b00ff551a	2023-02-15 15:55:57.091062+01	2023-07-31 12:24:23.838588+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b00f9bf48	2022-12-22 17:19:42.380381+01	2023-07-31 12:24:16.257553+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9cfe5	2022-12-22 17:19:42.428274+01	2023-07-31 12:24:16.620948+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fa4305	2022-12-22 17:19:41.942349+01	2023-07-31 12:24:23.335481+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fa16a2	2022-12-22 17:19:42.610675+01	2023-07-31 12:24:21.177043+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b01000f17	2023-02-13 17:14:20.73445+01	2023-07-31 12:24:24.093024+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b00f99740	2022-12-22 17:19:42.246751+01	2023-07-31 12:24:15.090731+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fa26d3	2022-12-22 17:19:42.631114+01	2023-07-31 12:24:21.535411+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f998a3	2022-12-22 17:19:42.518804+01	2023-07-31 12:24:15.282795+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9f292	2022-12-22 17:19:42.593333+01	2023-07-31 12:24:18.857122+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9d65f	2022-12-22 17:19:42.006356+01	2023-07-31 12:24:17.732109+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00ff2a59	2022-12-22 17:19:42.335671+01	2023-07-31 12:24:23.809657+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f99921	2022-12-22 17:19:42.021061+01	2023-07-31 12:24:15.463678+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fa2776	2022-12-22 17:19:42.646779+01	2023-07-31 12:24:21.951243+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b01002540	2022-12-22 17:19:42.128136+01	2023-07-31 12:24:24.144883+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f98573	2022-12-22 17:19:42.29118+01	2024-03-27 13:32:09.414857+01	0d77f5a0-d567-4fe0-bad1-89360042cfae	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b00fa3202	2022-12-22 17:19:42.216963+01	2023-07-31 12:24:22.955686+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9bddf	2022-12-22 17:19:42.724097+01	2023-07-31 12:24:15.849007+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9d4b8	2022-12-22 17:19:42.473429+01	2023-07-31 12:24:17.127627+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b010d38d0	2023-07-31 12:17:33.402212+02	2023-08-16 13:53:07.337856+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b00fa3a90	2022-12-22 17:19:42.578089+01	2023-07-31 12:24:23.255608+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9f570	2022-12-22 17:19:42.187187+01	2023-07-31 12:24:19.44931+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fa0c5d	2022-12-22 17:19:42.261676+01	2023-07-31 12:24:20.04147+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9d668	2022-12-22 17:19:42.458214+01	2023-07-31 12:24:17.912139+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9f9ab	2022-12-22 17:19:42.320689+01	2023-07-31 12:24:19.630299+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9f4c6	2022-12-22 17:19:42.305878+01	2023-07-31 12:24:19.21628+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9cf46	2022-12-22 17:19:42.694512+01	2023-07-31 12:24:16.439833+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b00ffab35	2023-01-31 11:58:50.451451+01	2023-07-31 12:24:23.866436+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f98da1	2022-12-22 17:19:42.664599+01	2023-07-31 12:24:14.905002+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fa31f0	2022-12-22 17:19:42.142715+01	2023-07-31 12:24:22.774503+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9d57a	2022-12-22 17:19:42.052739+01	2023-07-31 12:24:17.36805+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9ee8f	2022-12-22 17:19:42.082937+01	2023-07-31 12:24:18.497037+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fa2fc0	2022-12-22 17:19:42.365409+01	2023-07-31 12:24:22.413453+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\\x0004a30b00f9a2b9	2022-12-22 17:19:42.037048+01	2023-07-31 12:24:15.657589+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9dbc6	2022-12-22 17:19:42.548595+01	2023-07-31 12:24:18.092362+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9d41f	2022-12-22 17:19:41.991582+01	2023-07-31 12:24:16.852978+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fa110d	2022-12-22 17:19:41.972564+01	2023-07-31 12:24:20.457366+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fa3a2f	2022-12-22 17:19:42.396416+01	2023-07-31 12:24:23.134753+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00f9bf2b	2022-12-22 17:19:42.488595+01	2023-07-31 12:24:16.076792+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b00fa41e8	2022-12-22 17:19:42.503526+01	2023-07-31 12:24:23.305274+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	C	f
+\\x0004a30b010d57ba	2023-07-31 12:17:33.377172+02	2023-07-31 15:45:11.752942+02	3363bcd9-6520-48c6-8d9d-845608aa5e57	540e9054-ec59-4098-8fa1-8806e7cf02d4	6d5db27e-4ce2-4b2b-b5d7-91f069397978	t	0	A	f
+\.
+
+
+--
+-- Data for Name: device_activation; Type: TABLE DATA; Schema: public; Owner: chirpstack_ns
+--
+
+COPY public.device_activation (id, created_at, dev_eui, join_eui, dev_addr, f_nwk_s_int_key, s_nwk_s_int_key, nwk_s_enc_key, dev_nonce, join_req_type) FROM stdin;
+19	2022-12-23 11:31:48.647328+01	\\x0004a30b00fe0904	\\x0000000000000000	\\x00aeade6	\\xefdaf8c49b7647bc81c8d38f0eae5ae6	\\xefdaf8c49b7647bc81c8d38f0eae5ae6	\\xefdaf8c49b7647bc81c8d38f0eae5ae6	14895	255
+20	2022-12-23 11:51:38.834817+01	\\x0004a30b00ffc8ee	\\x0000000000000000	\\x00948ec8	\\x265c71b1bb691cf704a037664180c611	\\x265c71b1bb691cf704a037664180c611	\\x265c71b1bb691cf704a037664180c611	32450	255
+22	2022-12-23 12:04:41.060791+01	\\x0004a30b00f98b5c	\\x0000000000000000	\\x005fac96	\\x2a8e1654a2a39fad5664866467201d0b	\\x2a8e1654a2a39fad5664866467201d0b	\\x2a8e1654a2a39fad5664866467201d0b	25658	255
+24	2022-12-23 12:15:40.875283+01	\\x0004a30b00fd9c34	\\x0000000000000000	\\x01038301	\\x64be6a6dae81b455f1a9ce98019c2e15	\\x64be6a6dae81b455f1a9ce98019c2e15	\\x64be6a6dae81b455f1a9ce98019c2e15	10775	255
+25	2022-12-23 12:15:52.136004+01	\\x0004a30b00fe03d7	\\x0000000000000000	\\x0018ef89	\\x258cfa1bd947f52fed5e393ca21907e4	\\x258cfa1bd947f52fed5e393ca21907e4	\\x258cfa1bd947f52fed5e393ca21907e4	3738	255
+26	2022-12-23 12:16:57.714443+01	\\x0004a30b00ffe95a	\\x0000000000000000	\\x00ca1bf2	\\xfbf4a2fef326593271e04199100c98c6	\\xfbf4a2fef326593271e04199100c98c6	\\xfbf4a2fef326593271e04199100c98c6	13221	255
+27	2023-01-04 10:12:16.611505+01	\\x0004a30b00fa3a90	\\x0000000000000000	\\x0193984d	\\x03593432772dd02ef97675623d0c806b	\\x03593432772dd02ef97675623d0c806b	\\x03593432772dd02ef97675623d0c806b	21758	255
+28	2023-01-04 10:12:18.306539+01	\\x0004a30b010036b1	\\x0000000000000000	\\x0150fe40	\\x379e2ddf431d00fb2bf1ed88c304dab9	\\x379e2ddf431d00fb2bf1ed88c304dab9	\\x379e2ddf431d00fb2bf1ed88c304dab9	26370	255
+29	2023-01-04 10:12:19.247792+01	\\x0004a30b00f99921	\\x0000000000000000	\\x003476a9	\\x96971914946f739a5c537ecbeccc6c0d	\\x96971914946f739a5c537ecbeccc6c0d	\\x96971914946f739a5c537ecbeccc6c0d	6060	255
+30	2023-01-04 10:12:21.225282+01	\\x0004a30b00f9f377	\\x0000000000000000	\\x01289b7d	\\xc34721b7ecb8c05b1107cb83d314a7e0	\\xc34721b7ecb8c05b1107cb83d314a7e0	\\xc34721b7ecb8c05b1107cb83d314a7e0	14357	255
+31	2023-01-04 10:12:21.738477+01	\\x0004a30b00fdcce1	\\x0000000000000000	\\x01dc8b95	\\xe4b9e01e324d405f8cd8442a38468748	\\xe4b9e01e324d405f8cd8442a38468748	\\xe4b9e01e324d405f8cd8442a38468748	17300	255
+32	2023-01-04 10:12:21.860246+01	\\x0004a30b00fa16a2	\\x0000000000000000	\\x00fc374a	\\xb3c050dbfa6da76e5932ce0fdecc4258	\\xb3c050dbfa6da76e5932ce0fdecc4258	\\xb3c050dbfa6da76e5932ce0fdecc4258	17461	255
+33	2023-01-04 10:12:21.908242+01	\\x0004a30b00f9ee8f	\\x0000000000000000	\\x00e6e9f8	\\x49e8879bdb27692960cf1ee4822130b2	\\x49e8879bdb27692960cf1ee4822130b2	\\x49e8879bdb27692960cf1ee4822130b2	26355	255
+34	2023-01-04 10:12:22.461578+01	\\x0004a30b00fa4305	\\x0000000000000000	\\x01b37a57	\\xb1aa9048586f878595d6224ec6dedf23	\\xb1aa9048586f878595d6224ec6dedf23	\\xb1aa9048586f878595d6224ec6dedf23	17029	255
+35	2023-01-04 10:12:22.607258+01	\\x0004a30b00f9f4c6	\\x0000000000000000	\\x01c7506d	\\xb593fe273a6f826fa662321b85da857c	\\xb593fe273a6f826fa662321b85da857c	\\xb593fe273a6f826fa662321b85da857c	1260	255
+36	2023-01-04 10:12:22.755602+01	\\x0004a30b00f9a2b9	\\x0000000000000000	\\x003f7c30	\\x8fab59a78b01d5b42e5403e3a6ab7584	\\x8fab59a78b01d5b42e5403e3a6ab7584	\\x8fab59a78b01d5b42e5403e3a6ab7584	23129	255
+37	2023-01-04 10:12:22.936328+01	\\x0004a30b00f9bddf	\\x0000000000000000	\\x004cbc88	\\x7fd52bf9dc7fdf371207fcc18f946935	\\x7fd52bf9dc7fdf371207fcc18f946935	\\x7fd52bf9dc7fdf371207fcc18f946935	31267	255
+38	2023-01-04 10:12:23.534088+01	\\x0004a30b00fe029f	\\x0000000000000000	\\x01843c14	\\x3c0be3d2a4737bcf28234e7b2e87a585	\\x3c0be3d2a4737bcf28234e7b2e87a585	\\x3c0be3d2a4737bcf28234e7b2e87a585	19509	255
+39	2023-01-04 10:12:23.57278+01	\\x0004a30b00fa3a2f	\\x0000000000000000	\\x00d7f77a	\\xcfabe2934bb873da2e1fdffb8b45b970	\\xcfabe2934bb873da2e1fdffb8b45b970	\\xcfabe2934bb873da2e1fdffb8b45b970	27435	255
+40	2023-01-04 10:12:23.899979+01	\\x0004a30b00fa2fc0	\\x0000000000000000	\\x01510e49	\\x1559f8d7f82910318c6a05f7a6c07c71	\\x1559f8d7f82910318c6a05f7a6c07c71	\\x1559f8d7f82910318c6a05f7a6c07c71	5457	255
+42	2023-01-04 10:12:24.177821+01	\\x0004a30b00fa3202	\\x0000000000000000	\\x0082d5f1	\\xb0c8baba3291c774ab3535c52a040eeb	\\xb0c8baba3291c774ab3535c52a040eeb	\\xb0c8baba3291c774ab3535c52a040eeb	29276	255
+43	2023-01-04 10:12:24.405281+01	\\x0004a30b00fd4b72	\\x0000000000000000	\\x002431f9	\\xf833a4e618060324a85303b3e2243616	\\xf833a4e618060324a85303b3e2243616	\\xf833a4e618060324a85303b3e2243616	29789	255
+44	2023-01-04 10:12:25.102027+01	\\x0004a30b00fe251b	\\x0000000000000000	\\x00c89b8f	\\xf11572b2461523c0226c33d87ec28f9c	\\xf11572b2461523c0226c33d87ec28f9c	\\xf11572b2461523c0226c33d87ec28f9c	4278	255
+45	2023-01-04 10:12:25.289866+01	\\x0004a30b00f9d594	\\x0000000000000000	\\x007789e0	\\x8b6d7d263929dd46373795c44afcccd6	\\x8b6d7d263929dd46373795c44afcccd6	\\x8b6d7d263929dd46373795c44afcccd6	11386	255
+46	2023-01-04 10:12:26.436545+01	\\x0004a30b00ffe7d3	\\x0000000000000000	\\x01d01f94	\\x05efee4f7c95c57df4d158e777a9a001	\\x05efee4f7c95c57df4d158e777a9a001	\\x05efee4f7c95c57df4d158e777a9a001	4331	255
+47	2023-01-04 10:12:27.112181+01	\\x0004a30b00fa2fdc	\\x0000000000000000	\\x01d25828	\\xdf8c72d4e5fe60e77788c95ddd3e192c	\\xdf8c72d4e5fe60e77788c95ddd3e192c	\\xdf8c72d4e5fe60e77788c95ddd3e192c	7238	255
+48	2023-01-04 10:12:28.349366+01	\\x0004a30b00f9d65f	\\x0000000000000000	\\x010845d5	\\x2cfa9483bd089eb44a6758d71dbf376d	\\x2cfa9483bd089eb44a6758d71dbf376d	\\x2cfa9483bd089eb44a6758d71dbf376d	53	255
+49	2023-01-04 10:12:28.514375+01	\\x0004a30b00fa2709	\\x0000000000000000	\\x00589a19	\\x35bfa48a6ee1f9ddab804eb25be77946	\\x35bfa48a6ee1f9ddab804eb25be77946	\\x35bfa48a6ee1f9ddab804eb25be77946	645	255
+50	2023-01-04 10:12:29.53955+01	\\x0004a30b00f9cfe5	\\x0000000000000000	\\x014a0c58	\\x15886915a147378b7cb130e7f5f5a90e	\\x15886915a147378b7cb130e7f5f5a90e	\\x15886915a147378b7cb130e7f5f5a90e	6025	255
+51	2023-01-04 10:12:29.948472+01	\\x0004a30b00f9bf2b	\\x0000000000000000	\\x00bfd972	\\xda7e7d853e20953263b3d69f7b4867bc	\\xda7e7d853e20953263b3d69f7b4867bc	\\xda7e7d853e20953263b3d69f7b4867bc	24123	255
+52	2023-01-04 10:12:31.798044+01	\\x0004a30b00fa2d06	\\x0000000000000000	\\x009e7f6a	\\x56c0d342d417d226462ed90b916e530e	\\x56c0d342d417d226462ed90b916e530e	\\x56c0d342d417d226462ed90b916e530e	15970	255
+54	2023-01-04 10:12:32.530239+01	\\x0004a30b00f98da1	\\x0000000000000000	\\x014040cd	\\xb4c992be11e91feac1f11495fc0a8379	\\xb4c992be11e91feac1f11495fc0a8379	\\xb4c992be11e91feac1f11495fc0a8379	10915	255
+55	2023-01-04 10:12:34.099463+01	\\x0004a30b00fa402b	\\x0000000000000000	\\x00de968f	\\x7904e5bbbf93bbfe3742c038bc0859cf	\\x7904e5bbbf93bbfe3742c038bc0859cf	\\x7904e5bbbf93bbfe3742c038bc0859cf	29910	255
+56	2023-01-04 10:12:34.874232+01	\\x0004a30b00fd9baf	\\x0000000000000000	\\x01291fa0	\\x9f8df044d9ca1023958140f1cc126633	\\x9f8df044d9ca1023958140f1cc126633	\\x9f8df044d9ca1023958140f1cc126633	19269	255
+57	2023-01-04 10:12:35.142845+01	\\x0004a30b01005325	\\x0000000000000000	\\x0089bcbf	\\xa625352fdbf207788e2260f4b6dc23d0	\\xa625352fdbf207788e2260f4b6dc23d0	\\xa625352fdbf207788e2260f4b6dc23d0	72	255
+58	2023-01-04 10:12:35.828299+01	\\x0004a30b00f9d4b8	\\x0000000000000000	\\x0159d5fe	\\x9ef317234b3b21921d4743c0704ad37e	\\x9ef317234b3b21921d4743c0704ad37e	\\x9ef317234b3b21921d4743c0704ad37e	12372	255
+59	2023-01-04 10:12:36.555586+01	\\x0004a30b00f9dbc6	\\x0000000000000000	\\x01c3c273	\\x21d0a1d7daa425c7cc10ed1640dab231	\\x21d0a1d7daa425c7cc10ed1640dab231	\\x21d0a1d7daa425c7cc10ed1640dab231	2329	255
+60	2023-01-04 10:12:36.703548+01	\\x0004a30b00ffe7d5	\\x0000000000000000	\\x01b8ebd7	\\x5ec24b7a33e26cdf181c10b27a8e0551	\\x5ec24b7a33e26cdf181c10b27a8e0551	\\x5ec24b7a33e26cdf181c10b27a8e0551	25938	255
+61	2023-01-04 10:12:38.290982+01	\\x0004a30b00f99740	\\x0000000000000000	\\x007db948	\\x23e243cda7671c1dcc099c359ec143e1	\\x23e243cda7671c1dcc099c359ec143e1	\\x23e243cda7671c1dcc099c359ec143e1	21802	255
+62	2023-01-04 10:12:38.297455+01	\\x0004a30b01005249	\\x0000000000000000	\\x0151c51d	\\xc948f4f158e65826ba5abbdab77164b0	\\xc948f4f158e65826ba5abbdab77164b0	\\xc948f4f158e65826ba5abbdab77164b0	15584	255
+63	2023-01-04 10:12:38.701703+01	\\x0004a30b00fa2776	\\x0000000000000000	\\x005bc1a8	\\xc9cebbde25257f650a55681e03a7c4e8	\\xc9cebbde25257f650a55681e03a7c4e8	\\xc9cebbde25257f650a55681e03a7c4e8	26491	255
+64	2023-01-04 10:12:38.740906+01	\\x0004a30b00fa0ffc	\\x0000000000000000	\\x019c06f5	\\x920a22bb3a0de722fb2b8c80c9da2cf7	\\x920a22bb3a0de722fb2b8c80c9da2cf7	\\x920a22bb3a0de722fb2b8c80c9da2cf7	3310	255
+65	2023-01-04 10:12:39.361293+01	\\x0004a30b00f9d41f	\\x0000000000000000	\\x014e0300	\\xc6dd8742e83b4c5b8056a58efe7610a6	\\xc6dd8742e83b4c5b8056a58efe7610a6	\\xc6dd8742e83b4c5b8056a58efe7610a6	21182	255
+66	2023-01-04 10:12:41.02233+01	\\x0004a30b00fa26d3	\\x0000000000000000	\\x00c22a0d	\\x738333a9e77e3c2f80eda0a062436c7c	\\x738333a9e77e3c2f80eda0a062436c7c	\\x738333a9e77e3c2f80eda0a062436c7c	28449	255
+67	2023-01-04 10:12:41.905594+01	\\x0004a30b00f9f9ab	\\x0000000000000000	\\x00b03e51	\\xe8ab911f1e76d14b601256728129c4a6	\\xe8ab911f1e76d14b601256728129c4a6	\\xe8ab911f1e76d14b601256728129c4a6	10672	255
+68	2023-01-04 10:12:42.005578+01	\\x0004a30b01002540	\\x0000000000000000	\\x01c68659	\\x4b00a78d2c4a0f2e1ee34bad154bfbcb	\\x4b00a78d2c4a0f2e1ee34bad154bfbcb	\\x4b00a78d2c4a0f2e1ee34bad154bfbcb	8570	255
+69	2023-01-04 10:12:42.718445+01	\\x0004a30b01003755	\\x0000000000000000	\\x007d4443	\\x1b1f5f9b6b4bd5b1a3e31cbf672e89be	\\x1b1f5f9b6b4bd5b1a3e31cbf672e89be	\\x1b1f5f9b6b4bd5b1a3e31cbf672e89be	422	255
+70	2023-01-04 10:12:44.055214+01	\\x0004a30b00f9fbbe	\\x0000000000000000	\\x016d0bb4	\\xa187b73867d1a0a014c8177e1d391046	\\xa187b73867d1a0a014c8177e1d391046	\\xa187b73867d1a0a014c8177e1d391046	19975	255
+71	2023-01-04 10:12:48.601699+01	\\x0004a30b00fa11fe	\\x0000000000000000	\\x01264e60	\\x9b2dd96df28989ff3d0a3cf74772a865	\\x9b2dd96df28989ff3d0a3cf74772a865	\\x9b2dd96df28989ff3d0a3cf74772a865	193	255
+72	2023-01-04 10:12:49.532441+01	\\x0004a30b00f9bf48	\\x0000000000000000	\\x018b9ac8	\\xa56d344855b4ff089712ccf9a80e7c16	\\xa56d344855b4ff089712ccf9a80e7c16	\\xa56d344855b4ff089712ccf9a80e7c16	25964	255
+73	2023-01-04 10:12:49.964998+01	\\x0004a30b00f9dc30	\\x0000000000000000	\\x0067ae92	\\x725e9fa6b1be208b0ec82de5aab72279	\\x725e9fa6b1be208b0ec82de5aab72279	\\x725e9fa6b1be208b0ec82de5aab72279	23748	255
+74	2023-01-04 10:12:50.148165+01	\\x0004a30b00f9f1b7	\\x0000000000000000	\\x002a937b	\\x16cd059e92e6de232ec1fd3730ec60dc	\\x16cd059e92e6de232ec1fd3730ec60dc	\\x16cd059e92e6de232ec1fd3730ec60dc	30770	255
+75	2023-01-04 10:12:50.515899+01	\\x0004a30b00fe251b	\\x0000000000000000	\\x009e1086	\\x0d496da64bf23b1a0c98f4cc937c9a5e	\\x0d496da64bf23b1a0c98f4cc937c9a5e	\\x0d496da64bf23b1a0c98f4cc937c9a5e	17267	255
+76	2023-01-04 10:12:50.648934+01	\\x0004a30b00f998a3	\\x0000000000000000	\\x007f4fd8	\\x0ad4723dd737160ab4fcbd49fa39795a	\\x0ad4723dd737160ab4fcbd49fa39795a	\\x0ad4723dd737160ab4fcbd49fa39795a	21591	255
+77	2023-01-04 10:12:50.88946+01	\\x0004a30b00fcf3a2	\\x0000000000000000	\\x01b12c24	\\xe90601b234eb59c2cd3490623e02237b	\\xe90601b234eb59c2cd3490623e02237b	\\xe90601b234eb59c2cd3490623e02237b	3886	255
+78	2023-01-04 10:12:51.06562+01	\\x0004a30b00fa17b4	\\x0000000000000000	\\x01421172	\\x8463b455ef73d58a55c2b3e1f26e0be7	\\x8463b455ef73d58a55c2b3e1f26e0be7	\\x8463b455ef73d58a55c2b3e1f26e0be7	9432	255
+79	2023-01-04 10:12:53.301666+01	\\x0004a30b00ffc7ae	\\x0000000000000000	\\x00823fbd	\\x33a9003ad47db898aa42e24dd1fc6bfd	\\x33a9003ad47db898aa42e24dd1fc6bfd	\\x33a9003ad47db898aa42e24dd1fc6bfd	3269	255
+80	2023-01-04 10:12:57.176969+01	\\x0004a30b00f986d5	\\x0000000000000000	\\x0052a08b	\\x8dbedc9c3b652560a911017c353acab9	\\x8dbedc9c3b652560a911017c353acab9	\\x8dbedc9c3b652560a911017c353acab9	16927	255
+81	2023-01-04 10:12:57.275915+01	\\x0004a30b00f9d57a	\\x0000000000000000	\\x0097d224	\\x9d57e719fa8a852f34fb123ac73e4370	\\x9d57e719fa8a852f34fb123ac73e4370	\\x9d57e719fa8a852f34fb123ac73e4370	24975	255
+82	2023-01-04 10:12:57.903453+01	\\x0004a30b00fcf09b	\\x0000000000000000	\\x01eb881d	\\x25b956744db77369aafbe27422380bd9	\\x25b956744db77369aafbe27422380bd9	\\x25b956744db77369aafbe27422380bd9	12564	255
+83	2023-01-04 10:12:58.110727+01	\\x0004a30b00fa130e	\\x0000000000000000	\\x0164a3c8	\\xe641e224e768acabf3687a21f5686ab3	\\xe641e224e768acabf3687a21f5686ab3	\\xe641e224e768acabf3687a21f5686ab3	21956	255
+84	2023-01-04 10:12:59.753264+01	\\x0004a30b00fa0c5d	\\x0000000000000000	\\x00f34e59	\\xeeedcc7d0a9602781f1102031d57d9c6	\\xeeedcc7d0a9602781f1102031d57d9c6	\\xeeedcc7d0a9602781f1102031d57d9c6	635	255
+85	2023-01-04 10:13:02.522477+01	\\x0004a30b00fa16a2	\\x0000000000000000	\\x01165ccf	\\x2a9f208d6bfc946d9328344786993d79	\\x2a9f208d6bfc946d9328344786993d79	\\x2a9f208d6bfc946d9328344786993d79	24407	255
+86	2023-01-04 10:13:05.412723+01	\\x0004a30b00fdee0f	\\x0000000000000000	\\x0070d8cb	\\xc4e5f015d4de88a1f45935d63282ec17	\\xc4e5f015d4de88a1f45935d63282ec17	\\xc4e5f015d4de88a1f45935d63282ec17	1488	255
+87	2023-01-04 10:13:06.790714+01	\\x0004a30b00f9d41f	\\x0000000000000000	\\x0123f3bb	\\x95368338a97dfc3ec60317ee14867022	\\x95368338a97dfc3ec60317ee14867022	\\x95368338a97dfc3ec60317ee14867022	25312	255
+88	2023-01-04 10:13:07.292847+01	\\x0004a30b00fa2d06	\\x0000000000000000	\\x00125c6a	\\x71d10f95d065a7fb6a0d680af8245c81	\\x71d10f95d065a7fb6a0d680af8245c81	\\x71d10f95d065a7fb6a0d680af8245c81	31354	255
+89	2023-01-04 10:13:08.466772+01	\\x0004a30b00f9f292	\\x0000000000000000	\\x000b9b05	\\x2d8d65fe9bb105390fa1d28e0559d541	\\x2d8d65fe9bb105390fa1d28e0559d541	\\x2d8d65fe9bb105390fa1d28e0559d541	6792	255
+90	2023-01-04 10:13:10.353592+01	\\x0004a30b00fa3a90	\\x0000000000000000	\\x01845c9b	\\xcdb7d64200e09761a126035f4538924e	\\xcdb7d64200e09761a126035f4538924e	\\xcdb7d64200e09761a126035f4538924e	13156	255
+91	2023-01-04 10:13:12.76923+01	\\x0004a30b00fca96b	\\x0000000000000000	\\x015faef4	\\xe14dcbd45dcf28385b5bce11357b69ab	\\xe14dcbd45dcf28385b5bce11357b69ab	\\xe14dcbd45dcf28385b5bce11357b69ab	10237	255
+92	2023-01-04 10:13:13.177318+01	\\x0004a30b00fca777	\\x0000000000000000	\\x00ec7177	\\x81c7e9e87c9c527900ffc360401d0f7b	\\x81c7e9e87c9c527900ffc360401d0f7b	\\x81c7e9e87c9c527900ffc360401d0f7b	7719	255
+93	2023-01-04 10:13:14.711112+01	\\x0004a30b00fa110d	\\x0000000000000000	\\x01d13571	\\xd43a10a063e8abeea11aa9e128cd4257	\\xd43a10a063e8abeea11aa9e128cd4257	\\xd43a10a063e8abeea11aa9e128cd4257	23028	255
+94	2023-01-04 10:13:16.803679+01	\\x0004a30b00fa3202	\\x0000000000000000	\\x01f4f0a0	\\x5867e7e4b0cfb43f57855e2a3ee012cb	\\x5867e7e4b0cfb43f57855e2a3ee012cb	\\x5867e7e4b0cfb43f57855e2a3ee012cb	28956	255
+95	2023-01-04 10:13:20.865628+01	\\x0004a30b00fca9cc	\\x0000000000000000	\\x0004ee70	\\xaed53856907a6921f046d8bc9c236379	\\xaed53856907a6921f046d8bc9c236379	\\xaed53856907a6921f046d8bc9c236379	889	255
+96	2023-01-04 10:13:21.049813+01	\\x0004a30b00f9d594	\\x0000000000000000	\\x00232e85	\\x3342f3efc45e1743e0370027a6411a9c	\\x3342f3efc45e1743e0370027a6411a9c	\\x3342f3efc45e1743e0370027a6411a9c	13792	255
+98	2023-01-04 10:13:28.025453+01	\\x0004a30b00f98573	\\x0000000000000000	\\x01db460e	\\x930f7262bdfd6a3eb956ab1c05b66a32	\\x930f7262bdfd6a3eb956ab1c05b66a32	\\x930f7262bdfd6a3eb956ab1c05b66a32	12318	255
+99	2023-01-04 10:13:29.211865+01	\\x0004a30b00f9d668	\\x0000000000000000	\\x00b3776b	\\x8830603d518dca413d6f7419b3cd4b39	\\x8830603d518dca413d6f7419b3cd4b39	\\x8830603d518dca413d6f7419b3cd4b39	12818	255
+100	2023-01-04 10:13:34.80638+01	\\x0004a30b00ff2a59	\\x0000000000000000	\\x01793d3c	\\xc8ee3ce871f72f7e8bbab0346952e8de	\\xc8ee3ce871f72f7e8bbab0346952e8de	\\xc8ee3ce871f72f7e8bbab0346952e8de	4295	255
+101	2023-01-04 10:13:36.291424+01	\\x0004a30b00fa41e8	\\x0000000000000000	\\x00696f3e	\\xa8d1749bfcaca518c2f6c5a87348ec1d	\\xa8d1749bfcaca518c2f6c5a87348ec1d	\\xa8d1749bfcaca518c2f6c5a87348ec1d	19228	255
+102	2023-01-04 10:13:45.346271+01	\\x0004a30b00fca9cc	\\x0000000000000000	\\x0189bc3b	\\xd3fe198e5a1766216aecff8f6007643b	\\xd3fe198e5a1766216aecff8f6007643b	\\xd3fe198e5a1766216aecff8f6007643b	31294	255
+105	2023-01-04 10:13:58.230318+01	\\x0004a30b00f9f570	\\x0000000000000000	\\x00169a92	\\x3c70c5e4112bf0b71fdde8dbce98724d	\\x3c70c5e4112bf0b71fdde8dbce98724d	\\x3c70c5e4112bf0b71fdde8dbce98724d	27625	255
+106	2023-01-04 10:13:58.649601+01	\\x0004a30b00f9d594	\\x0000000000000000	\\x00dcce7a	\\xe370173d56b6f58260e028177cb22a18	\\xe370173d56b6f58260e028177cb22a18	\\xe370173d56b6f58260e028177cb22a18	24783	255
+107	2023-01-04 10:14:07.53144+01	\\x0004a30b00f98573	\\x0000000000000000	\\x015c6b0f	\\x91d508acfbdedbbecdf6a2111279cf3e	\\x91d508acfbdedbbecdf6a2111279cf3e	\\x91d508acfbdedbbecdf6a2111279cf3e	12552	255
+108	2023-01-04 10:14:09.655251+01	\\x0004a30b01005d25	\\x0000000000000000	\\x00cbce39	\\x52a8332b437728e6d4cba69d2ec794c4	\\x52a8332b437728e6d4cba69d2ec794c4	\\x52a8332b437728e6d4cba69d2ec794c4	25470	255
+109	2023-01-04 10:14:09.784163+01	\\x0004a30b00f9d668	\\x0000000000000000	\\x00c6e1ac	\\x5d81fadf32f4efb4c2b15dd419343000	\\x5d81fadf32f4efb4c2b15dd419343000	\\x5d81fadf32f4efb4c2b15dd419343000	29008	255
+110	2023-01-04 10:14:12.382715+01	\\x0004a30b00ff2a59	\\x0000000000000000	\\x016af132	\\x5b3c7cbbb4ddd8ceac994e42480b3fb5	\\x5b3c7cbbb4ddd8ceac994e42480b3fb5	\\x5b3c7cbbb4ddd8ceac994e42480b3fb5	10303	255
+111	2023-01-04 10:14:15.922146+01	\\x0004a30b00fa41e8	\\x0000000000000000	\\x014e3301	\\xcda2fd532ea153c25331be3e9d7ffd9d	\\xcda2fd532ea153c25331be3e9d7ffd9d	\\xcda2fd532ea153c25331be3e9d7ffd9d	21833	255
+112	2023-01-04 10:14:20.116175+01	\\x0004a30b00f9d594	\\x0000000000000000	\\x01041a9d	\\xd862ac26c6e0621bfd6ba2064ad964f0	\\xd862ac26c6e0621bfd6ba2064ad964f0	\\xd862ac26c6e0621bfd6ba2064ad964f0	11035	255
+113	2023-01-04 10:14:30.224253+01	\\x0004a30b00f9d668	\\x0000000000000000	\\x018fc0cc	\\x14040edd0680000ec705cb0c414cf4eb	\\x14040edd0680000ec705cb0c414cf4eb	\\x14040edd0680000ec705cb0c414cf4eb	20405	255
+114	2023-01-04 10:14:30.984786+01	\\x0004a30b00fca9cc	\\x0000000000000000	\\x01cffa3b	\\x6c7e2005eb646f2899a0cbd3d824aa25	\\x6c7e2005eb646f2899a0cbd3d824aa25	\\x6c7e2005eb646f2899a0cbd3d824aa25	14961	255
+115	2023-01-04 10:14:38.745142+01	\\x0004a30b00f9f570	\\x0000000000000000	\\x009e5e74	\\xda9193b5343fc8d313462751c4b88af2	\\xda9193b5343fc8d313462751c4b88af2	\\xda9193b5343fc8d313462751c4b88af2	21114	255
+117	2023-01-04 10:14:43.007287+01	\\x0004a30b00f98573	\\x0000000000000000	\\x0181fda4	\\x3a63645cc567e630b13a110899594479	\\x3a63645cc567e630b13a110899594479	\\x3a63645cc567e630b13a110899594479	22526	255
+119	2023-01-04 10:15:06.6333+01	\\x0004a30b01005d25	\\x0000000000000000	\\x0145ab1f	\\x83a1d6b7b5aef56d16f11f2529e0cbff	\\x83a1d6b7b5aef56d16f11f2529e0cbff	\\x83a1d6b7b5aef56d16f11f2529e0cbff	12016	255
+120	2023-01-04 10:15:16.629428+01	\\x0004a30b00fa41e8	\\x0000000000000000	\\x002585f4	\\x4d37b6e55ef3a64ea3db077503bf0412	\\x4d37b6e55ef3a64ea3db077503bf0412	\\x4d37b6e55ef3a64ea3db077503bf0412	2052	255
+121	2023-01-12 12:45:24.820813+01	\\x0004a30b00ffc8ee	\\x0000000000000000	\\x00e4d998	\\x2652820143a08546aaef710ca6fb5cba	\\x2652820143a08546aaef710ca6fb5cba	\\x2652820143a08546aaef710ca6fb5cba	21516	255
+122	2023-01-12 13:28:03.325513+01	\\x0004a30b00fd9baf	\\x0000000000000000	\\x01113c6e	\\xd4e11f509fe4a1e5f2f4ef724e7f636e	\\xd4e11f509fe4a1e5f2f4ef724e7f636e	\\xd4e11f509fe4a1e5f2f4ef724e7f636e	26598	255
+123	2023-01-12 13:33:46.456175+01	\\x0004a30b00fd9baf	\\x0000000000000000	\\x002532d0	\\x18939b7665f1ac4217659ae0cc726424	\\x18939b7665f1ac4217659ae0cc726424	\\x18939b7665f1ac4217659ae0cc726424	22319	255
+124	2023-01-12 13:35:12.589581+01	\\x0004a30b00fd9baf	\\x0000000000000000	\\x00f14077	\\x48954adcae0246c6573b3165877d014e	\\x48954adcae0246c6573b3165877d014e	\\x48954adcae0246c6573b3165877d014e	21209	255
+125	2023-01-12 13:37:09.271403+01	\\x0004a30b00fdee0f	\\x0000000000000000	\\x00bb5da8	\\x42065670e07df64f33cabfc70601c052	\\x42065670e07df64f33cabfc70601c052	\\x42065670e07df64f33cabfc70601c052	24379	255
+126	2023-01-12 13:40:41.699906+01	\\x0004a30b00fdee0f	\\x0000000000000000	\\x00e7a0cc	\\xce4809311533e7f8bf095f831d26d21d	\\xce4809311533e7f8bf095f831d26d21d	\\xce4809311533e7f8bf095f831d26d21d	24715	255
+127	2023-01-12 14:04:49.568036+01	\\x0004a30b00fcf09b	\\x0000000000000000	\\x015a5100	\\xb573d42d9368ce6698b28619a4090326	\\xb573d42d9368ce6698b28619a4090326	\\xb573d42d9368ce6698b28619a4090326	8809	255
+128	2023-01-12 14:05:40.922734+01	\\x0004a30b00fcf09b	\\x0000000000000000	\\x00106210	\\xc47b0ac310b9820c6f3bde64bde3c314	\\xc47b0ac310b9820c6f3bde64bde3c314	\\xc47b0ac310b9820c6f3bde64bde3c314	3024	255
+129	2023-01-12 14:06:18.496617+01	\\x0004a30b00fcf09b	\\x0000000000000000	\\x01df0f6e	\\xd614ca53ed9a6b6b7760992a3a0b707e	\\xd614ca53ed9a6b6b7760992a3a0b707e	\\xd614ca53ed9a6b6b7760992a3a0b707e	29828	255
+130	2023-01-12 14:08:32.44714+01	\\x0004a30b00fcf09b	\\x0000000000000000	\\x00c105e3	\\xbb9c427fede0c4751b94dcb88416a85b	\\xbb9c427fede0c4751b94dcb88416a85b	\\xbb9c427fede0c4751b94dcb88416a85b	14604	255
+132	2023-01-12 14:09:19.183771+01	\\x0004a30b00fcf09b	\\x0000000000000000	\\x003a81dc	\\xe139df0bb0bda66615b8dfc155e6019b	\\xe139df0bb0bda66615b8dfc155e6019b	\\xe139df0bb0bda66615b8dfc155e6019b	13733	255
+133	2023-01-12 14:11:27.568114+01	\\x0004a30b00ffe7d5	\\x0000000000000000	\\x017ed50a	\\xc870a2367f44fa5c835ef7ba7928e43b	\\xc870a2367f44fa5c835ef7ba7928e43b	\\xc870a2367f44fa5c835ef7ba7928e43b	11806	255
+134	2023-01-12 14:12:22.68678+01	\\x0004a30b00ffe7d5	\\x0000000000000000	\\x01f22b6a	\\x078622efcea58841fdbc0191f0d7e5dc	\\x078622efcea58841fdbc0191f0d7e5dc	\\x078622efcea58841fdbc0191f0d7e5dc	4493	255
+135	2023-01-12 14:13:49.599571+01	\\x0004a30b00fca96b	\\x0000000000000000	\\x0023cb80	\\xe455db2c7781ca6c61ea165e6f645151	\\xe455db2c7781ca6c61ea165e6f645151	\\xe455db2c7781ca6c61ea165e6f645151	18016	255
+136	2023-01-12 14:14:28.184443+01	\\x0004a30b00fca96b	\\x0000000000000000	\\x007bf60e	\\x07a41e10e8fed207bb579cd325b39a2c	\\x07a41e10e8fed207bb579cd325b39a2c	\\x07a41e10e8fed207bb579cd325b39a2c	2514	255
+137	2023-01-12 14:15:50.27295+01	\\x0004a30b00fca9cc	\\x0000000000000000	\\x00178560	\\xe77f6a6dfa53895555c3fb429c778a4a	\\xe77f6a6dfa53895555c3fb429c778a4a	\\xe77f6a6dfa53895555c3fb429c778a4a	9151	255
+138	2023-01-12 14:16:53.13581+01	\\x0004a30b00fca9cc	\\x0000000000000000	\\x010990bb	\\x6a322cdecf417fc4421bb2fa8c5a7df9	\\x6a322cdecf417fc4421bb2fa8c5a7df9	\\x6a322cdecf417fc4421bb2fa8c5a7df9	16399	255
+139	2023-01-12 14:18:59.239349+01	\\x0004a30b00fcf3a2	\\x0000000000000000	\\x01bdf490	\\x61692a3345ccfb854dbe9576a91d6be8	\\x61692a3345ccfb854dbe9576a91d6be8	\\x61692a3345ccfb854dbe9576a91d6be8	28992	255
+140	2023-01-12 14:21:09.645979+01	\\x0004a30b00fcf3a2	\\x0000000000000000	\\x0106c420	\\xcce3a0d9e44fe74045e9b473751dac86	\\xcce3a0d9e44fe74045e9b473751dac86	\\xcce3a0d9e44fe74045e9b473751dac86	28542	255
+141	2023-01-12 14:23:25.879426+01	\\x0004a30b010024d3	\\x0000000000000000	\\x005d16d5	\\xd1d89f2c6ce32b976b7a281ebaf372e3	\\xd1d89f2c6ce32b976b7a281ebaf372e3	\\xd1d89f2c6ce32b976b7a281ebaf372e3	4541	255
+142	2023-01-12 14:24:26.927407+01	\\x0004a30b010024d3	\\x0000000000000000	\\x01f75e18	\\xe55b588eeb4ab49f971bd5a9ad649980	\\xe55b588eeb4ab49f971bd5a9ad649980	\\xe55b588eeb4ab49f971bd5a9ad649980	31071	255
+143	2023-01-12 14:25:00.172005+01	\\x0004a30b010024d3	\\x0000000000000000	\\x01d5177c	\\x88ef03c51bc3b142004ef2b73a7b5046	\\x88ef03c51bc3b142004ef2b73a7b5046	\\x88ef03c51bc3b142004ef2b73a7b5046	12958	255
+144	2023-01-12 14:25:56.307353+01	\\x0004a30b01003755	\\x0000000000000000	\\x01dc0a03	\\x7c4a9280b2b1ee74a5a0b755df358a19	\\x7c4a9280b2b1ee74a5a0b755df358a19	\\x7c4a9280b2b1ee74a5a0b755df358a19	24726	255
+145	2023-01-12 14:28:20.403834+01	\\x0004a30b01003755	\\x0000000000000000	\\x009c9b4e	\\x7fccf149f4fe86162ed3fba7f1594839	\\x7fccf149f4fe86162ed3fba7f1594839	\\x7fccf149f4fe86162ed3fba7f1594839	30992	255
+146	2023-01-12 14:28:47.528154+01	\\x0004a30b00fe0904	\\x0000000000000000	\\x01360d0c	\\xc6897fb21537eff17413ec6377a44c4d	\\xc6897fb21537eff17413ec6377a44c4d	\\xc6897fb21537eff17413ec6377a44c4d	30593	255
+147	2023-01-12 14:30:11.382277+01	\\x0004a30b00fe0904	\\x0000000000000000	\\x002fd3d3	\\x25c68aa912af8643b00ec813c7af63b3	\\x25c68aa912af8643b00ec813c7af63b3	\\x25c68aa912af8643b00ec813c7af63b3	7291	255
+148	2023-01-12 14:30:55.358049+01	\\x0004a30b010036b1	\\x0000000000000000	\\x010037aa	\\x0e243840189c313e3dd4dbbd30cf4a83	\\x0e243840189c313e3dd4dbbd30cf4a83	\\x0e243840189c313e3dd4dbbd30cf4a83	1286	255
+149	2023-01-12 14:31:59.589405+01	\\x0004a30b010036b1	\\x0000000000000000	\\x0155d2e2	\\x0b70ba077c9d3ba333f19f11ed26cb00	\\x0b70ba077c9d3ba333f19f11ed26cb00	\\x0b70ba077c9d3ba333f19f11ed26cb00	21916	255
+150	2023-01-12 14:33:25.229513+01	\\x0004a30b00fca777	\\x0000000000000000	\\x01f4e552	\\xe0c0534096ec1fe855e410da5eabcd84	\\xe0c0534096ec1fe855e410da5eabcd84	\\xe0c0534096ec1fe855e410da5eabcd84	14218	255
+151	2023-01-12 14:33:36.379529+01	\\x0004a30b00fd4b72	\\x0000000000000000	\\x00bc6ba3	\\x67f3382af9abb67e5eb8934ab30da45e	\\x67f3382af9abb67e5eb8934ab30da45e	\\x67f3382af9abb67e5eb8934ab30da45e	30504	255
+152	2023-01-12 14:33:52.80911+01	\\x0004a30b00fca777	\\x0000000000000000	\\x008e1e8e	\\x0de64f23b4339b3a6ac3723b5c7132c4	\\x0de64f23b4339b3a6ac3723b5c7132c4	\\x0de64f23b4339b3a6ac3723b5c7132c4	3591	255
+153	2023-01-12 14:34:40.286287+01	\\x0004a30b00fd4b72	\\x0000000000000000	\\x005b5634	\\x72bb481e323401eef50dd08b8984855c	\\x72bb481e323401eef50dd08b8984855c	\\x72bb481e323401eef50dd08b8984855c	28907	255
+154	2023-01-12 14:35:13.45548+01	\\x0004a30b00ffe95a	\\x0000000000000000	\\x00c936da	\\xa71864f842529ab41f2fba127b3ea74e	\\xa71864f842529ab41f2fba127b3ea74e	\\xa71864f842529ab41f2fba127b3ea74e	1224	255
+155	2023-01-12 14:36:31.62837+01	\\x0004a30b00ffe95a	\\x0000000000000000	\\x01a3790a	\\x2eeedd1a08df02732989d1889f13f0b7	\\x2eeedd1a08df02732989d1889f13f0b7	\\x2eeedd1a08df02732989d1889f13f0b7	9724	255
+156	2023-01-12 14:37:40.436802+01	\\x0004a30b01005325	\\x0000000000000000	\\x01f310e4	\\x95a62d6c240d295f779811183b270662	\\x95a62d6c240d295f779811183b270662	\\x95a62d6c240d295f779811183b270662	28751	255
+157	2023-01-12 14:38:14.477+01	\\x0004a30b01005325	\\x0000000000000000	\\x005afd95	\\x62247a218822be1599b4057055bd19bd	\\x62247a218822be1599b4057055bd19bd	\\x62247a218822be1599b4057055bd19bd	16531	255
+158	2023-01-12 14:38:39.631138+01	\\x0004a30b00fe03d7	\\x0000000000000000	\\x006482c2	\\xc1f650b30bf47895d2daf0cbc53bd058	\\xc1f650b30bf47895d2daf0cbc53bd058	\\xc1f650b30bf47895d2daf0cbc53bd058	7062	255
+159	2023-01-12 14:39:25.687466+01	\\x0004a30b00fe03d7	\\x0000000000000000	\\x003a8053	\\x6617b07b7fee7348d4baa3687680f930	\\x6617b07b7fee7348d4baa3687680f930	\\x6617b07b7fee7348d4baa3687680f930	3004	255
+160	2023-01-12 14:39:51.94645+01	\\x0004a30b00fd9c34	\\x0000000000000000	\\x01ffb755	\\xe6fbb8318b94c48009a5626fcdf862a2	\\xe6fbb8318b94c48009a5626fcdf862a2	\\xe6fbb8318b94c48009a5626fcdf862a2	13965	255
+161	2023-01-12 14:40:30.533591+01	\\x0004a30b00fd9c34	\\x0000000000000000	\\x011cd625	\\xe72e79348ad8d9b89f6bc8d591fa53de	\\xe72e79348ad8d9b89f6bc8d591fa53de	\\xe72e79348ad8d9b89f6bc8d591fa53de	10326	255
+164	2023-01-12 14:45:22.749523+01	\\x0004a30b00fa2fc0	\\x0000000000000000	\\x015e615a	\\xabb498cf798ac5efd54dc2bc796edca8	\\xabb498cf798ac5efd54dc2bc796edca8	\\xabb498cf798ac5efd54dc2bc796edca8	27532	255
+165	2023-01-12 14:46:06.510621+01	\\x0004a30b00fa2fc0	\\x0000000000000000	\\x00334043	\\x58cf87b96c8e0a4cf8d7cf0b907d7552	\\x58cf87b96c8e0a4cf8d7cf0b907d7552	\\x58cf87b96c8e0a4cf8d7cf0b907d7552	19542	255
+166	2023-01-12 14:46:29.21026+01	\\x0004a30b00ff2a59	\\x0000000000000000	\\x01ed3a2f	\\xb89216584816ca3025e9517daae0a268	\\xb89216584816ca3025e9517daae0a268	\\xb89216584816ca3025e9517daae0a268	18371	255
+167	2023-01-12 14:47:16.263537+01	\\x0004a30b00ff2a59	\\x0000000000000000	\\x002176f4	\\xc2c64da8f4b4eda05fd5d646d62696f3	\\xc2c64da8f4b4eda05fd5d646d62696f3	\\xc2c64da8f4b4eda05fd5d646d62696f3	23768	255
+168	2023-01-12 14:52:34.367177+01	\\x0004a30b00f99740	\\x0000000000000000	\\x007cc5a0	\\x356b34b5901eb55bb15cc65821fb09db	\\x356b34b5901eb55bb15cc65821fb09db	\\x356b34b5901eb55bb15cc65821fb09db	12336	255
+169	2023-01-12 14:53:17.685942+01	\\x0004a30b00f99740	\\x0000000000000000	\\x000cf2a6	\\xa4aea78e8eb2424b76dcdc3b3375fc2d	\\xa4aea78e8eb2424b76dcdc3b3375fc2d	\\xa4aea78e8eb2424b76dcdc3b3375fc2d	2810	255
+170	2023-01-12 14:53:52.724361+01	\\x0004a30b00fa0ffc	\\x0000000000000000	\\x016ae1a6	\\x40359de2f5bd5c7e4ae2dc46c45c0bc2	\\x40359de2f5bd5c7e4ae2dc46c45c0bc2	\\x40359de2f5bd5c7e4ae2dc46c45c0bc2	23827	255
+171	2023-01-12 14:54:26.378362+01	\\x0004a30b00fa0ffc	\\x0000000000000000	\\x0109e2c1	\\x042722fd4716ad3decc2960cb3a0c1ca	\\x042722fd4716ad3decc2960cb3a0c1ca	\\x042722fd4716ad3decc2960cb3a0c1ca	8671	255
+172	2023-01-12 14:55:12.080087+01	\\x0004a30b00ffc7ae	\\x0000000000000000	\\x010f7929	\\x3eb0c651d356a425bee6be3dafdcfd50	\\x3eb0c651d356a425bee6be3dafdcfd50	\\x3eb0c651d356a425bee6be3dafdcfd50	813	255
+173	2023-01-12 14:55:55.912053+01	\\x0004a30b00ffc7ae	\\x0000000000000000	\\x011da2f4	\\xc03dca04d037a41d359322608ec538b3	\\xc03dca04d037a41d359322608ec538b3	\\xc03dca04d037a41d359322608ec538b3	21028	255
+174	2023-01-13 11:52:22.245807+01	\\x0004a30b00f9f377	\\x0000000000000000	\\x00a487fa	\\x40f759d16d29004224df6609ccd7e526	\\x40f759d16d29004224df6609ccd7e526	\\x40f759d16d29004224df6609ccd7e526	13243	255
+175	2023-01-13 11:53:00.919169+01	\\x0004a30b00f9f377	\\x0000000000000000	\\x01e90904	\\x39e1703244b046ca0e12349d02b808ca	\\x39e1703244b046ca0e12349d02b808ca	\\x39e1703244b046ca0e12349d02b808ca	26823	255
+176	2023-01-13 11:56:09.915227+01	\\x0004a30b00fa16a2	\\x0000000000000000	\\x00d1aaf9	\\xf3a3b450cf4958f17d04122e4642905b	\\xf3a3b450cf4958f17d04122e4642905b	\\xf3a3b450cf4958f17d04122e4642905b	17338	255
+177	2023-01-13 11:57:00.451732+01	\\x0004a30b00fa16a2	\\x0000000000000000	\\x00382a67	\\xc8059371e3747680ce54ae87b025c545	\\xc8059371e3747680ce54ae87b025c545	\\xc8059371e3747680ce54ae87b025c545	11041	255
+178	2023-01-13 12:00:10.060126+01	\\x0004a30b00fa2709	\\x0000000000000000	\\x01267c93	\\x7618178309e2cddfaea85321e63199e4	\\x7618178309e2cddfaea85321e63199e4	\\x7618178309e2cddfaea85321e63199e4	12969	255
+179	2023-01-13 12:00:57.527274+01	\\x0004a30b00fa2709	\\x0000000000000000	\\x01e43703	\\xb53346071b49f0d73834f068b9460cab	\\xb53346071b49f0d73834f068b9460cab	\\xb53346071b49f0d73834f068b9460cab	8555	255
+180	2023-01-13 12:01:35.456551+01	\\x0004a30b01005d25	\\x0000000000000000	\\x007f1666	\\x20137f8773f7deacdf4adf43af38b4df	\\x20137f8773f7deacdf4adf43af38b4df	\\x20137f8773f7deacdf4adf43af38b4df	24541	255
+181	2023-01-13 12:01:52.02268+01	\\x0004a30b01005d25	\\x0000000000000000	\\x009125a0	\\x9692247b61d201ec714b552129141553	\\x9692247b61d201ec714b552129141553	\\x9692247b61d201ec714b552129141553	4671	255
+182	2023-01-13 12:03:21.34028+01	\\x0004a30b00f9f292	\\x0000000000000000	\\x004f2b55	\\x2317fd6ccd610460a751a53f2893dee9	\\x2317fd6ccd610460a751a53f2893dee9	\\x2317fd6ccd610460a751a53f2893dee9	6436	255
+183	2023-01-13 12:03:42.845159+01	\\x0004a30b00f9f292	\\x0000000000000000	\\x01432a1f	\\x2d7644df90afc0345acc928d5fbba31f	\\x2d7644df90afc0345acc928d5fbba31f	\\x2d7644df90afc0345acc928d5fbba31f	15557	255
+184	2023-01-13 12:06:05.897998+01	\\x0004a30b00f9f1b7	\\x0000000000000000	\\x0151e568	\\x6d673b0ff8e87881dbc7e74dd80c29ea	\\x6d673b0ff8e87881dbc7e74dd80c29ea	\\x6d673b0ff8e87881dbc7e74dd80c29ea	9673	255
+185	2023-01-13 12:07:07.499237+01	\\x0004a30b00f9f1b7	\\x0000000000000000	\\x014b541e	\\x54c03b97ff33e8f1a26a9ad44e293a0b	\\x54c03b97ff33e8f1a26a9ad44e293a0b	\\x54c03b97ff33e8f1a26a9ad44e293a0b	17855	255
+186	2023-01-13 12:11:46.79677+01	\\x0004a30b00f9d4b8	\\x0000000000000000	\\x009d6e68	\\x0c8ca1f6f77d9dc6acb59d1bd8329d72	\\x0c8ca1f6f77d9dc6acb59d1bd8329d72	\\x0c8ca1f6f77d9dc6acb59d1bd8329d72	12165	255
+187	2023-01-13 12:12:22.782778+01	\\x0004a30b00f9d4b8	\\x0000000000000000	\\x01c3354d	\\x93bcde219f3ba40b6c84e77d6379736e	\\x93bcde219f3ba40b6c84e77d6379736e	\\x93bcde219f3ba40b6c84e77d6379736e	27015	255
+188	2023-01-13 12:13:49.374678+01	\\x0004a30b00f998a3	\\x0000000000000000	\\x0105ccf4	\\x347a536d4968bcb5691a6c336ccdb0d2	\\x347a536d4968bcb5691a6c336ccdb0d2	\\x347a536d4968bcb5691a6c336ccdb0d2	20773	255
+189	2023-01-13 12:14:22.023668+01	\\x0004a30b00f998a3	\\x0000000000000000	\\x00ade266	\\x894dbc33afa2aea940941b43ce43b14e	\\x894dbc33afa2aea940941b43ce43b14e	\\x894dbc33afa2aea940941b43ce43b14e	23315	255
+190	2023-01-13 12:16:48.430052+01	\\x0004a30b00fa2fc0	\\x0000000000000000	\\x017ad48f	\\xdc7b9a582d88e2883c31a5317a3438f7	\\xdc7b9a582d88e2883c31a5317a3438f7	\\xdc7b9a582d88e2883c31a5317a3438f7	12126	255
+191	2023-01-13 12:17:05.077863+01	\\x0004a30b00fa2fc0	\\x0000000000000000	\\x00102f06	\\x37a547bdab86c217c567cb9a806588b9	\\x37a547bdab86c217c567cb9a806588b9	\\x37a547bdab86c217c567cb9a806588b9	26701	255
+192	2023-01-13 12:19:55.919665+01	\\x0004a30b00ff2a59	\\x0000000000000000	\\x01dc6123	\\x7e287e8bf72d47614bc16d89a0ac9053	\\x7e287e8bf72d47614bc16d89a0ac9053	\\x7e287e8bf72d47614bc16d89a0ac9053	6529	255
+193	2023-01-13 12:20:38.59151+01	\\x0004a30b00ff2a59	\\x0000000000000000	\\x01c1de88	\\x9b9955710e9afc9107b8f97131f94ae3	\\x9b9955710e9afc9107b8f97131f94ae3	\\x9b9955710e9afc9107b8f97131f94ae3	30745	255
+194	2023-01-13 12:21:29.165428+01	\\x0004a30b00fa2fc0	\\x0000000000000000	\\x00ffea77	\\x13b08d99fb03e5377c4ccf2864a90abc	\\x13b08d99fb03e5377c4ccf2864a90abc	\\x13b08d99fb03e5377c4ccf2864a90abc	31910	255
+195	2023-01-13 12:22:14.21125+01	\\x0004a30b00fa2fc0	\\x0000000000000000	\\x018287b2	\\x375674bd329ed730974a4f3be5203eb9	\\x375674bd329ed730974a4f3be5203eb9	\\x375674bd329ed730974a4f3be5203eb9	9554	255
+196	2023-01-13 12:27:23.710522+01	\\x0004a30b00f998a3	\\x0000000000000000	\\x0177cfee	\\x56a397a241e835b1cf9cf1bc9282c0c8	\\x56a397a241e835b1cf9cf1bc9282c0c8	\\x56a397a241e835b1cf9cf1bc9282c0c8	28421	255
+197	2023-01-13 12:29:07.565664+01	\\x0004a30b00f9d4b8	\\x0000000000000000	\\x01ef772a	\\x421fadb9f853fd12c6db29d98bdb8d5e	\\x421fadb9f853fd12c6db29d98bdb8d5e	\\x421fadb9f853fd12c6db29d98bdb8d5e	17162	255
+198	2023-01-13 12:30:01.646061+01	\\x0004a30b00f998a3	\\x0000000000000000	\\x00ac292f	\\xc7ad3c291f513d62ef61d315c8c15602	\\xc7ad3c291f513d62ef61d315c8c15602	\\xc7ad3c291f513d62ef61d315c8c15602	22588	255
+199	2023-01-13 12:30:11.445383+01	\\x0004a30b00f9d4b8	\\x0000000000000000	\\x004b5526	\\xbecbd90d92aefdb8c6f73d9a13a52424	\\xbecbd90d92aefdb8c6f73d9a13a52424	\\xbecbd90d92aefdb8c6f73d9a13a52424	28557	255
+200	2023-01-13 12:51:29.526137+01	\\x0004a30b00fe1f28	\\x0000000000000000	\\x00dd9589	\\xee3b9e3a502f2904f56b70606bf8a60e	\\xee3b9e3a502f2904f56b70606bf8a60e	\\xee3b9e3a502f2904f56b70606bf8a60e	17052	255
+201	2023-01-13 12:51:50.305036+01	\\x0004a30b00fe1f28	\\x0000000000000000	\\x00f346d8	\\x2cee592ce8ff3074ebfb92fdb560c98a	\\x2cee592ce8ff3074ebfb92fdb560c98a	\\x2cee592ce8ff3074ebfb92fdb560c98a	15584	255
+203	2023-01-14 16:58:34.998495+01	\\x0004a30b00fa1241	\\x0000000000000000	\\x011bd3af	\\xb699be1107d2c7d8aa37863152c7ebee	\\xb699be1107d2c7d8aa37863152c7ebee	\\xb699be1107d2c7d8aa37863152c7ebee	4404	255
+207	2023-01-17 13:23:24.452712+01	\\x0004a30b00ffc8ee	\\x0000000000000000	\\x01a957b8	\\x645f60321b595a852fc64fc6a8c89636	\\x645f60321b595a852fc64fc6a8c89636	\\x645f60321b595a852fc64fc6a8c89636	31748	255
+210	2023-01-17 14:25:38.772484+01	\\x0004a30b010024d3	\\x0000000000000000	\\x007aaf9c	\\x9a3f5b89d4c8d6a3965200e893e91c24	\\x9a3f5b89d4c8d6a3965200e893e91c24	\\x9a3f5b89d4c8d6a3965200e893e91c24	4524	255
+211	2023-01-17 14:30:53.341546+01	\\x0004a30b00ffd35c	\\x0000000000000000	\\x00c3d211	\\xac0b563c98abf7646b71496fc7f5e7ee	\\xac0b563c98abf7646b71496fc7f5e7ee	\\xac0b563c98abf7646b71496fc7f5e7ee	1432	255
+212	2023-01-17 14:31:14.571952+01	\\x0004a30b00ffd35c	\\x0000000000000000	\\x016b3494	\\x0eaa73ed2035a0b37f08a1a110997c0e	\\x0eaa73ed2035a0b37f08a1a110997c0e	\\x0eaa73ed2035a0b37f08a1a110997c0e	18996	255
+213	2023-01-17 14:33:30.781806+01	\\x0004a30b00ffd35c	\\x0000000000000000	\\x000568eb	\\xeea909f65ce91b8b33d92894373f4b5b	\\xeea909f65ce91b8b33d92894373f4b5b	\\xeea909f65ce91b8b33d92894373f4b5b	27608	255
+214	2023-01-17 14:51:57.589983+01	\\x0004a30b00ffe7d3	\\x0000000000000000	\\x00ed3206	\\x643f3ef3fcd677a0dc0d43a80c0b502a	\\x643f3ef3fcd677a0dc0d43a80c0b502a	\\x643f3ef3fcd677a0dc0d43a80c0b502a	8725	255
+215	2023-01-17 14:53:36.155433+01	\\x0004a30b00ffe7d3	\\x0000000000000000	\\x01df3028	\\x21c452bdacf1124ffcf62c37768607a1	\\x21c452bdacf1124ffcf62c37768607a1	\\x21c452bdacf1124ffcf62c37768607a1	30856	255
+216	2023-01-20 11:34:52.498576+01	\\x0004a30b00ffc930	\\x0000000000000000	\\x002884d9	\\x9470dbbd6088b485236c03d146a602be	\\x9470dbbd6088b485236c03d146a602be	\\x9470dbbd6088b485236c03d146a602be	21584	255
+217	2023-01-20 11:35:06.562158+01	\\x0004a30b00ffc930	\\x0000000000000000	\\x001b034f	\\xd941a58143b26a2bb64bebd848d9eb9c	\\xd941a58143b26a2bb64bebd848d9eb9c	\\xd941a58143b26a2bb64bebd848d9eb9c	17973	255
+218	2023-01-20 12:46:59.122018+01	\\x0004a30b00fdcce1	\\x0000000000000000	\\x00a52c4a	\\xd3d6fa8cf6a95e8d877cdf0398e4a1f3	\\xd3d6fa8cf6a95e8d877cdf0398e4a1f3	\\xd3d6fa8cf6a95e8d877cdf0398e4a1f3	26872	255
+219	2023-01-20 12:47:24.980879+01	\\x0004a30b00f98b5c	\\x0000000000000000	\\x01db7c19	\\xab76e16546bb14cd606da9703b87d253	\\xab76e16546bb14cd606da9703b87d253	\\xab76e16546bb14cd606da9703b87d253	2015	255
+220	2023-01-20 12:47:55.436659+01	\\x0004a30b00fa26d3	\\x0000000000000000	\\x00457906	\\xb799497c9d1bd7d1ed937e74a72117df	\\xb799497c9d1bd7d1ed937e74a72117df	\\xb799497c9d1bd7d1ed937e74a72117df	23799	255
+221	2023-01-20 12:48:22.84527+01	\\x0004a30b00f9cfe5	\\x0000000000000000	\\x01803fa9	\\xd6eb2380d0482850bd2cc41ea159c132	\\xd6eb2380d0482850bd2cc41ea159c132	\\xd6eb2380d0482850bd2cc41ea159c132	8446	255
+222	2023-01-20 12:48:53.98897+01	\\x0004a30b00fa3a2f	\\x0000000000000000	\\x0159cac0	\\x16652a1a835310e1fc4c36b4d8e871ac	\\x16652a1a835310e1fc4c36b4d8e871ac	\\x16652a1a835310e1fc4c36b4d8e871ac	18986	255
+223	2023-01-20 12:49:26.732813+01	\\x0004a30b00fa110d	\\x0000000000000000	\\x01198c01	\\x516a84806fbde861f0ab3bb5db3147e1	\\x516a84806fbde861f0ab3bb5db3147e1	\\x516a84806fbde861f0ab3bb5db3147e1	9486	255
+224	2023-01-20 12:49:42.914608+01	\\x0004a30b00fa4305	\\x0000000000000000	\\x00a2bef7	\\xd3b47dd4ddcedee41ba15786727e1fb3	\\xd3b47dd4ddcedee41ba15786727e1fb3	\\xd3b47dd4ddcedee41ba15786727e1fb3	13841	255
+225	2023-01-20 12:50:10.918367+01	\\x0004a30b00f9fbbe	\\x0000000000000000	\\x0039fa98	\\x6db264bb5e578f6ce241b0794381ce19	\\x6db264bb5e578f6ce241b0794381ce19	\\x6db264bb5e578f6ce241b0794381ce19	26304	255
+226	2023-01-20 12:50:28.307218+01	\\x0004a30b00fa402b	\\x0000000000000000	\\x00b09284	\\x92fa0690a1fac766f0da3a0414a2656b	\\x92fa0690a1fac766f0da3a0414a2656b	\\x92fa0690a1fac766f0da3a0414a2656b	13859	255
+227	2023-01-20 12:50:52.187432+01	\\x0004a30b00f9d594	\\x0000000000000000	\\x01ae967a	\\x85df1315bbeb18fa3c0045d7fa83b520	\\x85df1315bbeb18fa3c0045d7fa83b520	\\x85df1315bbeb18fa3c0045d7fa83b520	27229	255
+228	2023-01-20 12:51:16.34398+01	\\x0004a30b00fa3202	\\x0000000000000000	\\x001195a4	\\xc08176ce14ed08544fc2c460e2942a87	\\xc08176ce14ed08544fc2c460e2942a87	\\xc08176ce14ed08544fc2c460e2942a87	1155	255
+229	2023-01-20 12:51:30.700116+01	\\x0004a30b00f9dbc6	\\x0000000000000000	\\x0015d4b0	\\xbd9b66ceed7f1a850c8b66101348fcd3	\\xbd9b66ceed7f1a850c8b66101348fcd3	\\xbd9b66ceed7f1a850c8b66101348fcd3	3371	255
+230	2023-01-20 12:51:51.723733+01	\\x0004a30b00f9bddf	\\x0000000000000000	\\x0086b531	\\xffce8c1a1eee00ba75cf201db584c6df	\\xffce8c1a1eee00ba75cf201db584c6df	\\xffce8c1a1eee00ba75cf201db584c6df	15582	255
+231	2023-01-20 12:54:05.419031+01	\\x0004a30b00fe029f	\\x0000000000000000	\\x003ac1ca	\\x2c440451275bb8377b51a4995acbcfc5	\\x2c440451275bb8377b51a4995acbcfc5	\\x2c440451275bb8377b51a4995acbcfc5	25095	255
+232	2023-01-20 12:54:50.147023+01	\\x0004a30b00fa31f0	\\x0000000000000000	\\x007c998b	\\xe1ccb3f9e8431e6cbb113560acbbacec	\\xe1ccb3f9e8431e6cbb113560acbbacec	\\xe1ccb3f9e8431e6cbb113560acbbacec	15104	255
+233	2023-01-20 12:55:08.53239+01	\\x0004a30b00fa0c5d	\\x0000000000000000	\\x01c7634c	\\x7b56c29ceff3be3553b8b38e4d8e25c8	\\x7b56c29ceff3be3553b8b38e4d8e25c8	\\x7b56c29ceff3be3553b8b38e4d8e25c8	31245	255
+234	2023-01-20 12:55:27.303648+01	\\x0004a30b00fa3a90	\\x0000000000000000	\\x017919ad	\\xbc7565ce43c074a5ac93db2754c221d0	\\xbc7565ce43c074a5ac93db2754c221d0	\\xbc7565ce43c074a5ac93db2754c221d0	23723	255
+235	2023-01-20 12:55:50.621257+01	\\x0004a30b00fa2776	\\x0000000000000000	\\x0149b4fc	\\x1a72f6190cff201f9bf6591bdcf59914	\\x1a72f6190cff201f9bf6591bdcf59914	\\x1a72f6190cff201f9bf6591bdcf59914	9959	255
+236	2023-01-20 12:56:05.376446+01	\\x0004a30b00f9d41f	\\x0000000000000000	\\x01848db4	\\xb2214e903b6af06bacafa882ed616acc	\\xb2214e903b6af06bacafa882ed616acc	\\xb2214e903b6af06bacafa882ed616acc	13577	255
+237	2023-01-20 12:56:33.514595+01	\\x0004a30b00f98da1	\\x0000000000000000	\\x00143ced	\\x52ad9d141327e06a9548e39cb17131f7	\\x52ad9d141327e06a9548e39cb17131f7	\\x52ad9d141327e06a9548e39cb17131f7	32561	255
+238	2023-01-20 12:57:52.044151+01	\\x0004a30b00fdcce1	\\x0000000000000000	\\x01919c80	\\xe77774bd579944fca38348b63a2ed582	\\xe77774bd579944fca38348b63a2ed582	\\xe77774bd579944fca38348b63a2ed582	30746	255
+244	2023-01-20 13:00:55.946669+01	\\x0004a30b00f9fbbe	\\x0000000000000000	\\x01f2b6ef	\\x4507bb44535e0a378ecd8db055a68e3a	\\x4507bb44535e0a378ecd8db055a68e3a	\\x4507bb44535e0a378ecd8db055a68e3a	29162	255
+245	2023-01-20 13:01:30.399081+01	\\x0004a30b00fa402b	\\x0000000000000000	\\x016bc72d	\\xfeadfc0f2d3d6cabe5aacd7d47d1409c	\\xfeadfc0f2d3d6cabe5aacd7d47d1409c	\\xfeadfc0f2d3d6cabe5aacd7d47d1409c	8960	255
+239	2023-01-20 12:58:41.232866+01	\\x0004a30b00fa26d3	\\x0000000000000000	\\x00a5bb43	\\xe01b0c00292a4963dcb3e4bc1f9c3761	\\xe01b0c00292a4963dcb3e4bc1f9c3761	\\xe01b0c00292a4963dcb3e4bc1f9c3761	14538	255
+240	2023-01-20 12:59:08.43816+01	\\x0004a30b00f9cfe5	\\x0000000000000000	\\x00501f1f	\\xe1082fd1e4fec75bb740aa792af004b8	\\xe1082fd1e4fec75bb740aa792af004b8	\\xe1082fd1e4fec75bb740aa792af004b8	18064	255
+241	2023-01-20 12:59:38.945939+01	\\x0004a30b00fa3a2f	\\x0000000000000000	\\x0077d52d	\\x0a5052694579043259a42baf7072b6df	\\x0a5052694579043259a42baf7072b6df	\\x0a5052694579043259a42baf7072b6df	15363	255
+242	2023-01-20 13:00:04.197586+01	\\x0004a30b01005249	\\x0000000000000000	\\x016d9744	\\x140725920c4277a5ff83feda29d770a2	\\x140725920c4277a5ff83feda29d770a2	\\x140725920c4277a5ff83feda29d770a2	32522	255
+243	2023-01-20 13:00:30.462642+01	\\x0004a30b00fa4305	\\x0000000000000000	\\x00144d99	\\x262fa2d853cfce70588cb81ac336d8fd	\\x262fa2d853cfce70588cb81ac336d8fd	\\x262fa2d853cfce70588cb81ac336d8fd	3210	255
+246	2023-01-20 13:02:16.58145+01	\\x0004a30b00f9dbc6	\\x0000000000000000	\\x00e98f5b	\\xd3adb2d87eabec9140104bd0c8256ec2	\\xd3adb2d87eabec9140104bd0c8256ec2	\\xd3adb2d87eabec9140104bd0c8256ec2	28815	255
+247	2023-01-20 13:04:51.069991+01	\\x0004a30b00fe029f	\\x0000000000000000	\\x003629e4	\\x8dd04a7c48bb3393816d5e5f0693da05	\\x8dd04a7c48bb3393816d5e5f0693da05	\\x8dd04a7c48bb3393816d5e5f0693da05	21764	255
+248	2023-01-20 13:05:10.536598+01	\\x0004a30b00f98da1	\\x0000000000000000	\\x010810df	\\x23e8b4361b76508aa81ef679220cd03e	\\x23e8b4361b76508aa81ef679220cd03e	\\x23e8b4361b76508aa81ef679220cd03e	11447	255
+249	2023-01-20 13:05:53.250407+01	\\x0004a30b00fa0c5d	\\x0000000000000000	\\x00053303	\\x550f0fb2c7220ea1b02d872dea86c104	\\x550f0fb2c7220ea1b02d872dea86c104	\\x550f0fb2c7220ea1b02d872dea86c104	3675	255
+250	2023-01-20 13:06:13.068917+01	\\x0004a30b00f986d5	\\x0000000000000000	\\x0023081d	\\xd4ed806aa3291e7bbf861678b9be5e76	\\xd4ed806aa3291e7bbf861678b9be5e76	\\xd4ed806aa3291e7bbf861678b9be5e76	22646	255
+251	2023-01-20 13:06:13.082014+01	\\x0004a30b00fa3a90	\\x0000000000000000	\\x000a0ac8	\\xc4a5cb88213d517f6c2c6e1f830a6761	\\xc4a5cb88213d517f6c2c6e1f830a6761	\\xc4a5cb88213d517f6c2c6e1f830a6761	17771	255
+252	2023-01-20 13:06:34.649999+01	\\x0004a30b00fa130e	\\x0000000000000000	\\x0147fbef	\\x61285317eb07dceb24c7e12deb029a99	\\x61285317eb07dceb24c7e12deb029a99	\\x61285317eb07dceb24c7e12deb029a99	22549	255
+253	2023-01-20 13:06:35.959615+01	\\x0004a30b00fa2776	\\x0000000000000000	\\x00b095af	\\xbcc4440a2ea8020ecdfb54d9eb51f8b3	\\xbcc4440a2ea8020ecdfb54d9eb51f8b3	\\xbcc4440a2ea8020ecdfb54d9eb51f8b3	22877	255
+254	2023-01-20 13:06:42.666589+01	\\x0004a30b00f98b5c	\\x0000000000000000	\\x0197f288	\\x439110db716713b2146a1e052e50fee7	\\x439110db716713b2146a1e052e50fee7	\\x439110db716713b2146a1e052e50fee7	16018	255
+255	2023-01-20 13:06:48.953539+01	\\x0004a30b00f9d41f	\\x0000000000000000	\\x00b2274a	\\x70ab30303c78e9f8db3c4f9184a26ea5	\\x70ab30303c78e9f8db3c4f9184a26ea5	\\x70ab30303c78e9f8db3c4f9184a26ea5	915	255
+256	2023-01-20 13:07:13.024163+01	\\x0004a30b00f9d65f	\\x0000000000000000	\\x0151ca99	\\x3913cdd16a1b2cd2c41e1aa310b4324e	\\x3913cdd16a1b2cd2c41e1aa310b4324e	\\x3913cdd16a1b2cd2c41e1aa310b4324e	19907	255
+257	2023-01-20 13:07:17.356913+01	\\x0004a30b00f9cf46	\\x0000000000000000	\\x008ce07f	\\xc0e5ae166fde6a81dae658cc0e6da8d0	\\xc0e5ae166fde6a81dae658cc0e6da8d0	\\xc0e5ae166fde6a81dae658cc0e6da8d0	19040	255
+258	2023-01-20 13:08:02.098545+01	\\x0004a30b00f9f1b7	\\x0000000000000000	\\x00ad887f	\\x1f1ea22370d7889cd34d90109feb9d3b	\\x1f1ea22370d7889cd34d90109feb9d3b	\\x1f1ea22370d7889cd34d90109feb9d3b	7147	255
+259	2023-01-20 13:09:36.399854+01	\\x0004a30b00fa26d3	\\x0000000000000000	\\x01f934fd	\\x1e119fd82f4bde092a2917c13d77b2e3	\\x1e119fd82f4bde092a2917c13d77b2e3	\\x1e119fd82f4bde092a2917c13d77b2e3	8736	255
+260	2023-01-20 13:10:03.041032+01	\\x0004a30b00f9cfe5	\\x0000000000000000	\\x01d98545	\\xc2b541f1a03626a54bad4964045a973a	\\xc2b541f1a03626a54bad4964045a973a	\\xc2b541f1a03626a54bad4964045a973a	21831	255
+261	2023-01-20 13:10:48.115516+01	\\x0004a30b01005249	\\x0000000000000000	\\x0097638a	\\x265cc0dc48c7f6c5347bb34f27268989	\\x265cc0dc48c7f6c5347bb34f27268989	\\x265cc0dc48c7f6c5347bb34f27268989	8672	255
+262	2023-01-20 13:10:50.167154+01	\\x0004a30b00fa110d	\\x0000000000000000	\\x01b03b43	\\x23dfcbc53778bfb9c9a73b9be5ef34d9	\\x23dfcbc53778bfb9c9a73b9be5ef34d9	\\x23dfcbc53778bfb9c9a73b9be5ef34d9	19651	255
+263	2023-01-20 13:11:25.376266+01	\\x0004a30b00fa4305	\\x0000000000000000	\\x0078d28c	\\xdbe34d79f68bab05c98bff4da3152543	\\xdbe34d79f68bab05c98bff4da3152543	\\xdbe34d79f68bab05c98bff4da3152543	26336	255
+264	2023-01-20 13:11:50.503938+01	\\x0004a30b00f9fbbe	\\x0000000000000000	\\x015069cb	\\x5104a0f259a94884bbe6d532c2290e30	\\x5104a0f259a94884bbe6d532c2290e30	\\x5104a0f259a94884bbe6d532c2290e30	21617	255
+265	2023-01-20 13:12:20.317307+01	\\x0004a30b00f9d594	\\x0000000000000000	\\x002b16ec	\\x2392845e6db9f3d9bbf3a7a1b6d9650c	\\x2392845e6db9f3d9bbf3a7a1b6d9650c	\\x2392845e6db9f3d9bbf3a7a1b6d9650c	2165	255
+266	2023-01-20 13:12:24.793705+01	\\x0004a30b00fa402b	\\x0000000000000000	\\x0050dd8a	\\x7b3b864fae53015185dbe55ea522adaf	\\x7b3b864fae53015185dbe55ea522adaf	\\x7b3b864fae53015185dbe55ea522adaf	30084	255
+267	2023-01-20 13:12:38.576261+01	\\x0004a30b00f998a3	\\x0000000000000000	\\x01a40dc0	\\xccbfd1eb9bed3be34447be884f171549	\\xccbfd1eb9bed3be34447be884f171549	\\xccbfd1eb9bed3be34447be884f171549	19718	255
+268	2023-01-20 13:12:55.340116+01	\\x0004a30b00f9d4b8	\\x0000000000000000	\\x00795a19	\\x79b0e15489d041f4f1999067b3451fad	\\x79b0e15489d041f4f1999067b3451fad	\\x79b0e15489d041f4f1999067b3451fad	12609	255
+269	2023-01-20 13:13:11.416124+01	\\x0004a30b00f9dbc6	\\x0000000000000000	\\x007ff5fa	\\xdb5dab519eeac8db19c948cc2687cebe	\\xdb5dab519eeac8db19c948cc2687cebe	\\xdb5dab519eeac8db19c948cc2687cebe	1975	255
+270	2023-01-20 13:13:23.037562+01	\\x0004a30b00f9bddf	\\x0000000000000000	\\x019fc346	\\x62b7cdae80a20682c9628c7fb4af64c3	\\x62b7cdae80a20682c9628c7fb4af64c3	\\x62b7cdae80a20682c9628c7fb4af64c3	31409	255
+271	2023-01-20 13:13:37.686794+01	\\x0004a30b00f9d668	\\x0000000000000000	\\x00b60cb8	\\x40d23bb8a5a30a702f486248d12d105d	\\x40d23bb8a5a30a702f486248d12d105d	\\x40d23bb8a5a30a702f486248d12d105d	30892	255
+272	2023-01-20 13:13:43.211143+01	\\x0004a30b00f9bddf	\\x0000000000000000	\\x013bbf5a	\\xd09d5aea180e8b152e1a26d2d7c371df	\\xd09d5aea180e8b152e1a26d2d7c371df	\\xd09d5aea180e8b152e1a26d2d7c371df	24290	255
+273	2023-01-20 13:15:29.166652+01	\\x0004a30b00f9d668	\\x0000000000000000	\\x000c5e1d	\\xee98d8ba75b6d73da499470cce5671d3	\\xee98d8ba75b6d73da499470cce5671d3	\\xee98d8ba75b6d73da499470cce5671d3	19602	255
+274	2023-01-20 13:15:40.887112+01	\\x0004a30b00fa41e8	\\x0000000000000000	\\x001dbdc9	\\xd54fda439961e1051e8859d805d73e39	\\xd54fda439961e1051e8859d805d73e39	\\xd54fda439961e1051e8859d805d73e39	29565	255
+275	2023-01-20 13:16:06.681518+01	\\x0004a30b00f98da1	\\x0000000000000000	\\x013d6a58	\\x52f7c09fc8e1a4ab2ed278820f7dd213	\\x52f7c09fc8e1a4ab2ed278820f7dd213	\\x52f7c09fc8e1a4ab2ed278820f7dd213	30041	255
+276	2023-01-20 13:16:24.015391+01	\\x0004a30b00fa31f0	\\x0000000000000000	\\x01092caf	\\x6b297a062c05f86edfa8d09e63cfe42f	\\x6b297a062c05f86edfa8d09e63cfe42f	\\x6b297a062c05f86edfa8d09e63cfe42f	4299	255
+277	2023-01-20 13:16:40.414942+01	\\x0004a30b00fa31f0	\\x0000000000000000	\\x01aa0dc9	\\xeb60760a06106ab6e67aca40dcf13e79	\\xeb60760a06106ab6e67aca40dcf13e79	\\xeb60760a06106ab6e67aca40dcf13e79	25056	255
+278	2023-01-20 13:16:47.71446+01	\\x0004a30b00fa0c5d	\\x0000000000000000	\\x005e940d	\\x46499337b281b3c3696b9342b7fd46eb	\\x46499337b281b3c3696b9342b7fd46eb	\\x46499337b281b3c3696b9342b7fd46eb	28900	255
+279	2023-01-20 13:16:59.010114+01	\\x0004a30b00f986d5	\\x0000000000000000	\\x013f79d7	\\x40b3104a97eeb8502d6dc8e64c831947	\\x40b3104a97eeb8502d6dc8e64c831947	\\x40b3104a97eeb8502d6dc8e64c831947	23236	255
+280	2023-01-20 13:17:25.117557+01	\\x0004a30b00fa3a90	\\x0000000000000000	\\x00973f9b	\\x5f5c4527e76acdc3907ef87399e21bcd	\\x5f5c4527e76acdc3907ef87399e21bcd	\\x5f5c4527e76acdc3907ef87399e21bcd	14853	255
+281	2023-01-20 13:17:27.03869+01	\\x0004a30b00fa130e	\\x0000000000000000	\\x00315879	\\x960ed84690d9b6d9d17d56b7ce6bbd14	\\x960ed84690d9b6d9d17d56b7ce6bbd14	\\x960ed84690d9b6d9d17d56b7ce6bbd14	22294	255
+282	2023-01-20 13:17:31.069108+01	\\x0004a30b00fa2776	\\x0000000000000000	\\x01a9d9b8	\\x27ac4c951938ebafcfc0f70f15a6c7d1	\\x27ac4c951938ebafcfc0f70f15a6c7d1	\\x27ac4c951938ebafcfc0f70f15a6c7d1	15489	255
+283	2023-01-20 13:17:37.622327+01	\\x0004a30b00f98b5c	\\x0000000000000000	\\x01848014	\\xb844373aedd8bcc3a447a53e8d77ab50	\\xb844373aedd8bcc3a447a53e8d77ab50	\\xb844373aedd8bcc3a447a53e8d77ab50	11486	255
+284	2023-01-20 13:17:58.173882+01	\\x0004a30b00f9d65f	\\x0000000000000000	\\x017cd663	\\xe49a23bfe63295e05d69ebbd2cdd3580	\\xe49a23bfe63295e05d69ebbd2cdd3580	\\xe49a23bfe63295e05d69ebbd2cdd3580	21881	255
+285	2023-01-20 13:18:24.860448+01	\\x0004a30b00f9bf48	\\x0000000000000000	\\x0086c2d0	\\x10928254f72e5adb2bf430218aabd9fb	\\x10928254f72e5adb2bf430218aabd9fb	\\x10928254f72e5adb2bf430218aabd9fb	176	255
+286	2023-01-20 13:18:32.560253+01	\\x0004a30b00f9a2b9	\\x0000000000000000	\\x00317c7b	\\x16af14533d4ba455e4a193d8f5b0ad86	\\x16af14533d4ba455e4a193d8f5b0ad86	\\x16af14533d4ba455e4a193d8f5b0ad86	12319	255
+287	2023-01-20 13:18:47.036842+01	\\x0004a30b00f9f1b7	\\x0000000000000000	\\x00629b46	\\xdf7773f3e88fce4d63faa3c0f6280138	\\xdf7773f3e88fce4d63faa3c0f6280138	\\xdf7773f3e88fce4d63faa3c0f6280138	28575	255
+288	2023-01-20 13:20:19.725656+01	\\x0004a30b00fa1241	\\x0000000000000000	\\x01cc6379	\\xdac7ea919cc930df7b8efb534ed7c7a2	\\xdac7ea919cc930df7b8efb534ed7c7a2	\\xdac7ea919cc930df7b8efb534ed7c7a2	27581	255
+289	2023-01-20 13:20:46.539199+01	\\x0004a30b00f9dc30	\\x0000000000000000	\\x003a3138	\\xee4b4f5284194f2b7c87eb230a199748	\\xee4b4f5284194f2b7c87eb230a199748	\\xee4b4f5284194f2b7c87eb230a199748	25632	255
+290	2023-01-20 13:20:57.709874+01	\\x0004a30b00f9cfe5	\\x0000000000000000	\\x00318035	\\xdda5662bbb5d6fcd1c71bf204c2f3fb0	\\xdda5662bbb5d6fcd1c71bf204c2f3fb0	\\xdda5662bbb5d6fcd1c71bf204c2f3fb0	15613	255
+291	2023-01-20 13:21:03.626186+01	\\x0004a30b00fa2fdc	\\x0000000000000000	\\x01e013c4	\\x69e0055ad5aa72751b2350d9911d8c1e	\\x69e0055ad5aa72751b2350d9911d8c1e	\\x69e0055ad5aa72751b2350d9911d8c1e	8928	255
+292	2023-01-20 13:21:59.930979+01	\\x0004a30b00f9f9ab	\\x0000000000000000	\\x0043772d	\\x421c11e4030255c9801395edc60b6358	\\x421c11e4030255c9801395edc60b6358	\\x421c11e4030255c9801395edc60b6358	3860	255
+293	2023-01-20 13:22:20.380504+01	\\x0004a30b00fa4305	\\x0000000000000000	\\x001ecccc	\\xe0efb28ef335b142d855d85f946a5fa4	\\xe0efb28ef335b142d855d85f946a5fa4	\\xe0efb28ef335b142d855d85f946a5fa4	28028	255
+294	2023-01-20 13:22:57.333707+01	\\x0004a30b00f99921	\\x0000000000000000	\\x0014f449	\\xbd8265e76fc9ea7c95e0b31e718ee355	\\xbd8265e76fc9ea7c95e0b31e718ee355	\\xbd8265e76fc9ea7c95e0b31e718ee355	20633	255
+295	2023-01-20 13:23:16.540247+01	\\x0004a30b00f9d594	\\x0000000000000000	\\x00e97279	\\xe266a7a09faad05c9d91f8e6e7cf4065	\\xe266a7a09faad05c9d91f8e6e7cf4065	\\xe266a7a09faad05c9d91f8e6e7cf4065	5768	255
+296	2023-01-20 13:23:19.414154+01	\\x0004a30b00fa402b	\\x0000000000000000	\\x01ec2149	\\xcec3465cffceaad3787e56394228af87	\\xcec3465cffceaad3787e56394228af87	\\xcec3465cffceaad3787e56394228af87	4372	255
+297	2023-01-20 13:23:36.133471+01	\\x0004a30b00fe251b	\\x0000000000000000	\\x01937f28	\\xdda33def226445b3c21ebf58aafd005a	\\xdda33def226445b3c21ebf58aafd005a	\\xdda33def226445b3c21ebf58aafd005a	7983	255
+298	2023-01-20 13:24:06.139374+01	\\x0004a30b00f9dbc6	\\x0000000000000000	\\x0056f85e	\\x93dc06b3c70d39f705e6fd3cb4f8434f	\\x93dc06b3c70d39f705e6fd3cb4f8434f	\\x93dc06b3c70d39f705e6fd3cb4f8434f	22210	255
+299	2023-01-20 13:24:21.196537+01	\\x0004a30b00f9ee8f	\\x0000000000000000	\\x002639be	\\xc3214a35cccac6dd22cec3c162f69c99	\\xc3214a35cccac6dd22cec3c162f69c99	\\xc3214a35cccac6dd22cec3c162f69c99	30864	255
+302	2023-01-20 13:26:24.789976+01	\\x0004a30b00fe029f	\\x0000000000000000	\\x017bbc5b	\\xfdfd32fecfecfb9bea84c75d32ce0a11	\\xfdfd32fecfecfb9bea84c75d32ce0a11	\\xfdfd32fecfecfb9bea84c75d32ce0a11	15834	255
+303	2023-01-20 13:26:44.610222+01	\\x0004a30b00fa3202	\\x0000000000000000	\\x015c7d87	\\x9843e88de77221e2c59b65c707a4e566	\\x9843e88de77221e2c59b65c707a4e566	\\x9843e88de77221e2c59b65c707a4e566	7293	255
+306	2023-01-20 13:27:34.965551+01	\\x0004a30b00fa31f0	\\x0000000000000000	\\x006412b2	\\x0569d5927347d0d2b923469c7a40e13c	\\x0569d5927347d0d2b923469c7a40e13c	\\x0569d5927347d0d2b923469c7a40e13c	26019	255
+307	2023-01-20 13:27:42.181538+01	\\x0004a30b00fa0c5d	\\x0000000000000000	\\x01d39eeb	\\x91d0328e719dd1fecb93706b1312265d	\\x91d0328e719dd1fecb93706b1312265d	\\x91d0328e719dd1fecb93706b1312265d	12767	255
+308	2023-01-20 13:27:53.916269+01	\\x0004a30b00f986d5	\\x0000000000000000	\\x01fb9324	\\x0c7a094ea75936a65271edf1911ce449	\\x0c7a094ea75936a65271edf1911ce449	\\x0c7a094ea75936a65271edf1911ce449	27879	255
+309	2023-01-20 13:28:20.064082+01	\\x0004a30b00fa130e	\\x0000000000000000	\\x00713458	\\x9348dcb07fa7b5a3ec66fd1d15b87a30	\\x9348dcb07fa7b5a3ec66fd1d15b87a30	\\x9348dcb07fa7b5a3ec66fd1d15b87a30	12476	255
+310	2023-01-20 13:28:20.39585+01	\\x0004a30b00fa3a90	\\x0000000000000000	\\x017fd5c6	\\x6b81e4212c222574915fe642126349d7	\\x6b81e4212c222574915fe642126349d7	\\x6b81e4212c222574915fe642126349d7	12108	255
+311	2023-01-20 13:28:26.144633+01	\\x0004a30b00fa2776	\\x0000000000000000	\\x00f1ac87	\\xd6f9a342d5f04f735ced8a8787536814	\\xd6f9a342d5f04f735ced8a8787536814	\\xd6f9a342d5f04f735ced8a8787536814	6478	255
+312	2023-01-20 13:28:33.116765+01	\\x0004a30b00f98b5c	\\x0000000000000000	\\x016243bd	\\x57e3b7c5fd4f183d829f6f0021cd15b6	\\x57e3b7c5fd4f183d829f6f0021cd15b6	\\x57e3b7c5fd4f183d829f6f0021cd15b6	4672	255
+313	2023-01-20 13:28:36.477634+01	\\x0004a30b00f9d41f	\\x0000000000000000	\\x011946e3	\\xad4f78745acfa5a559f95f21f33f6b5d	\\xad4f78745acfa5a559f95f21f33f6b5d	\\xad4f78745acfa5a559f95f21f33f6b5d	5959	255
+314	2023-01-20 13:28:43.268517+01	\\x0004a30b00f9f570	\\x0000000000000000	\\x0028fbfa	\\x06f3c3f5aea81aa7d61857e88f9b02e0	\\x06f3c3f5aea81aa7d61857e88f9b02e0	\\x06f3c3f5aea81aa7d61857e88f9b02e0	26827	255
+319	2023-01-20 13:30:01.131708+01	\\x0004a30b00fdcce1	\\x0000000000000000	\\x01d54dc3	\\xe19473623d1a1dd0821a9bb5b0279ee7	\\xe19473623d1a1dd0821a9bb5b0279ee7	\\xe19473623d1a1dd0821a9bb5b0279ee7	12159	255
+300	2023-01-20 13:24:37.821967+01	\\x0004a30b00f9bddf	\\x0000000000000000	\\x014d78c3	\\x4563679364d215079c9e254fb59cf9ca	\\x4563679364d215079c9e254fb59cf9ca	\\x4563679364d215079c9e254fb59cf9ca	18418	255
+301	2023-01-20 13:24:46.119479+01	\\x0004a30b00f9f570	\\x0000000000000000	\\x01e95427	\\xc0cae8f5f428cf70c838b46d000359a8	\\xc0cae8f5f428cf70c838b46d000359a8	\\xc0cae8f5f428cf70c838b46d000359a8	450	255
+304	2023-01-20 13:27:02.693917+01	\\x0004a30b00f98da1	\\x0000000000000000	\\x017df053	\\x9fd30798e2c5f4b8467a4b5e38fea42e	\\x9fd30798e2c5f4b8467a4b5e38fea42e	\\x9fd30798e2c5f4b8467a4b5e38fea42e	19273	255
+305	2023-01-20 13:27:05.281124+01	\\x0004a30b00f9f570	\\x0000000000000000	\\x0161c31b	\\x6e365a0f395928b100c6e364b6e6cc98	\\x6e365a0f395928b100c6e364b6e6cc98	\\x6e365a0f395928b100c6e364b6e6cc98	26473	255
+315	2023-01-20 13:28:52.81082+01	\\x0004a30b00f9cf46	\\x0000000000000000	\\x002a00a0	\\xd7ad08eb791d769fda7599f1d5245938	\\xd7ad08eb791d769fda7599f1d5245938	\\xd7ad08eb791d769fda7599f1d5245938	12090	255
+316	2023-01-20 13:28:53.131811+01	\\x0004a30b00f9d65f	\\x0000000000000000	\\x01520f52	\\x5231064981a6910e3cdb529bf5879ddb	\\x5231064981a6910e3cdb529bf5879ddb	\\x5231064981a6910e3cdb529bf5879ddb	21574	255
+317	2023-01-20 13:29:09.532278+01	\\x0004a30b00f9d65f	\\x0000000000000000	\\x00336dc2	\\xed63b3f5452bb4835fa6d36044b62be3	\\xed63b3f5452bb4835fa6d36044b62be3	\\xed63b3f5452bb4835fa6d36044b62be3	29932	255
+318	2023-01-20 13:29:41.391391+01	\\x0004a30b00f9f1b7	\\x0000000000000000	\\x009a9ef2	\\x01b67efe1dbab0b2f50f3f8f585ccff3	\\x01b67efe1dbab0b2f50f3f8f585ccff3	\\x01b67efe1dbab0b2f50f3f8f585ccff3	6796	255
+320	2023-01-20 13:31:11.625388+01	\\x0004a30b00fa26d3	\\x0000000000000000	\\x00f198e8	\\xaedd23a98f1d25a9cc85c5e1cfa4ff9f	\\xaedd23a98f1d25a9cc85c5e1cfa4ff9f	\\xaedd23a98f1d25a9cc85c5e1cfa4ff9f	25066	255
+321	2023-01-20 13:31:50.589437+01	\\x0004a30b00fa3a2f	\\x0000000000000000	\\x01eff036	\\xfe1ed5f5116d93674f94141717bb203f	\\xfe1ed5f5116d93674f94141717bb203f	\\xfe1ed5f5116d93674f94141717bb203f	18026	255
+322	2023-01-20 13:31:53.041945+01	\\x0004a30b00fa2d06	\\x0000000000000000	\\x01e2dd88	\\x876fe94ed1a36c9e9f75b46a513c9f55	\\x876fe94ed1a36c9e9f75b46a513c9f55	\\x876fe94ed1a36c9e9f75b46a513c9f55	16494	255
+323	2023-01-20 13:32:12.055317+01	\\x0004a30b00f9d57a	\\x0000000000000000	\\x0093565a	\\xb011d9272cebe201fc015e4171593049	\\xb011d9272cebe201fc015e4171593049	\\xb011d9272cebe201fc015e4171593049	22647	255
+324	2023-01-20 13:32:16.793379+01	\\x0004a30b00fa2d06	\\x0000000000000000	\\x01fb50f0	\\x7f65fe1559f36da833cf56b7633c0ef3	\\x7f65fe1559f36da833cf56b7633c0ef3	\\x7f65fe1559f36da833cf56b7633c0ef3	31757	255
+325	2023-01-20 13:32:48.436738+01	\\x0004a30b00f9bf2b	\\x0000000000000000	\\x014cd5e1	\\x042dba33fa753fe24f4c8051536db6cf	\\x042dba33fa753fe24f4c8051536db6cf	\\x042dba33fa753fe24f4c8051536db6cf	20376	255
+326	2023-01-20 13:33:11.78968+01	\\x0004a30b00ffdef0	\\x0000000000000000	\\x0192e037	\\x0573e0195482b778d888f7c2792a54c1	\\x0573e0195482b778d888f7c2792a54c1	\\x0573e0195482b778d888f7c2792a54c1	12589	255
+327	2023-01-20 13:33:24.502273+01	\\x0004a30b00f9fbbe	\\x0000000000000000	\\x0192191a	\\xea1cac3aa6dc6200531d5e460d527ff2	\\xea1cac3aa6dc6200531d5e460d527ff2	\\xea1cac3aa6dc6200531d5e460d527ff2	1725	255
+328	2023-01-20 13:33:53.595093+01	\\x0004a30b01002540	\\x0000000000000000	\\x00dcbb9c	\\xa92b169f03b1cb540703d7c777427a6b	\\xa92b169f03b1cb540703d7c777427a6b	\\xa92b169f03b1cb540703d7c777427a6b	24315	255
+329	2023-01-20 13:34:00.531077+01	\\x0004a30b00fa110d	\\x0000000000000000	\\x01d8d510	\\x10bd111958c1c9547cebb40496678e01	\\x10bd111958c1c9547cebb40496678e01	\\x10bd111958c1c9547cebb40496678e01	27384	255
+330	2023-01-20 13:34:12.696033+01	\\x0004a30b00f9d594	\\x0000000000000000	\\x013be002	\\xb0552567e6e1a5c912bf08502d661b0f	\\xb0552567e6e1a5c912bf08502d661b0f	\\xb0552567e6e1a5c912bf08502d661b0f	2177	255
+331	2023-01-20 13:34:14.013796+01	\\x0004a30b00fa402b	\\x0000000000000000	\\x00096dc3	\\x9ca98de260193cdd0023c22174ccdbc9	\\x9ca98de260193cdd0023c22174ccdbc9	\\x9ca98de260193cdd0023c22174ccdbc9	6000	255
+332	2023-01-20 13:34:17.122665+01	\\x0004a30b00f9f4c6	\\x0000000000000000	\\x00d2b937	\\x6a2e603d5f397837620f82f19d10ae37	\\x6a2e603d5f397837620f82f19d10ae37	\\x6a2e603d5f397837620f82f19d10ae37	13696	255
+333	2023-01-20 13:35:00.841485+01	\\x0004a30b00f9dbc6	\\x0000000000000000	\\x01c1d200	\\x2b4a314aa18e0eea9521738f743dea4f	\\x2b4a314aa18e0eea9521738f743dea4f	\\x2b4a314aa18e0eea9521738f743dea4f	31979	255
+334	2023-01-20 13:35:11.88357+01	\\x0004a30b00f98573	\\x0000000000000000	\\x01e41922	\\x7b2270ce56addb6568c84a83fc79338d	\\x7b2270ce56addb6568c84a83fc79338d	\\x7b2270ce56addb6568c84a83fc79338d	25487	255
+335	2023-01-20 13:35:42.094161+01	\\x0004a30b00f99740	\\x0000000000000000	\\x00d17ac2	\\x712e48178aea144e646f36b3970307f2	\\x712e48178aea144e646f36b3970307f2	\\x712e48178aea144e646f36b3970307f2	25157	255
+336	2023-01-20 13:35:46.342773+01	\\x0004a30b00fa0ffc	\\x0000000000000000	\\x003ea28e	\\xc94668f14e84cdd74b5982090f3e191b	\\xc94668f14e84cdd74b5982090f3e191b	\\xc94668f14e84cdd74b5982090f3e191b	4250	255
+337	2023-01-20 13:36:11.032464+01	\\x0004a30b00ffc7ae	\\x0000000000000000	\\x01a4e8cd	\\x1a724031afeab25ade787c957f962a29	\\x1a724031afeab25ade787c957f962a29	\\x1a724031afeab25ade787c957f962a29	23842	255
+338	2023-01-20 13:37:19.115488+01	\\x0004a30b00fe029f	\\x0000000000000000	\\x00fbac37	\\xc5b343bcca2f5d6fd7bb4519c53ab6b0	\\xc5b343bcca2f5d6fd7bb4519c53ab6b0	\\xc5b343bcca2f5d6fd7bb4519c53ab6b0	27965	255
+339	2023-01-20 13:37:37.973241+01	\\x0004a30b00fa3202	\\x0000000000000000	\\x01e34610	\\x47a6ca60aa44b5793896df222dd1d9ae	\\x47a6ca60aa44b5793896df222dd1d9ae	\\x47a6ca60aa44b5793896df222dd1d9ae	15478	255
+340	2023-01-20 13:37:58.639456+01	\\x0004a30b00f98da1	\\x0000000000000000	\\x01e5f870	\\x613e908b6d86f22420c8acf19cefa6b0	\\x613e908b6d86f22420c8acf19cefa6b0	\\x613e908b6d86f22420c8acf19cefa6b0	2466	255
+341	2023-01-20 13:38:06.897114+01	\\x0004a30b00ffc7ae	\\x0000000000000000	\\x00213fbe	\\x224abf203edc1e4e1848102e1b1b1b2e	\\x224abf203edc1e4e1848102e1b1b1b2e	\\x224abf203edc1e4e1848102e1b1b1b2e	31835	255
+342	2023-01-20 13:38:11.833684+01	\\x0004a30b00fa0ffc	\\x0000000000000000	\\x00b80a88	\\xb9dd6b208b6e83af2b19b64a7cf938c3	\\xb9dd6b208b6e83af2b19b64a7cf938c3	\\xb9dd6b208b6e83af2b19b64a7cf938c3	19655	255
+343	2023-01-20 13:38:23.555484+01	\\x0004a30b00fdcce1	\\x0000000000000000	\\x00b01c34	\\x3e6db33aa30e12cd6c93acbb4d8bbdf3	\\x3e6db33aa30e12cd6c93acbb4d8bbdf3	\\x3e6db33aa30e12cd6c93acbb4d8bbdf3	13319	255
+344	2023-01-20 13:38:29.7114+01	\\x0004a30b00fa31f0	\\x0000000000000000	\\x010516ed	\\xc74940513a50c6c5412c74bd0c256ab6	\\xc74940513a50c6c5412c74bd0c256ab6	\\xc74940513a50c6c5412c74bd0c256ab6	10225	255
+345	2023-01-20 13:38:48.834682+01	\\x0004a30b00f986d5	\\x0000000000000000	\\x017a572e	\\xf57548d940556e91afaad5dbbef0c157	\\xf57548d940556e91afaad5dbbef0c157	\\xf57548d940556e91afaad5dbbef0c157	4044	255
+346	2023-01-20 13:38:56.523407+01	\\x0004a30b00f99740	\\x0000000000000000	\\x00e11be0	\\x9944a29db1c4d6b6bbaf2303585811a6	\\x9944a29db1c4d6b6bbaf2303585811a6	\\x9944a29db1c4d6b6bbaf2303585811a6	10895	255
+347	2023-01-20 13:39:10.377057+01	\\x0004a30b00f98573	\\x0000000000000000	\\x0023beae	\\x53018ed7bb567e02bc18eb215b8b2ba6	\\x53018ed7bb567e02bc18eb215b8b2ba6	\\x53018ed7bb567e02bc18eb215b8b2ba6	8078	255
+348	2023-01-20 13:39:13.111757+01	\\x0004a30b00fa130e	\\x0000000000000000	\\x019495c4	\\x6a3ca1ffadf3ff4dd9b071f835ec89f5	\\x6a3ca1ffadf3ff4dd9b071f835ec89f5	\\x6a3ca1ffadf3ff4dd9b071f835ec89f5	28832	255
+349	2023-01-20 13:39:19.159774+01	\\x0004a30b00fa26d3	\\x0000000000000000	\\x00040d9e	\\xe493dcb0c45948af4f0cb70f3f5f7225	\\xe493dcb0c45948af4f0cb70f3f5f7225	\\xe493dcb0c45948af4f0cb70f3f5f7225	26866	255
+350	2023-01-20 13:39:22.225639+01	\\x0004a30b00f98b5c	\\x0000000000000000	\\x01d040c9	\\xdeb8e1088bd5b02be7624c22144faeee	\\xdeb8e1088bd5b02be7624c22144faeee	\\xdeb8e1088bd5b02be7624c22144faeee	32502	255
+351	2023-01-20 13:39:29.227595+01	\\x0004a30b00f9d41f	\\x0000000000000000	\\x0082cd06	\\xda670ed848f684d6531673c2ceab7fa5	\\xda670ed848f684d6531673c2ceab7fa5	\\xda670ed848f684d6531673c2ceab7fa5	15865	255
+352	2023-01-20 13:39:32.799936+01	\\x0004a30b00f9f4c6	\\x0000000000000000	\\x00ec1a35	\\x5cd6099717be6b27cd97f7c670a12e95	\\x5cd6099717be6b27cd97f7c670a12e95	\\x5cd6099717be6b27cd97f7c670a12e95	30490	255
+353	2023-01-20 13:39:47.019348+01	\\x0004a30b01002540	\\x0000000000000000	\\x01b936ec	\\x6d1a1633cc54fc4f574d098a902a45e5	\\x6d1a1633cc54fc4f574d098a902a45e5	\\x6d1a1633cc54fc4f574d098a902a45e5	6717	255
+354	2023-01-20 13:39:47.905075+01	\\x0004a30b00f9cf46	\\x0000000000000000	\\x00984286	\\xbbcfc6e742d763f066c8c633869c41cd	\\xbbcfc6e742d763f066c8c633869c41cd	\\xbbcfc6e742d763f066c8c633869c41cd	27871	255
+355	2023-01-20 13:40:04.197105+01	\\x0004a30b00f9d65f	\\x0000000000000000	\\x01450e89	\\x33b9427d638084e2695d34937493c934	\\x33b9427d638084e2695d34937493c934	\\x33b9427d638084e2695d34937493c934	14693	255
+356	2023-01-20 13:40:06.585716+01	\\x0004a30b00fa17b4	\\x0000000000000000	\\x01c2ebe2	\\x2f2925eec6a7fc4fa02fc7bcec3d765a	\\x2f2925eec6a7fc4fa02fc7bcec3d765a	\\x2f2925eec6a7fc4fa02fc7bcec3d765a	20122	255
+357	2023-01-20 13:40:14.470961+01	\\x0004a30b00f9cfe5	\\x0000000000000000	\\x0038ff99	\\x5ba08aa744859fc61b884645adb22039	\\x5ba08aa744859fc61b884645adb22039	\\x5ba08aa744859fc61b884645adb22039	5212	255
+358	2023-01-20 13:40:21.68479+01	\\x0004a30b00fa3a2f	\\x0000000000000000	\\x01047218	\\x7f0d2adf35bced1d0f25d444eeaa8665	\\x7f0d2adf35bced1d0f25d444eeaa8665	\\x7f0d2adf35bced1d0f25d444eeaa8665	7060	255
+359	2023-01-20 13:40:31.497023+01	\\x0004a30b00ffdef0	\\x0000000000000000	\\x01731d58	\\x40f3ca62f2536cf27a2fe0ff6d51a852	\\x40f3ca62f2536cf27a2fe0ff6d51a852	\\x40f3ca62f2536cf27a2fe0ff6d51a852	30365	255
+360	2023-01-20 13:40:31.89823+01	\\x0004a30b00f9bf2b	\\x0000000000000000	\\x0063b6af	\\x54d6d5ce3cc7deca41f80f9f724fe33d	\\x54d6d5ce3cc7deca41f80f9f724fe33d	\\x54d6d5ce3cc7deca41f80f9f724fe33d	20849	255
+361	2023-01-20 13:40:35.711195+01	\\x0004a30b00f9f1b7	\\x0000000000000000	\\x001b20d2	\\x2dd16829ad6c7d633e0ef49e0fb417b6	\\x2dd16829ad6c7d633e0ef49e0fb417b6	\\x2dd16829ad6c7d633e0ef49e0fb417b6	4773	255
+362	2023-01-20 13:41:05.674624+01	\\x0004a30b00f9d57a	\\x0000000000000000	\\x01aa0863	\\xb9b572e2623ca710a69109341ebb494b	\\xb9b572e2623ca710a69109341ebb494b	\\xb9b572e2623ca710a69109341ebb494b	29164	255
+363	2023-01-20 13:41:12.586138+01	\\x0004a30b00fa110d	\\x0000000000000000	\\x0078c01a	\\xe358a75d2567a4b26d119e2fb07faf4a	\\xe358a75d2567a4b26d119e2fb07faf4a	\\xe358a75d2567a4b26d119e2fb07faf4a	29894	255
+364	2023-01-20 13:41:20.375714+01	\\x0004a30b00fa2d06	\\x0000000000000000	\\x01faa9c7	\\xd9ed5e0a84435c4d7c389fb7585c25bc	\\xd9ed5e0a84435c4d7c389fb7585c25bc	\\xd9ed5e0a84435c4d7c389fb7585c25bc	24801	255
+365	2023-01-20 13:41:49.743168+01	\\x0004a30b00fa4305	\\x0000000000000000	\\x00bd3b59	\\xb2d21531789627edb32b46e52e23d992	\\xb2d21531789627edb32b46e52e23d992	\\xb2d21531789627edb32b46e52e23d992	9084	255
+366	2023-01-20 13:42:18.952993+01	\\x0004a30b00f9fbbe	\\x0000000000000000	\\x0119cf52	\\xb11b3ebae5bd8b1e8095c26bd4ebb8c8	\\xb11b3ebae5bd8b1e8095c26bd4ebb8c8	\\xb11b3ebae5bd8b1e8095c26bd4ebb8c8	3745	255
+367	2023-01-20 13:42:44.8092+01	\\x0004a30b00fa402b	\\x0000000000000000	\\x0194aac1	\\xae9cb2508ec6f07e93698b7adcee5c4b	\\xae9cb2508ec6f07e93698b7adcee5c4b	\\xae9cb2508ec6f07e93698b7adcee5c4b	21620	255
+368	2023-01-20 13:43:04.438883+01	\\x0004a30b00f9ee8f	\\x0000000000000000	\\x019073cd	\\x1a5d8586ec96323da86afd02bb626551	\\x1a5d8586ec96323da86afd02bb626551	\\x1a5d8586ec96323da86afd02bb626551	32513	255
+369	2023-01-20 13:43:06.305711+01	\\x0004a30b00f9d594	\\x0000000000000000	\\x00260c55	\\x808726d3638d7def7dd474a2bf67e4da	\\x808726d3638d7def7dd474a2bf67e4da	\\x808726d3638d7def7dd474a2bf67e4da	19648	255
+370	2023-01-20 13:43:57.479374+01	\\x0004a30b00f9dbc6	\\x0000000000000000	\\x01b0c62d	\\xdf9031d65057f472bb0f2631e599d234	\\xdf9031d65057f472bb0f2631e599d234	\\xdf9031d65057f472bb0f2631e599d234	13830	255
+371	2023-01-20 13:44:10.469785+01	\\x0004a30b00fa3202	\\x0000000000000000	\\x0157b6b5	\\x772e40e42ee8b342f29dc9960e3bdb84	\\x772e40e42ee8b342f29dc9960e3bdb84	\\x772e40e42ee8b342f29dc9960e3bdb84	8376	255
+372	2023-01-20 13:44:26.177241+01	\\x0004a30b00f9bddf	\\x0000000000000000	\\x01ded390	\\x3f5f3aeb9a4b7981dc7e7b201ad2f81d	\\x3f5f3aeb9a4b7981dc7e7b201ad2f81d	\\x3f5f3aeb9a4b7981dc7e7b201ad2f81d	21725	255
+375	2023-01-20 13:45:05.903225+01	\\x0004a30b00fa0c5d	\\x0000000000000000	\\x00fbbd9f	\\x80b2f714eb6e9b0f9e3f67b6521d6d50	\\x80b2f714eb6e9b0f9e3f67b6521d6d50	\\x80b2f714eb6e9b0f9e3f67b6521d6d50	6839	255
+378	2023-01-20 13:46:24.880001+01	\\x0004a30b00fa2776	\\x0000000000000000	\\x01b8ce35	\\xc7f32425ce3892ca4bfcaa44e7e6ea76	\\xc7f32425ce3892ca4bfcaa44e7e6ea76	\\xc7f32425ce3892ca4bfcaa44e7e6ea76	4994	255
+379	2023-01-20 13:46:25.139759+01	\\x0004a30b00f99921	\\x0000000000000000	\\x00382462	\\xaeb36013e794d03ec0875155b26a37c4	\\xaeb36013e794d03ec0875155b26a37c4	\\xaeb36013e794d03ec0875155b26a37c4	18091	255
+381	2023-01-20 13:47:05.654294+01	\\x0004a30b00f98da1	\\x0000000000000000	\\x0170029a	\\x7728fa650bd0998c4e2ce3a0a2123a1a	\\x7728fa650bd0998c4e2ce3a0a2123a1a	\\x7728fa650bd0998c4e2ce3a0a2123a1a	31674	255
+382	2023-01-20 13:47:08.316709+01	\\x0004a30b00f9f9ab	\\x0000000000000000	\\x010c0408	\\x2530e2ebdfa8c0b00f51a11b4a3f63f8	\\x2530e2ebdfa8c0b00f51a11b4a3f63f8	\\x2530e2ebdfa8c0b00f51a11b4a3f63f8	9359	255
+383	2023-01-20 13:47:31.579147+01	\\x0004a30b00fa2fdc	\\x0000000000000000	\\x00fddd3e	\\xf6a16c16bee1f75f5dba15b631d2162b	\\xf6a16c16bee1f75f5dba15b631d2162b	\\xf6a16c16bee1f75f5dba15b631d2162b	15867	255
+384	2023-01-20 13:47:40.960236+01	\\x0004a30b00f9dc30	\\x0000000000000000	\\x007a9353	\\x36b61f72facef00c0f959ec2a1a165fa	\\x36b61f72facef00c0f959ec2a1a165fa	\\x36b61f72facef00c0f959ec2a1a165fa	27130	255
+385	2023-01-20 13:47:50.321874+01	\\x0004a30b00fa1241	\\x0000000000000000	\\x00491b58	\\x1174bf4b60d645923ad270bc37d04e4c	\\x1174bf4b60d645923ad270bc37d04e4c	\\x1174bf4b60d645923ad270bc37d04e4c	7292	255
+373	2023-01-20 13:44:41.985251+01	\\x0004a30b00fe029f	\\x0000000000000000	\\x0157ae9e	\\xc459b5fb4f04834de0da7027ecbb19b1	\\xc459b5fb4f04834de0da7027ecbb19b1	\\xc459b5fb4f04834de0da7027ecbb19b1	14588	255
+374	2023-01-20 13:44:46.245572+01	\\x0004a30b00f9f570	\\x0000000000000000	\\x012cb175	\\x81a3d9fe99dc9c37a25fbc44274252b5	\\x81a3d9fe99dc9c37a25fbc44274252b5	\\x81a3d9fe99dc9c37a25fbc44274252b5	30831	255
+376	2023-01-20 13:45:30.393535+01	\\x0004a30b00fa3a90	\\x0000000000000000	\\x0198275e	\\xb9d0b2d50a5f73ce5102a702e48d341e	\\xb9d0b2d50a5f73ce5102a702e48d341e	\\xb9d0b2d50a5f73ce5102a702e48d341e	31574	255
+377	2023-01-20 13:45:36.334302+01	\\x0004a30b00fe251b	\\x0000000000000000	\\x01ed8ce3	\\x9a05c9794de15239428003ce8f7de8cb	\\x9a05c9794de15239428003ce8f7de8cb	\\x9a05c9794de15239428003ce8f7de8cb	13787	255
+380	2023-01-20 13:46:59.0375+01	\\x0004a30b00f9d41f	\\x0000000000000000	\\x00f15a1c	\\x7a484c1e0e84f99ac8eb64455c0aae4f	\\x7a484c1e0e84f99ac8eb64455c0aae4f	\\x7a484c1e0e84f99ac8eb64455c0aae4f	301	255
+386	2023-01-20 13:48:43.20353+01	\\x0004a30b00f9a2b9	\\x0000000000000000	\\x0180529a	\\x154c77bc520b8460dd4e8de23173a9c1	\\x154c77bc520b8460dd4e8de23173a9c1	\\x154c77bc520b8460dd4e8de23173a9c1	15304	255
+387	2023-01-20 13:49:09.864445+01	\\x0004a30b00f9bf48	\\x0000000000000000	\\x012ea6d3	\\x812bbc3d947197cd92aac918019dea85	\\x812bbc3d947197cd92aac918019dea85	\\x812bbc3d947197cd92aac918019dea85	23638	255
+388	2023-01-20 13:49:43.724333+01	\\x0004a30b00f986d5	\\x0000000000000000	\\x01186bf1	\\x18d7878ae4fa91f60c0bde14fef900e5	\\x18d7878ae4fa91f60c0bde14fef900e5	\\x18d7878ae4fa91f60c0bde14fef900e5	3239	255
+389	2023-01-20 13:49:50.702065+01	\\x0004a30b00fa41e8	\\x0000000000000000	\\x01a526d6	\\x2d4e76e1ac6afd76b4d19f5f1f3716fb	\\x2d4e76e1ac6afd76b4d19f5f1f3716fb	\\x2d4e76e1ac6afd76b4d19f5f1f3716fb	8406	255
+390	2023-01-20 13:50:06.130703+01	\\x0004a30b00fa130e	\\x0000000000000000	\\x000d0228	\\xd589b6fab55b0e58d3ccfdc0a35066e7	\\xd589b6fab55b0e58d3ccfdc0a35066e7	\\xd589b6fab55b0e58d3ccfdc0a35066e7	3522	255
+391	2023-01-20 13:50:13.318871+01	\\x0004a30b01005249	\\x0000000000000000	\\x01088558	\\xac569891cfc25b00618823b862d3ee29	\\xac569891cfc25b00618823b862d3ee29	\\xac569891cfc25b00618823b862d3ee29	20527	255
+392	2023-01-20 13:50:30.262956+01	\\x0004a30b00f9d668	\\x0000000000000000	\\x00fc8305	\\xbcff3247a0180ae6f6c8b9ae62e0705c	\\xbcff3247a0180ae6f6c8b9ae62e0705c	\\xbcff3247a0180ae6f6c8b9ae62e0705c	16328	255
+393	2023-01-20 13:50:34.232584+01	\\x0004a30b00f9d4b8	\\x0000000000000000	\\x002068d1	\\xf4105c4e5ee2b30484c14725c6b0d3e9	\\xf4105c4e5ee2b30484c14725c6b0d3e9	\\xf4105c4e5ee2b30484c14725c6b0d3e9	20307	255
+394	2023-01-20 13:50:42.968317+01	\\x0004a30b00f9cf46	\\x0000000000000000	\\x016c6a30	\\x35aad2ac621207b979eef1b8c5d190aa	\\x35aad2ac621207b979eef1b8c5d190aa	\\x35aad2ac621207b979eef1b8c5d190aa	23325	255
+395	2023-01-20 13:50:52.760385+01	\\x0004a30b00fa130e	\\x0000000000000000	\\x0004cf5c	\\xd6cb192e3c6221f534537de1fe028eff	\\xd6cb192e3c6221f534537de1fe028eff	\\xd6cb192e3c6221f534537de1fe028eff	883	255
+396	2023-01-20 13:50:59.045517+01	\\x0004a30b00f9d65f	\\x0000000000000000	\\x0086d794	\\x11cd1fe011d8e7cff90552e4bebc172b	\\x11cd1fe011d8e7cff90552e4bebc172b	\\x11cd1fe011d8e7cff90552e4bebc172b	20336	255
+397	2023-01-20 13:51:14.848175+01	\\x0004a30b00f998a3	\\x0000000000000000	\\x01bc9f47	\\x4f3a22c4a57964c056ff2fba0c17cee0	\\x4f3a22c4a57964c056ff2fba0c17cee0	\\x4f3a22c4a57964c056ff2fba0c17cee0	1082	255
+398	2023-01-20 13:51:27.327451+01	\\x0004a30b00f986d5	\\x0000000000000000	\\x0076f12b	\\x86ef36cd10f63da29cdc95068e80ee44	\\x86ef36cd10f63da29cdc95068e80ee44	\\x86ef36cd10f63da29cdc95068e80ee44	27476	255
+399	2023-01-20 13:51:29.978797+01	\\x0004a30b00f9f1b7	\\x0000000000000000	\\x00cf0389	\\x6e23b013cbfa996cea8bf501a75661c5	\\x6e23b013cbfa996cea8bf501a75661c5	\\x6e23b013cbfa996cea8bf501a75661c5	8983	255
+400	2023-01-20 13:51:47.723279+01	\\x0004a30b00f9cf46	\\x0000000000000000	\\x005d3738	\\x006e53a42ba2064ed3d135ed51c7d727	\\x006e53a42ba2064ed3d135ed51c7d727	\\x006e53a42ba2064ed3d135ed51c7d727	12034	255
+401	2023-01-20 13:52:25.492861+01	\\x0004a30b00f9d65f	\\x0000000000000000	\\x0069c3e0	\\xf9ae85b3ae6655357fa3e400fcbcd922	\\xf9ae85b3ae6655357fa3e400fcbcd922	\\xf9ae85b3ae6655357fa3e400fcbcd922	10120	255
+403	2023-01-20 13:52:54.971392+01	\\x0004a30b00f9f292	\\x0000000000000000	\\x01fe788c	\\xb9a9e5521399e9ce77d26b7b89ce3c08	\\xb9a9e5521399e9ce77d26b7b89ce3c08	\\xb9a9e5521399e9ce77d26b7b89ce3c08	9087	255
+404	2023-01-20 13:52:59.379237+01	\\x0004a30b00f9f1b7	\\x0000000000000000	\\x006887c9	\\xf947d01c75a3298d167f517ddf98f030	\\xf947d01c75a3298d167f517ddf98f030	\\xf947d01c75a3298d167f517ddf98f030	19252	255
+405	2023-01-20 14:48:35.875561+01	\\x0004a30b00fcd5f5	\\x0000000000000000	\\x004041ea	\\x428e46f696e4c813873417270918dde3	\\x428e46f696e4c813873417270918dde3	\\x428e46f696e4c813873417270918dde3	13531	255
+406	2023-01-21 08:56:55.883702+01	\\x0004a30b00ffc930	\\x0000000000000000	\\x01af433d	\\x975658b4b5ca729ebcc54b1f0d81fc77	\\x975658b4b5ca729ebcc54b1f0d81fc77	\\x975658b4b5ca729ebcc54b1f0d81fc77	12426	255
+407	2023-01-21 08:57:12.306812+01	\\x0004a30b00ffc930	\\x0000000000000000	\\x01b30322	\\xfac7d888ac5577b6aaa6d6ddbf6b47cb	\\xfac7d888ac5577b6aaa6d6ddbf6b47cb	\\xfac7d888ac5577b6aaa6d6ddbf6b47cb	24739	255
+410	2023-01-22 08:52:05.869245+01	\\x0004a30b00ffc930	\\x0000000000000000	\\x00a6cbe6	\\x840027eb97dbc3a5beedf2285d0b48b4	\\x840027eb97dbc3a5beedf2285d0b48b4	\\x840027eb97dbc3a5beedf2285d0b48b4	12114	255
+412	2023-01-23 08:50:36.502483+01	\\x0004a30b00ffc930	\\x0000000000000000	\\x003cc8fe	\\xbc706efcd6ef0a5d944dfdba1d3e4672	\\xbc706efcd6ef0a5d944dfdba1d3e4672	\\xbc706efcd6ef0a5d944dfdba1d3e4672	22699	255
+414	2023-01-24 08:48:27.135837+01	\\x0004a30b00ffc930	\\x0000000000000000	\\x01383117	\\x00acdda67d322d3e6aec9870358cd630	\\x00acdda67d322d3e6aec9870358cd630	\\x00acdda67d322d3e6aec9870358cd630	25199	255
+416	2023-01-24 13:39:11.854416+01	\\x0004a30b00fcd5f5	\\x0000000000000000	\\x0081b0eb	\\xcabaf120b6ea6e49608b20facbb279fd	\\xcabaf120b6ea6e49608b20facbb279fd	\\xcabaf120b6ea6e49608b20facbb279fd	7404	255
+418	2023-01-24 14:13:37.864303+01	\\x0004a30b00fcd5f5	\\x0000000000000000	\\x00dba52b	\\x72b71125271a8b5bcc7c5a130eef16f5	\\x72b71125271a8b5bcc7c5a130eef16f5	\\x72b71125271a8b5bcc7c5a130eef16f5	9919	255
+419	2023-01-24 14:21:36.296726+01	\\x0004a30b00fa31f0	\\x0000000000000000	\\x0110cd97	\\x2c4587484aab1a58057ac41592e40eb8	\\x2c4587484aab1a58057ac41592e40eb8	\\x2c4587484aab1a58057ac41592e40eb8	14504	255
+420	2023-01-24 14:35:09.418329+01	\\x0004a30b00fa11fe	\\x0000000000000000	\\x0186cbfb	\\xe695d62bbe7b75227f5395926f258537	\\xe695d62bbe7b75227f5395926f258537	\\xe695d62bbe7b75227f5395926f258537	29448	255
+421	2023-01-24 14:36:13.889405+01	\\x0004a30b00fa11fe	\\x0000000000000000	\\x017ca151	\\x43daae4df82ee96f2067c70d32e44399	\\x43daae4df82ee96f2067c70d32e44399	\\x43daae4df82ee96f2067c70d32e44399	9888	255
+423	2023-01-25 08:42:25.887775+01	\\x0004a30b00ffc930	\\x0000000000000000	\\x007f1c10	\\xcce7368be3acfc1beb21509fbe1f4ba8	\\xcce7368be3acfc1beb21509fbe1f4ba8	\\xcce7368be3acfc1beb21509fbe1f4ba8	12143	255
+424	2023-01-26 10:51:54.42315+01	\\x0004a30b00ffc930	\\x0000000000000000	\\x0057befd	\\x9041b01bef9126e2013ef59e5704bb3b	\\x9041b01bef9126e2013ef59e5704bb3b	\\x9041b01bef9126e2013ef59e5704bb3b	4622	255
+427	2023-01-27 11:11:14.046239+01	\\x0004a30b010036b1	\\x0000000000000000	\\x007f1f89	\\xef895709e76264deb7d45e41308af75d	\\xef895709e76264deb7d45e41308af75d	\\xef895709e76264deb7d45e41308af75d	5923	255
+428	2023-01-27 11:32:47.534357+01	\\x0004a30b00fa3a90	\\x0000000000000000	\\x01f11d4c	\\x3dd0bfde8925393ac4e02d18c6a5d8d2	\\x3dd0bfde8925393ac4e02d18c6a5d8d2	\\x3dd0bfde8925393ac4e02d18c6a5d8d2	19915	255
+429	2023-01-27 11:41:16.816129+01	\\x0004a30b00f99921	\\x0000000000000000	\\x018606e8	\\x798579be6ea066babb326dcf6f3b6d15	\\x798579be6ea066babb326dcf6f3b6d15	\\x798579be6ea066babb326dcf6f3b6d15	5596	255
+430	2023-01-27 11:56:43.887527+01	\\x0004a30b00ffd35c	\\x0000000000000000	\\x0189de78	\\x1982eab28b4e1b23b68bc12c7a8e27e9	\\x1982eab28b4e1b23b68bc12c7a8e27e9	\\x1982eab28b4e1b23b68bc12c7a8e27e9	31847	255
+431	2023-01-27 11:58:13.004496+01	\\x0004a30b00fa31f0	\\x0000000000000000	\\x00ad5d60	\\x8e3d11e7b1966e911584b13b4fd20224	\\x8e3d11e7b1966e911584b13b4fd20224	\\x8e3d11e7b1966e911584b13b4fd20224	10889	255
+432	2023-01-27 12:28:51.246074+01	\\x0004a30b00fdcce1	\\x0000000000000000	\\x010f9279	\\xee4d444e1f8bd95a83942a7da3361c7e	\\xee4d444e1f8bd95a83942a7da3361c7e	\\xee4d444e1f8bd95a83942a7da3361c7e	1558	255
+433	2023-01-31 13:33:18.603986+01	\\x0004a30b00fa16a2	\\x0000000000000000	\\x008ab7a0	\\x14faab005f9fac22db40976ba760f4e0	\\x14faab005f9fac22db40976ba760f4e0	\\x14faab005f9fac22db40976ba760f4e0	8027	255
+434	2023-01-31 13:35:06.384931+01	\\x0004a30b00ffab35	\\x0000000000000000	\\x0154d317	\\xb6c4e0ca2021e7072a06bee6dd881c3a	\\xb6c4e0ca2021e7072a06bee6dd881c3a	\\xb6c4e0ca2021e7072a06bee6dd881c3a	23476	255
+436	2023-01-31 13:49:54.555503+01	\\x0004a30b01002eb2	\\x0000000000000000	\\x01850463	\\x1bcfe5a6d886ba55c81136e738ee4d90	\\x1bcfe5a6d886ba55c81136e738ee4d90	\\x1bcfe5a6d886ba55c81136e738ee4d90	10329	255
+438	2023-01-31 14:21:31.858106+01	\\x0004a30b01002540	\\x0000000000000000	\\x003a9385	\\x2f88bf9d42ad847d292989a504bfd829	\\x2f88bf9d42ad847d292989a504bfd829	\\x2f88bf9d42ad847d292989a504bfd829	31136	255
+439	2023-01-31 14:38:40.309196+01	\\x0004a30b01004a5f	\\x0000000000000000	\\x0126c621	\\xc14bd6eaa11b85f6245151f4673bd5d8	\\xc14bd6eaa11b85f6245151f4673bd5d8	\\xc14bd6eaa11b85f6245151f4673bd5d8	23909	255
+440	2023-01-31 14:39:06.729926+01	\\x0004a30b01004a5f	\\x0000000000000000	\\x01596032	\\x628b1bb7b0cfd075d642e4678d3aec0c	\\x628b1bb7b0cfd075d642e4678d3aec0c	\\x628b1bb7b0cfd075d642e4678d3aec0c	16500	255
+441	2023-01-31 14:43:53.946341+01	\\x0004a30b00fcf09b	\\x0000000000000000	\\x003282d3	\\x08d6ed894a0e5958cb7fa7a2403c2ab6	\\x08d6ed894a0e5958cb7fa7a2403c2ab6	\\x08d6ed894a0e5958cb7fa7a2403c2ab6	25242	255
+444	2023-02-02 11:27:49.894687+01	\\x0004a30b00fa2fc0	\\x0000000000000000	\\x01c74ab0	\\xabc700b50bad62940deda30fc22f0996	\\xabc700b50bad62940deda30fc22f0996	\\xabc700b50bad62940deda30fc22f0996	22935	255
+445	2023-02-02 11:45:22.379466+01	\\x0004a30b00fcd5f5	\\x0000000000000000	\\x00e7068c	\\x1e7b00189ee290b03a4abdacb8006cec	\\x1e7b00189ee290b03a4abdacb8006cec	\\x1e7b00189ee290b03a4abdacb8006cec	6138	255
+446	2023-02-02 11:49:28.979832+01	\\x0004a30b00fcd5f5	\\x0000000000000000	\\x0043fe56	\\x1caf73954d3d052a604392ae21a711a2	\\x1caf73954d3d052a604392ae21a711a2	\\x1caf73954d3d052a604392ae21a711a2	6618	255
+447	2023-02-02 12:13:20.038803+01	\\x0004a30b00fe029f	\\x0000000000000000	\\x00972cd0	\\x6250290965545a6a498a6021cd8f5852	\\x6250290965545a6a498a6021cd8f5852	\\x6250290965545a6a498a6021cd8f5852	13985	255
+448	2023-02-02 12:44:37.765855+01	\\x0004a30b00fdcce1	\\x0000000000000000	\\x005d133f	\\xffa174c6425195d166e8b14c8b90c683	\\xffa174c6425195d166e8b14c8b90c683	\\xffa174c6425195d166e8b14c8b90c683	20730	255
+449	2023-02-02 13:00:13.49076+01	\\x0004a30b00ffc8ee	\\x0000000000000000	\\x00edc36e	\\x1fbdcba534b7c868530dfebfc2430259	\\x1fbdcba534b7c868530dfebfc2430259	\\x1fbdcba534b7c868530dfebfc2430259	16929	255
+451	2023-02-02 13:25:53.517559+01	\\x0004a30b00ffc930	\\x0000000000000000	\\x01472846	\\x5175189716dae00cb99efdb54da3c343	\\x5175189716dae00cb99efdb54da3c343	\\x5175189716dae00cb99efdb54da3c343	2833	255
+452	2023-02-02 13:30:00.584184+01	\\x0004a30b00f9cf46	\\x0000000000000000	\\x01a0bad9	\\xdf6e33ffd9a3725cd02e0e0cdafe7a6e	\\xdf6e33ffd9a3725cd02e0e0cdafe7a6e	\\xdf6e33ffd9a3725cd02e0e0cdafe7a6e	31536	255
+454	2023-02-10 13:07:13.789554+01	\\x0004a30b00ffd35c	\\x0000000000000000	\\x00b5ed03	\\x617ca10313e2cba4616b3c5e62e4c032	\\x617ca10313e2cba4616b3c5e62e4c032	\\x617ca10313e2cba4616b3c5e62e4c032	1567	255
+455	2023-02-10 14:03:20.349414+01	\\x0004a30b0100488b	\\x0000000000000000	\\x001cda2e	\\x84c622ce01c6e78bb74b56fa09207e4c	\\x84c622ce01c6e78bb74b56fa09207e4c	\\x84c622ce01c6e78bb74b56fa09207e4c	25517	255
+456	2023-02-13 13:33:46.98356+01	\\x0004a30b00f9d4b8	\\x0000000000000000	\\x01622574	\\xe020379f408852b8b84e030a93c813a3	\\xe020379f408852b8b84e030a93c813a3	\\xe020379f408852b8b84e030a93c813a3	487	255
+457	2023-02-13 13:33:53.270648+01	\\x0004a30b00f9d4b8	\\x0000000000000000	\\x01bee27e	\\x1029f56897a176e7cc050e9333252a19	\\x1029f56897a176e7cc050e9333252a19	\\x1029f56897a176e7cc050e9333252a19	22000	255
+458	2023-02-13 17:26:19.18367+01	\\x0004a30b01000f17	\\x0000000000000000	\\x00439203	\\xda0c56511d707023cfb2fbd6d2ff73b8	\\xda0c56511d707023cfb2fbd6d2ff73b8	\\xda0c56511d707023cfb2fbd6d2ff73b8	9175	255
+460	2023-02-16 14:14:11.165665+01	\\x0004a30b00ff551a	\\x0000000000000000	\\x0056b1c0	\\x2fbc1d99ce59034f0c2177c859b7d417	\\x2fbc1d99ce59034f0c2177c859b7d417	\\x2fbc1d99ce59034f0c2177c859b7d417	26768	255
+461	2023-02-24 12:52:27.885938+01	\\x0004a30b00ffc8ee	\\x0000000000000000	\\x01c80310	\\x021a9e788b52b03a60b8788a8eb21048	\\x021a9e788b52b03a60b8788a8eb21048	\\x021a9e788b52b03a60b8788a8eb21048	9167	255
+462	2023-02-24 12:56:02.552232+01	\\x0004a30b00ffc8ee	\\x0000000000000000	\\x008ff3dc	\\x477b490c301a13253a87256367b7f184	\\x477b490c301a13253a87256367b7f184	\\x477b490c301a13253a87256367b7f184	19018	255
+463	2023-02-24 13:09:41.424456+01	\\x0004a30b00ffc8ee	\\x0000000000000000	\\x01bf8eb1	\\xe1f874a4faff205591e07056f34b49c6	\\xe1f874a4faff205591e07056f34b49c6	\\xe1f874a4faff205591e07056f34b49c6	21616	255
+464	2023-02-24 13:12:07.914048+01	\\x0004a30b00ffc8ee	\\x0000000000000000	\\x0008c417	\\xc6fe4ea796fbf4c8c56ff7b948620668	\\xc6fe4ea796fbf4c8c56ff7b948620668	\\xc6fe4ea796fbf4c8c56ff7b948620668	22810	255
+465	2023-02-24 13:58:46.109246+01	\\x0004a30b00fcd5f5	\\x0000000000000000	\\x00b8ccff	\\xb36ecb6301c1f8ff0f15d2de3b860237	\\xb36ecb6301c1f8ff0f15d2de3b860237	\\xb36ecb6301c1f8ff0f15d2de3b860237	27891	255
+466	2023-02-24 14:06:31.858832+01	\\x0004a30b00fcd5f5	\\x0000000000000000	\\x00019bae	\\xd81bc025bc5c09a5dc57c0a152bb5984	\\xd81bc025bc5c09a5dc57c0a152bb5984	\\xd81bc025bc5c09a5dc57c0a152bb5984	11258	255
+467	2023-03-13 11:00:54.234764+01	\\x0004a30b00f9f377	\\x0000000000000000	\\x01443611	\\xa56bc2728ee7a41adeee492ad398cfed	\\xa56bc2728ee7a41adeee492ad398cfed	\\xa56bc2728ee7a41adeee492ad398cfed	28291	255
+468	2023-07-31 15:25:19.091595+02	\\x0004a30b010d1cd0	\\x0000000000000000	\\x00720904	\\x656cedb83b1c884ada302ae2f42dc892	\\x656cedb83b1c884ada302ae2f42dc892	\\x656cedb83b1c884ada302ae2f42dc892	24926	255
+469	2023-07-31 15:29:49.793971+02	\\x0004a30b010af2c3	\\x0000000000000000	\\x00fe6aaf	\\x2c4ed94f8234a19507c25d21e6e1dcf7	\\x2c4ed94f8234a19507c25d21e6e1dcf7	\\x2c4ed94f8234a19507c25d21e6e1dcf7	5576	255
+470	2023-07-31 15:31:01.986901+02	\\x0004a30b010b0ffc	\\x0000000000000000	\\x013f6356	\\x4618186fa7d10729ea267ce21aa1da55	\\x4618186fa7d10729ea267ce21aa1da55	\\x4618186fa7d10729ea267ce21aa1da55	25490	255
+471	2023-07-31 15:37:34.261219+02	\\x0004a30b010d21c1	\\x0000000000000000	\\x00572343	\\x44d9131d34bf448c05bef71097483cff	\\x44d9131d34bf448c05bef71097483cff	\\x44d9131d34bf448c05bef71097483cff	2057	255
+472	2023-07-31 15:38:54.129341+02	\\x0004a30b010aab64	\\x0000000000000000	\\x016a9a9c	\\x17bf4811693d7c0c292be2ff2611c5e7	\\x17bf4811693d7c0c292be2ff2611c5e7	\\x17bf4811693d7c0c292be2ff2611c5e7	8647	255
+473	2023-07-31 15:39:48.537254+02	\\x0004a30b010af069	\\x0000000000000000	\\x00a4a78a	\\xa152ae767294157e3e172a82e9f9e171	\\xa152ae767294157e3e172a82e9f9e171	\\xa152ae767294157e3e172a82e9f9e171	3678	255
+474	2023-07-31 15:45:11.752201+02	\\x0004a30b010d57ba	\\x0000000000000000	\\x01d74e3f	\\x80a17cf1d118aa2604db771cddefd248	\\x80a17cf1d118aa2604db771cddefd248	\\x80a17cf1d118aa2604db771cddefd248	174	255
+475	2023-07-31 15:48:13.247119+02	\\x0004a30b010ab7a0	\\x0000000000000000	\\x00f7bb9f	\\x8b1cf69f980b96ea811ca0bdaa21a86d	\\x8b1cf69f980b96ea811ca0bdaa21a86d	\\x8b1cf69f980b96ea811ca0bdaa21a86d	19594	255
+476	2023-08-08 15:47:31.301687+02	\\x0004a30b010aab64	\\x0000000000000000	\\x009eaa86	\\x61197920a4dc437643cb1e6d417105a7	\\x61197920a4dc437643cb1e6d417105a7	\\x61197920a4dc437643cb1e6d417105a7	30752	255
+477	2023-08-16 13:53:07.334107+02	\\x0004a30b010d38d0	\\x0000000000000000	\\x010ad247	\\x14b83deb09d7e29a9019ace13aff1c4e	\\x14b83deb09d7e29a9019ace13aff1c4e	\\x14b83deb09d7e29a9019ace13aff1c4e	29464	255
+\.
+
+
+--
+-- Data for Name: device_multicast_group; Type: TABLE DATA; Schema: public; Owner: chirpstack_ns
+--
+
+COPY public.device_multicast_group (dev_eui, multicast_group_id, created_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: device_profile; Type: TABLE DATA; Schema: public; Owner: chirpstack_ns
+--
+
+COPY public.device_profile (created_at, updated_at, device_profile_id, supports_class_b, class_b_timeout, ping_slot_period, ping_slot_dr, ping_slot_freq, supports_class_c, class_c_timeout, mac_version, reg_params_revision, rx_delay_1, rx_dr_offset_1, rx_data_rate_2, rx_freq_2, factory_preset_freqs, max_eirp, max_duty_cycle, supports_join, rf_region, supports_32bit_fcnt, adr_algorithm_id) FROM stdin;
+2024-02-29 10:23:03.835708+01	2024-02-29 10:23:03.835708+01	0d77f5a0-d567-4fe0-bad1-89360042cfae	f	0	0	0	0	f	0	1.0.2	RP002-1.0.2	0	0	0	0	\N	14	0	f	EU868	f	default
+2022-08-10 12:26:48.107791+02	2024-03-05 13:33:41.738263+01	3363bcd9-6520-48c6-8d9d-845608aa5e57	f	0	0	0	0	f	0	1.0.2	RP002-1.0.2	0	0	0	0	\N	14	0	t	EU868	f	default
+\.
+
+
+--
+-- Data for Name: device_queue; Type: TABLE DATA; Schema: public; Owner: chirpstack_ns
+--
+
+COPY public.device_queue (id, created_at, updated_at, dev_eui, frm_payload, f_cnt, f_port, confirmed, is_pending, timeout_after, emit_at_time_since_gps_epoch, dev_addr, retry_after) FROM stdin;
+\.
+
+
+--
+-- Data for Name: gateway; Type: TABLE DATA; Schema: public; Owner: chirpstack_ns
+--
+
+COPY public.gateway (gateway_id, created_at, updated_at, first_seen_at, last_seen_at, location, altitude, gateway_profile_id, routing_profile_id, tls_cert, service_profile_id) FROM stdin;
+\\x00800000a000c560	2023-02-01 10:20:59.067742+01	2023-02-06 15:04:33.563088+01	2023-02-01 10:21:02.526985+01	2024-05-03 13:47:17.55+02	(42.11393,-0.93775)	428	da90a1e0-195f-48eb-8787-3c49ae926f1d	6d5db27e-4ce2-4b2b-b5d7-91f069397978	\\x	540e9054-ec59-4098-8fa1-8806e7cf02d4
+\\x00800000a000c55f	2022-12-23 11:31:47.723261+01	2023-02-06 15:04:22.086774+01	2022-12-23 11:31:59.356543+01	2024-05-03 13:47:17.549968+02	(42.11393,-0.93775)	428	da90a1e0-195f-48eb-8787-3c49ae926f1d	6d5db27e-4ce2-4b2b-b5d7-91f069397978	\\x	540e9054-ec59-4098-8fa1-8806e7cf02d4
+\.
+
+
+--
+-- Data for Name: gateway_board; Type: TABLE DATA; Schema: public; Owner: chirpstack_ns
+--
+
+COPY public.gateway_board (id, gateway_id, fpga_id, fine_timestamp_key) FROM stdin;
+\.
+
+
+--
+-- Data for Name: gateway_profile; Type: TABLE DATA; Schema: public; Owner: chirpstack_ns
+--
+
+COPY public.gateway_profile (gateway_profile_id, created_at, updated_at, channels, stats_interval) FROM stdin;
+da90a1e0-195f-48eb-8787-3c49ae926f1d	2022-08-10 12:21:56.429996+02	2023-02-01 09:53:45.621318+01	{0,1,2}	30000000000
+38afda7e-a565-4b02-a675-85a859619bf9	2023-02-06 09:26:45.450368+01	2023-02-06 09:26:45.450368+01	{0,1,2}	30000000000
+\.
+
+
+--
+-- Data for Name: gateway_profile_extra_channel; Type: TABLE DATA; Schema: public; Owner: chirpstack_ns
+--
+
+COPY public.gateway_profile_extra_channel (id, gateway_profile_id, modulation, frequency, bandwidth, bitrate, spreading_factors) FROM stdin;
+33	da90a1e0-195f-48eb-8787-3c49ae926f1d	LORA	865500000	125	0	{7,8,9,10,11,12}
+34	da90a1e0-195f-48eb-8787-3c49ae926f1d	LORA	865700000	125	0	{7,8,9,10,11,12}
+35	da90a1e0-195f-48eb-8787-3c49ae926f1d	LORA	865900000	125	0	{7,8,9,10,11,12}
+36	da90a1e0-195f-48eb-8787-3c49ae926f1d	LORA	866100000	125	0	{7,8,9,10,11,12}
+37	da90a1e0-195f-48eb-8787-3c49ae926f1d	LORA	866300000	125	0	{7,8,9,10,11,12}
+38	da90a1e0-195f-48eb-8787-3c49ae926f1d	LORA	866500000	125	0	{7,8,9,10,11,12}
+39	da90a1e0-195f-48eb-8787-3c49ae926f1d	LORA	866700000	125	0	{7,8,9,10,11,12}
+40	da90a1e0-195f-48eb-8787-3c49ae926f1d	LORA	866900000	125	0	{7,8,9,10,11,12}
+41	da90a1e0-195f-48eb-8787-3c49ae926f1d	LORA	867100000	125	0	{7,8,9,10,11,12}
+42	da90a1e0-195f-48eb-8787-3c49ae926f1d	LORA	867300000	125	0	{7,8,9,10,11,12}
+43	da90a1e0-195f-48eb-8787-3c49ae926f1d	LORA	867500000	125	0	{7,8,9,10,11,12}
+44	da90a1e0-195f-48eb-8787-3c49ae926f1d	LORA	867700000	125	0	{7,8,9,10,11,12}
+45	da90a1e0-195f-48eb-8787-3c49ae926f1d	LORA	867900000	125	0	{7,8,9,10,11,12}
+\.
+
+
+--
+-- Data for Name: multicast_group; Type: TABLE DATA; Schema: public; Owner: chirpstack_ns
+--
+
+COPY public.multicast_group (id, created_at, updated_at, mc_addr, mc_nwk_s_key, f_cnt, group_type, dr, frequency, ping_slot_period, routing_profile_id, service_profile_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: multicast_queue; Type: TABLE DATA; Schema: public; Owner: chirpstack_ns
+--
+
+COPY public.multicast_queue (id, created_at, schedule_at, emit_at_time_since_gps_epoch, multicast_group_id, gateway_id, f_cnt, f_port, frm_payload, updated_at, retry_after) FROM stdin;
+\.
+
+
+--
+-- Data for Name: routing_profile; Type: TABLE DATA; Schema: public; Owner: chirpstack_ns
+--
+
+COPY public.routing_profile (created_at, updated_at, routing_profile_id, as_id, ca_cert, tls_cert, tls_key) FROM stdin;
+2022-08-10 12:06:40.536254+02	2022-08-10 12:06:40.536254+02	6d5db27e-4ce2-4b2b-b5d7-91f069397978	localhost:8001			
+\.
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: chirpstack_ns
+--
+
+COPY public.schema_migrations (version, dirty) FROM stdin;
+33	f
+\.
+
+
+--
+-- Data for Name: service_profile; Type: TABLE DATA; Schema: public; Owner: chirpstack_ns
+--
+
+COPY public.service_profile (created_at, updated_at, service_profile_id, ul_rate, ul_bucket_size, ul_rate_policy, dl_rate, dl_bucket_size, dl_rate_policy, add_gw_metadata, dev_status_req_freq, report_dev_status_battery, report_dev_status_margin, dr_min, dr_max, channel_mask, pr_allowed, hr_allowed, ra_allowed, nwk_geo_loc, target_per, min_gw_diversity, gws_private) FROM stdin;
+2022-08-10 12:26:06.009772+02	2022-08-10 12:26:06.009772+02	540e9054-ec59-4098-8fa1-8806e7cf02d4	0	0	Drop	0	0	Drop	t	0	f	f	0	5	\\x	f	f	f	t	0	0	f
+\.
+
+
+--
+-- Name: device_activation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chirpstack_ns
+--
+
+SELECT pg_catalog.setval('public.device_activation_id_seq', 477, true);
+
+
+--
+-- Name: device_queue_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chirpstack_ns
+--
+
+SELECT pg_catalog.setval('public.device_queue_id_seq', 18, true);
+
+
+--
+-- Name: gateway_profile_extra_channel_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chirpstack_ns
+--
+
+SELECT pg_catalog.setval('public.gateway_profile_extra_channel_id_seq', 82, true);
+
+
+--
+-- Name: multicast_queue_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chirpstack_ns
+--
+
+SELECT pg_catalog.setval('public.multicast_queue_id_seq', 1, false);
+
+
+--
+-- Name: code_migration code_migration_pkey; Type: CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.code_migration
+    ADD CONSTRAINT code_migration_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: device_activation device_activation_pkey; Type: CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.device_activation
+    ADD CONSTRAINT device_activation_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: device_multicast_group device_multicast_group_pkey; Type: CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.device_multicast_group
+    ADD CONSTRAINT device_multicast_group_pkey PRIMARY KEY (multicast_group_id, dev_eui);
+
+
+--
+-- Name: device device_pkey; Type: CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.device
+    ADD CONSTRAINT device_pkey PRIMARY KEY (dev_eui);
+
+
+--
+-- Name: device_profile device_profile_pkey; Type: CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.device_profile
+    ADD CONSTRAINT device_profile_pkey PRIMARY KEY (device_profile_id);
+
+
+--
+-- Name: device_queue device_queue_pkey; Type: CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.device_queue
+    ADD CONSTRAINT device_queue_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: gateway_board gateway_board_pkey; Type: CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.gateway_board
+    ADD CONSTRAINT gateway_board_pkey PRIMARY KEY (gateway_id, id);
+
+
+--
+-- Name: gateway gateway_pkey; Type: CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.gateway
+    ADD CONSTRAINT gateway_pkey PRIMARY KEY (gateway_id);
+
+
+--
+-- Name: gateway_profile_extra_channel gateway_profile_extra_channel_pkey; Type: CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.gateway_profile_extra_channel
+    ADD CONSTRAINT gateway_profile_extra_channel_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: gateway_profile gateway_profile_pkey; Type: CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.gateway_profile
+    ADD CONSTRAINT gateway_profile_pkey PRIMARY KEY (gateway_profile_id);
+
+
+--
+-- Name: multicast_group multicast_group_pkey; Type: CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.multicast_group
+    ADD CONSTRAINT multicast_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: multicast_queue multicast_queue_pkey; Type: CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.multicast_queue
+    ADD CONSTRAINT multicast_queue_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: routing_profile routing_profile_pkey; Type: CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.routing_profile
+    ADD CONSTRAINT routing_profile_pkey PRIMARY KEY (routing_profile_id);
+
+
+--
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: service_profile service_profile_pkey; Type: CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.service_profile
+    ADD CONSTRAINT service_profile_pkey PRIMARY KEY (service_profile_id);
+
+
+--
+-- Name: idx_device_activation_dev_eui; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_device_activation_dev_eui ON public.device_activation USING btree (dev_eui);
+
+
+--
+-- Name: idx_device_activation_nonce_lookup; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_device_activation_nonce_lookup ON public.device_activation USING btree (join_eui, dev_eui, join_req_type, dev_nonce);
+
+
+--
+-- Name: idx_device_device_profile_id; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_device_device_profile_id ON public.device USING btree (device_profile_id);
+
+
+--
+-- Name: idx_device_mode; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_device_mode ON public.device USING btree (mode);
+
+
+--
+-- Name: idx_device_queue_confirmed; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_device_queue_confirmed ON public.device_queue USING btree (confirmed);
+
+
+--
+-- Name: idx_device_queue_dev_eui; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_device_queue_dev_eui ON public.device_queue USING btree (dev_eui);
+
+
+--
+-- Name: idx_device_queue_emit_at_time_since_gps_epoch; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_device_queue_emit_at_time_since_gps_epoch ON public.device_queue USING btree (emit_at_time_since_gps_epoch);
+
+
+--
+-- Name: idx_device_queue_timeout_after; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_device_queue_timeout_after ON public.device_queue USING btree (timeout_after);
+
+
+--
+-- Name: idx_device_routing_profile_id; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_device_routing_profile_id ON public.device USING btree (routing_profile_id);
+
+
+--
+-- Name: idx_device_service_profile_id; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_device_service_profile_id ON public.device USING btree (service_profile_id);
+
+
+--
+-- Name: idx_gateway_gateway_profile_id; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_gateway_gateway_profile_id ON public.gateway USING btree (gateway_profile_id);
+
+
+--
+-- Name: idx_gateway_profile_extra_channel_gw_profile_id; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_gateway_profile_extra_channel_gw_profile_id ON public.gateway_profile_extra_channel USING btree (gateway_profile_id);
+
+
+--
+-- Name: idx_gateway_routing_profile_id; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_gateway_routing_profile_id ON public.gateway USING btree (routing_profile_id);
+
+
+--
+-- Name: idx_gateway_service_profile_id; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_gateway_service_profile_id ON public.gateway USING btree (service_profile_id);
+
+
+--
+-- Name: idx_multicast_group_routing_profile_id; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_multicast_group_routing_profile_id ON public.multicast_group USING btree (routing_profile_id);
+
+
+--
+-- Name: idx_multicast_group_service_profile_id; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_multicast_group_service_profile_id ON public.multicast_group USING btree (service_profile_id);
+
+
+--
+-- Name: idx_multicast_queue_emit_at_time_since_gps_epoch; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_multicast_queue_emit_at_time_since_gps_epoch ON public.multicast_queue USING btree (emit_at_time_since_gps_epoch);
+
+
+--
+-- Name: idx_multicast_queue_multicast_group_id; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_multicast_queue_multicast_group_id ON public.multicast_queue USING btree (multicast_group_id);
+
+
+--
+-- Name: idx_multicast_queue_schedule_at; Type: INDEX; Schema: public; Owner: chirpstack_ns
+--
+
+CREATE INDEX idx_multicast_queue_schedule_at ON public.multicast_queue USING btree (schedule_at);
+
+
+--
+-- Name: device_activation device_activation_dev_eui_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.device_activation
+    ADD CONSTRAINT device_activation_dev_eui_fkey FOREIGN KEY (dev_eui) REFERENCES public.device(dev_eui) ON DELETE CASCADE;
+
+
+--
+-- Name: device device_device_profile_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.device
+    ADD CONSTRAINT device_device_profile_id_fkey FOREIGN KEY (device_profile_id) REFERENCES public.device_profile(device_profile_id) ON DELETE CASCADE;
+
+
+--
+-- Name: device_multicast_group device_multicast_group_dev_eui_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.device_multicast_group
+    ADD CONSTRAINT device_multicast_group_dev_eui_fkey FOREIGN KEY (dev_eui) REFERENCES public.device(dev_eui) ON DELETE CASCADE;
+
+
+--
+-- Name: device_multicast_group device_multicast_group_multicast_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.device_multicast_group
+    ADD CONSTRAINT device_multicast_group_multicast_group_id_fkey FOREIGN KEY (multicast_group_id) REFERENCES public.multicast_group(id) ON DELETE CASCADE;
+
+
+--
+-- Name: device_queue device_queue_dev_eui_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.device_queue
+    ADD CONSTRAINT device_queue_dev_eui_fkey FOREIGN KEY (dev_eui) REFERENCES public.device(dev_eui) ON DELETE CASCADE;
+
+
+--
+-- Name: device device_routing_profile_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.device
+    ADD CONSTRAINT device_routing_profile_id_fkey FOREIGN KEY (routing_profile_id) REFERENCES public.routing_profile(routing_profile_id) ON DELETE CASCADE;
+
+
+--
+-- Name: device device_service_profile_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.device
+    ADD CONSTRAINT device_service_profile_id_fkey FOREIGN KEY (service_profile_id) REFERENCES public.service_profile(service_profile_id) ON DELETE CASCADE;
+
+
+--
+-- Name: gateway_board gateway_board_gateway_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.gateway_board
+    ADD CONSTRAINT gateway_board_gateway_id_fkey FOREIGN KEY (gateway_id) REFERENCES public.gateway(gateway_id) ON DELETE CASCADE;
+
+
+--
+-- Name: gateway gateway_gateway_profile_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.gateway
+    ADD CONSTRAINT gateway_gateway_profile_id_fkey FOREIGN KEY (gateway_profile_id) REFERENCES public.gateway_profile(gateway_profile_id);
+
+
+--
+-- Name: gateway_profile_extra_channel gateway_profile_extra_channel_gateway_profile_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.gateway_profile_extra_channel
+    ADD CONSTRAINT gateway_profile_extra_channel_gateway_profile_id_fkey FOREIGN KEY (gateway_profile_id) REFERENCES public.gateway_profile(gateway_profile_id) ON DELETE CASCADE;
+
+
+--
+-- Name: gateway gateway_routing_profile_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.gateway
+    ADD CONSTRAINT gateway_routing_profile_id_fkey FOREIGN KEY (routing_profile_id) REFERENCES public.routing_profile(routing_profile_id) ON DELETE CASCADE;
+
+
+--
+-- Name: gateway gateway_service_profile_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.gateway
+    ADD CONSTRAINT gateway_service_profile_id_fkey FOREIGN KEY (service_profile_id) REFERENCES public.service_profile(service_profile_id) ON DELETE CASCADE;
+
+
+--
+-- Name: multicast_group multicast_group_routing_profile_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.multicast_group
+    ADD CONSTRAINT multicast_group_routing_profile_id_fkey FOREIGN KEY (routing_profile_id) REFERENCES public.routing_profile(routing_profile_id) ON DELETE CASCADE;
+
+
+--
+-- Name: multicast_group multicast_group_service_profile_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.multicast_group
+    ADD CONSTRAINT multicast_group_service_profile_id_fkey FOREIGN KEY (service_profile_id) REFERENCES public.service_profile(service_profile_id) ON DELETE CASCADE;
+
+
+--
+-- Name: multicast_queue multicast_queue_gateway_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.multicast_queue
+    ADD CONSTRAINT multicast_queue_gateway_id_fkey FOREIGN KEY (gateway_id) REFERENCES public.gateway(gateway_id) ON DELETE CASCADE;
+
+
+--
+-- Name: multicast_queue multicast_queue_multicast_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chirpstack_ns
+--
+
+ALTER TABLE ONLY public.multicast_queue
+    ADD CONSTRAINT multicast_queue_multicast_group_id_fkey FOREIGN KEY (multicast_group_id) REFERENCES public.multicast_group(id) ON DELETE CASCADE;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
