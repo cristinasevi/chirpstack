@@ -60,3 +60,57 @@ def DeleteDeviceProfile(api_token, server, profile_id):
 profile_id = "f31aacfd-59e8-4dcb-96ec-c9104daa6742"
 
 DeleteDeviceProfile(api_token, server, profile_id)
+
+def PostDeviceProfile(server, api_token, device_profile_data):
+    url = f"http://{server}/api/device-profiles"
+    auth_token = [("authorization", "Bearer %s" % api_token)]
+
+    response = requests.post(url, headers=dict(auth_token), json=device_profile_data)
+
+    if response.status_code == 200:
+        print("Perfil de dispositivo creado exitosamente.")
+        return response.json()
+    else:
+        print(f"Error al crear el perfil de dispositivo: {response.status_code}")
+        return None
+
+device_profile_data = {
+    "deviceProfile": {
+        "adrAlgorithmID": "default",
+        "classBTimeout": 0,
+        "classCTimeout": 0,
+        "factoryPresetFreqs": [],
+        "geolocBufferTTL": 0,
+        "geolocMinBufferSize": 0,
+        "macVersion": "1.0.2",
+        "maxDutyCycle": 0,
+        "maxEIRP": 14,
+        "name": "NewDeviceProfile",
+        "networkServerID": "27",
+        "organizationID": "1",
+        "payloadCodec": "CAYENNE_LPP",
+        "payloadDecoderScript": "",
+        "payloadEncoderScript": "",
+        "pingSlotDR": 0,
+        "pingSlotFreq": 0,
+        "pingSlotPeriod": 0,
+        "regParamsRevision": "RP002-1.0.2",
+        "rfRegion": "EU868",
+        "rxDROffset1": 0,
+        "rxDataRate2": 0,
+        "rxDelay1": 0,
+        "rxFreq2": 0,
+        "supports32BitFCnt": False,
+        "supportsClassB": False,
+        "supportsClassC": False,
+        "supportsJoin": True, 
+        "tags": {}, 
+        "uplinkInterval": "300s"
+    }
+}
+
+response = PostDeviceProfile(server, api_token, device_profile_data)
+
+if response:
+    print("Device Profile:")
+    print(response)
