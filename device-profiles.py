@@ -43,3 +43,20 @@ if device_profiles:
     print("Device profiles:")
     for key, value in device_profiles.items():
         print(f"{key}: {value}")
+
+def DeleteDeviceProfile(api_token, server, profile_id):
+    url = f"http://{server}/api/device-profiles/{profile_id}"
+    auth_token = [("authorization", "Bearer %s" % api_token)]
+
+    response = requests.delete(url, headers=dict(auth_token))
+
+    if response.status_code == 200:
+        print(f"El perfil de dispositivo con ID {profile_id} se eliminó correctamente.")
+    elif response.status_code == 404:
+        print(f"No se encontró un perfil de dispositivo con ID {profile_id}.")
+    else:
+        print(f"Error al eliminar el perfil de dispositivo con ID {profile_id}. Código de error: {response.status_code}")
+
+profile_id = "f31aacfd-59e8-4dcb-96ec-c9104daa6742"
+
+DeleteDeviceProfile(api_token, server, profile_id)
