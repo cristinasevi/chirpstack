@@ -67,8 +67,8 @@ def PostDeviceActivationXLSX(api_token, server, xlsx_file, start_row, end_row):
         print(f"El archivo {xlsx_file} no se encontró.")
 
 xlsx_file = "backup.xlsx"
-start_row = 620
-end_row = 2217
+start_row = 619
+end_row = 2216
 
 PostDeviceActivationXLSX(api_token, server, xlsx_file, start_row, end_row)
 
