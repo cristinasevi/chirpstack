@@ -133,6 +133,37 @@ device_data = {
 
 PutDevice(server, api_token, dev_eui, device_data)
 
+# post /api/devices
+def PostDevice(server, api_token, device_data):
+    url = f"http://{server}/api/devices"
+    auth_token = {"authorization": f"Bearer {api_token}"}
+
+    try:
+        response = requests.post(url, json=device_data, headers=auth_token)
+        if response.status_code == 200:
+            print("Dispositivo agregado correctamente.")
+        else:
+            print(f"Error al agregar el dispositivo. Código de estado: {response.status_code}")
+    except Exception as e:
+        print(f"Error al enviar la solicitud POST: {str(e)}")
+
+device_data = {
+  "device": {
+    "devEUI": "0000000000000002",
+    "name": "0000000000000002",
+    "applicationID": "1",
+    "description": "Lo cree automaticamente",
+    "deviceProfileID": "3363bcd9-6520-48c6-8d9d-845608aa5e57",
+    "skipFCntCheck": True,
+    "referenceAltitude": 0,
+    "isDisabled": False,
+    "tags": {},
+    "variables": {}
+  }
+}
+
+PostDevice(server, api_token, device_data)
+
 # get /api/devices/{dev_eui}/activation 
 def GetDeviceActivation(api_token, server, device_id):
     url = f"http://{server}/api/devices/{device_id}/activation"
