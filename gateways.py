@@ -72,70 +72,110 @@ def GetGatewaysSummary():
     return gateway_summaries
 GetGatewaysSummary()
 
-def PostGateways():
+def GetGateways(api_token, server, gateway_id):
+    url = f"http://{server}/api/gateways/{gateway_id}"
     auth_token = [("authorization", "Bearer %s" % api_token)]
+
+    response = requests.get(url, headers=dict(auth_token))
+
+    if response.status_code == 200:
+        gateway_data = response.json()
+        return gateway_data
+    else:
+        print(f"Failed to get gateway data: {response.text}")
+        return None
+
+gateway_id = "00800000a00097b3"
+
+gateway_data = GetGateways(api_token, server, gateway_id)
+if gateway_data is not None:
+    print("Gateway Data:")
+    print(gateway_data)
+
+def PostGateway(api_token, server, gateway_data):
+    url = f"http://{server}/api/gateways/{gateway_id}"
+    auth_token = [("authorization", "Bearer %s" % api_token)]
+
+    response = requests.post(url, json=gateway_data, headers=dict(auth_token))
+
+    if response.status_code == 200:
+            print("Gateway creado exitosamente.")
+    else:
+        print(f"Error al crear el gateway. Código de estado: {response.status_code}")
+
+gateway_data = {
+    "gateway": {
+        "boards": [],
+        "description": "NewGateway",
+        "discoveryEnabled": False,
+        "gatewayProfileID": "6152528c-0d49-4fd4-9a2f-d377a912e0d4",
+        "id": "0000000000000001",
+        "location": {
+        "accuracy": 0,
+        "altitude": 273,
+        "latitude": 41.64495,
+        "longitude": -1.01179,
+        "source": "UNKNOWN"
+        },
+        "metadata": {},
+        "name": "NewGateway",
+        "networkServerID": "27",
+        "organizationID": "1",
+        "serviceProfileID": "540e9054-ec59-4098-8fa1-8806e7cf02d3",
+        "tags": {}
+    }
+}
+
+PostGateway(api_token, server, gateway_data)
+
+def PutGateways(server, api_token, gateway_id, gateway_body):
+    url = f'http://{server}/api/gateways/{gateway_id}'
+    auth_token = [("authorization", "Bearer %s" % api_token)]
+    
     try:
-        url = f'http://{server}/api/gateways'
-        resp = requests.get(url, headers=dict(auth_token))
+        resp = requests.put(url, json=gateway_body, headers=dict(auth_token))
         
         if resp.status_code == 200:
-            gateways = resp.json()  
-            print("Información de los gateways actualizada:")
-            print(gateways)  
-        else:
-            print("Error al obtener la información de los gateways. Código de estado:", resp.status_code)
-    except requests.exceptions.RequestException as e:
-        print("Error de conexión:", e)
-
-PostGateways()
-
-def PutGateways(gateway_body):
-    auth_token = [("authorization", "Bearer %s" % api_token)]
-    try:
-        url = f'http://{server}/api/gateways'
-        resp = requests.post(url, json=gateway_body, headers=dict(auth_token))
-        
-        if resp.status_code == 201:
-            print("Gateway added successfully.")
+            print("Gateway actualizado exitosamente.")
             gateway = resp.json()
-            print("Información del nuevo gateway:")
-            print(gateway)
+            return gateway
         else:
-            print("Failed to add gateway. Status code:", resp.status_code)
-    except requests.exceptions.RequestException as e:
-        print("An error occurred:", e)
+            print("Error al actualizar el gateway. Código de estado:", resp.status_code)
+            print("Mensaje de error:", resp.text)
+            return None
+    except Exception as e:
+        print("Error al enviar la solicitud PUT:", str(e))
+        return None
 
 gateway_id = "0000000000000002"
 
 gateway_body = {
     "gateway": {
-        "boards": [
-            {
-                "fineTimestampKey": "", 
-                "fpgaID": "",
-            }
-        ],
-        "description": "gateway 2", 
-        "discoveryEnabled": True,
-        "gatewayProfileID": "6152528c-0d49-4fd4-9a2f-d377a912e0d3", 
-        "id": "0000000000000002", 
+        "boards": [],
+        "description": "NewGateway",
+        "discoveryEnabled": False,
+        "gatewayProfileID": "6152528c-0d49-4fd4-9a2f-d377a912e0d4",
+        "id": "0000000000000002",
         "location": {
-            "accuracy": 0,
-            "altitude": 0,
-            "latitude": 0,
-            "longitude": 0,
-            "source": "UNKNOWN"
+        "accuracy": 0,
+        "altitude": 273,
+        "latitude": 41.64495,
+        "longitude": -1.01179,
+        "source": "UNKNOWN"
         },
         "metadata": {},
-        "name": "Gateway 2", 
-        "networkServerID": "27", 
-        "organizationID": "1", 
-        "serviceProfileID": "540e9054-ec59-4098-8fa1-8806e7cf02d4", 
+        "name": "NewGateway",
+        "networkServerID": "27",
+        "organizationID": "1",
+        "serviceProfileID": "540e9054-ec59-4098-8fa1-8806e7cf02d3",
         "tags": {}
     }
 }
 
-#PutGateways(gateway_body)
+gateway_info = PutGateways(server, api_token, gateway_id, gateway_body)
+if gateway_info:
+    print("Información del gateway actualizado:")
+    print(gateway_info)
 
 def GetGatewayFrames(gateway_id, server, api_token):
     auth_token = [("authorization", "Bearer %s" % api_token)]
