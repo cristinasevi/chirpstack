@@ -271,6 +271,31 @@ keys = {
 
 PostDeviceKeys(server, api_token, device_id, keys)
 
+# put /api/devices/{device_keys.dev_eui}/keys
+def PutDeviceKeys(server, api_token, device_id, keys):
+    url = f"http://{server}/api/devices/{device_id}/keys"
+    auth_token = {"authorization": f"Bearer {api_token}"}
+
+    try:
+        response = requests.put(url, json=keys, headers=auth_token)
+        if response.status_code == 200:
+            print("Claves del dispositivo actualizadas correctamente.")
+        else:
+            print(f"Error al actualizar las claves del dispositivo. Código de estado: {response.status_code}")
+    except Exception as e:
+        print(f"Error al enviar la solicitud PUT: {str(e)}")
+
+device_id = "0000000000000001"
+keys = {
+  "deviceKeys": {
+    "nwkKey": "00000000000000000004a30b00fef714",
+    "appKey": "00000000000000000000000000000000",
+    "genAppKey": ""
+  }
+}
+
+PutDeviceKeys(server, api_token, device_id, keys)
+
 # delete /api/devices/{dev_eui}/keys 
 def DeleteDeviceKeys(api_token, server, dev_eui):
     url = f"http://{server}/api/devices/{dev_eui}/keys"
