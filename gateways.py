@@ -195,6 +195,29 @@ gateway_id = "00800000a00097b3"
 
 #GetGatewayFrames(gateway_id, server, api_token)
 
+def PostGatewayGenerateCertificate(server, api_token, gateway_id):
+    url = f"http://{server}/api/gateways/{gateway_id}/generate-certificate"
+    auth_token = [("authorization", "Bearer %s" % api_token)]
+
+    try:
+        response = requests.post(url, headers=dict(auth_token))
+        if response.status_code == 200:
+            certificate_data = response.json()
+            return certificate_data
+        else:
+            print(f"Error al generar el certificado para el gateway {gateway_id}. Código de estado: {response.status_code}")
+            return None
+    except Exception as e:
+        print(f"Error al enviar la solicitud para generar el certificado: {str(e)}")
+        return None
+
+gateway_id = "00800000a00097b3"
+
+certificate_data = PostGatewayGenerateCertificate(server, api_token, gateway_id)
+if certificate_data:
+    print("Certificado generado exitosamente:")
+    print(certificate_data)
+
 def GetGatewayStats():
     gateway_data = {
     "gateway_id": "00800000a00097b3",
