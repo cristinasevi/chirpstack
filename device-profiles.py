@@ -23,7 +23,7 @@ Comm_Threshold = config['DEFAULT'].getint('Comm_Threshold', 300)  # Convertir a 
 Log_Rate = config['DEFAULT'].getint('Log_Rate', 60)  # Convertir a entero, usar 60 por defecto si no se encuentra
 Plant_Name = config['DEFAULT'].get('Plant_Name', 'Test')  # Si no se encuentra, usar 'Test' por defecto
 
-
+# get /api/device-profiles/{id}
 def GetDeviceProfiles(server, api_token, device_id):
     url = f"http://{server}/api/device-profiles/{device_id}"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -45,7 +45,7 @@ if device_profiles:
     for key, value in device_profiles.items():
         print(f"{key}: {value}")
 
-
+# post /api/device-profiles
 def PostDeviceProfile(server, api_token, device_profile_data):
     url = f"http://{server}/api/device-profiles"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -100,7 +100,7 @@ if response:
     print("Device Profile:")
     print(response)
 
-
+# put /api/device-profiles/{device_profile.id}
 def PutDeviceProfile(server, api_token, dev_eui, device_profile_data):
     url = f"http://{server}/api/device-profiles/{dev_eui}"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -151,7 +151,7 @@ device_profile_data = {
 
 PutDeviceProfile(server, api_token, dev_eui, device_profile_data)
 
-
+# delete /api/device-profiles/{id}
 def DeleteDeviceProfile(api_token, server, profile_id):
     url = f"http://{server}/api/device-profiles/{profile_id}"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -166,7 +166,6 @@ def DeleteDeviceProfile(api_token, server, profile_id):
         print(f"Error al eliminar el perfil de dispositivo con ID {profile_id}. Código de error: {response.status_code}")
 
 profile_id = "6bdf9a7d-cc64-4fd2-91a2-41b0a7f00c93"
-
 DeleteDeviceProfile(api_token, server, profile_id)
 
 
