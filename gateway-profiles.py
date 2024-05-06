@@ -23,7 +23,7 @@ Comm_Threshold = config['DEFAULT'].getint('Comm_Threshold', 300)  # Convertir a 
 Log_Rate = config['DEFAULT'].getint('Log_Rate', 60)  # Convertir a entero, usar 60 por defecto si no se encuentra
 Plant_Name = config['DEFAULT'].get('Plant_Name', 'Test')  # Si no se encuentra, usar 'Test' por defecto
 
-
+# get /api/gateway-profiles/{id} 
 def GetGatewayProfiles(server, api_token, gateway_id):
     url = f"http://{server}/api/gateway-profiles/{gateway_id}"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -45,7 +45,7 @@ if gateway_profiles:
     for key, value in gateway_profiles.items():
         print(f"{key}: {value}")
 
-
+# post /api/gateway-profiles 
 def PostGatewayProfile(server, api_token, gateway_profile_data):
     url = f"http://{server}/api/gateway-profiles"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -87,7 +87,7 @@ if response:
     print("Gateway Profile:")
     print(response)
 
-
+# put /api/gateway-profiles/{gateway_profile.id} 
 def PutGatewayProfile(server, api_token, gateway_id, gateway_profile_data):
     url = f"http://{server}/api/gateway-profiles/{gateway_id}"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -126,7 +126,7 @@ gateway_profile_data = {
 
 PutGatewayProfile(server, api_token, gateway_id, gateway_profile_data)
 
-
+# delete /api/gateway-profiles/{id} 
 def DeleteGatewayProfile(api_token, server, profile_id):
     url = f"http://{server}/api/gateway-profiles/{profile_id}"
     auth_token = [("authorization", "Bearer %s" % api_token)]
