@@ -72,6 +72,7 @@ def GetGatewaysSummary():
     return gateway_summaries
 GetGatewaysSummary()
 
+# get /api/gateways/{id} 
 def GetGateways(api_token, server, gateway_id):
     url = f"http://{server}/api/gateways/{gateway_id}"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -92,6 +93,7 @@ if gateway_data is not None:
     print("Gateway Data:")
     print(gateway_data)
 
+# post /api/gateways 
 def PostGateway(api_token, server, gateway_data):
     url = f"http://{server}/api/gateways/{gateway_id}"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -128,6 +130,7 @@ gateway_data = {
 
 PostGateway(api_token, server, gateway_data)
 
+# put /api/gateways/{gateway.id} 
 def PutGateways(server, api_token, gateway_id, gateway_body):
     url = f'http://{server}/api/gateways/{gateway_id}'
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -177,6 +180,7 @@ if gateway_info:
     print("Información del gateway actualizado:")
     print(gateway_info)
 
+# get /api/gateways/{gateway_id}/frames
 def GetGatewayFrames(gateway_id, server, api_token):
     auth_token = [("authorization", "Bearer %s" % api_token)]
     try:
@@ -195,6 +199,7 @@ gateway_id = "00800000a00097b3"
 
 #GetGatewayFrames(gateway_id, server, api_token)
 
+# post /api/gateways/{gateway_id}/generate-certificate
 def PostGatewayGenerateCertificate(server, api_token, gateway_id):
     url = f"http://{server}/api/gateways/{gateway_id}/generate-certificate"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -218,6 +223,7 @@ if certificate_data:
     print("Certificado generado exitosamente:")
     print(certificate_data)
 
+# get /api/gateways/{gateway_id}/stats 
 def GetGatewayStats():
     gateway_data = {
     "gateway_id": "00800000a00097b3",
@@ -248,6 +254,7 @@ def GetGatewayStats():
 
 GetGatewayStats()
 
+# delete /api/gateways/{id} 
 def DeleteGateway(gateway_id, server, api_token):
     url = f"http://{server}/api/gateways/{gateway_id}"
 
