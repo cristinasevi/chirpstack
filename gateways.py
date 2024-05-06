@@ -180,25 +180,6 @@ if gateway_info:
     print("Información del gateway actualizado:")
     print(gateway_info)
 
-# get /api/gateways/{gateway_id}/frames
-def GetGatewayFrames(gateway_id, server, api_token):
-    auth_token = [("authorization", "Bearer %s" % api_token)]
-    try:
-        url = f'http://{server}/api/gateways/{gateway_id}/frames'
-        resp = requests.get(url, headers=dict(auth_token))
-        if resp.status_code == 200:
-            frames = resp.json()
-            print("Frames obtenidos exitosamente:")
-            print(frames)
-        else:
-            print("Error al obtener frames. Código de estado:", resp.status_code)
-    except requests.exceptions.RequestException as e:
-        print("Se produjo un error:", e)
-
-gateway_id = "00800000a00097b3"
-
-#GetGatewayFrames(gateway_id, server, api_token)
-
 # post /api/gateways/{gateway_id}/generate-certificate
 def PostGatewayGenerateCertificate(server, api_token, gateway_id):
     url = f"http://{server}/api/gateways/{gateway_id}/generate-certificate"
@@ -222,6 +203,25 @@ certificate_data = PostGatewayGenerateCertificate(server, api_token, gateway_id)
 if certificate_data:
     print("Certificado generado exitosamente:")
     print(certificate_data)
+
+# get /api/gateways/{gateway_id}/frames
+def GetGatewayFrames(gateway_id, server, api_token):
+    auth_token = [("authorization", "Bearer %s" % api_token)]
+    try:
+        url = f'http://{server}/api/gateways/{gateway_id}/frames'
+        resp = requests.get(url, headers=dict(auth_token))
+        if resp.status_code == 200:
+            frames = resp.json()
+            print("Frames obtenidos exitosamente:")
+            print(frames)
+        else:
+            print("Error al obtener frames. Código de estado:", resp.status_code)
+    except requests.exceptions.RequestException as e:
+        print("Se produjo un error:", e)
+
+gateway_id = "00800000a00097b3"
+
+GetGatewayFrames(gateway_id, server, api_token)
 
 # get /api/gateways/{gateway_id}/stats 
 def GetGatewayStats():
@@ -275,4 +275,3 @@ def DeleteGateway(gateway_id, server, api_token):
 gateway_id = "0000000000000001"
 
 DeleteGateway(gateway_id, server, api_token)
-
