@@ -29,29 +29,33 @@ def GetGatewayStatus(server, api_token):
     auth_token = [("authorization", "Bearer %s" % api_token)]
 
     try:
-        response = requests.get(url, headers=auth_token)
+        response = requests.get(url, headers=dict(auth_token))
+        print("Contenido de la respuesta:", response.content)
+        
         if response.status_code == 200:
-            gateways = response.json()
+            data = response.json()
+            if "totalCount" in data:
+                print("Total Count:", data["totalCount"])
+                active_gateways = []
+                inactive_gateways = []
+                never_seen_gateways = []
+                
+                for gateway in data["result"]:
+                    if gateway["lastSeenAt"] is None:
+                        never_seen_gateways.append(gateway)
+                    elif gateway["status"] == "offline":
+                        inactive_gateways.append(gateway)
+                    else:
+                        active_gateways.append(gateway)
 
-            active_gateways = []
-            inactive_gateways = []
-            never_seen_gateways = []
-
-            for gateway in gateways:
-                if gateway["lastSeenAt"] is None:
-                    never_seen_gateways.append(gateway)
-                elif gateway["status"] == "offline":
-                    inactive_gateways.append(gateway)
-                else:
-                    active_gateways.append(gateway)
-
-            return active_gateways, inactive_gateways, never_seen_gateways
+                return active_gateways, inactive_gateways, never_seen_gateways
+            else:
+                print("La clave 'totalCount' no está en los datos recibidos")
+            
         else:
             print(f"Error al obtener la lista de gateways. Código de estado: {response.status_code}")
-            return None, None, None
     except Exception as e:
         print(f"Error al enviar la solicitud GET: {str(e)}")
-        return None, None, None
 
 active_gateways, inactive_gateways, never_seen_gateways = GetGatewayStatus(server, api_token)
 
