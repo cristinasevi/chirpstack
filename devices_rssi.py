@@ -90,3 +90,22 @@ if rssi is not None:
     print(f"RSSI del dispositivo {device_eui}: {rssi}")
 else:
     print("No se pudo obtener el RSSI del dispositivo.")
+
+def GetDeviceRSSI(dev_eui):
+    url = f"http://{server}/api/devices/{dev_eui}"
+    auth_token = [("authorization", "Bearer %s" % api_token)]
+    
+    response = requests.get(url, headers=dict(auth_token))
+
+    if response.status_code == 200:
+        device_info = response.json()
+        if "rxInfo" in device_info:
+            rssi = device_info["rxInfo"][0]["rssi"]
+            print("Mensaje de RSSI del dispositivo:", device_info)
+            print("RSSI:", rssi)
+        else:
+            print("No se encontró información de RSSI para el dispositivo.")
+    else:
+        print("Error al obtener información del dispositivo:", response.status_code)
+dev_eui = "0004a30b00f98573"
+GetDeviceRSSI(dev_eui)
