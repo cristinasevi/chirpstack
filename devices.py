@@ -306,6 +306,37 @@ if frames is not None:
     for frame in frames:
         print(f"Timestamp: {frame['timestamp']}, Data: {frame['data']}")
 
+# get /api/devices/{dev_eui}/stats
+def GetDeviceStats():
+    device_data = {
+        "device_id": "0004a30b00fef714",
+        "interval": "minute",
+        "startTimestamp": "2024-05-07T10:35:02.358Z",  
+        "endTimestamp": "2024-05-07T10:36:02.358Z",  
+    }
+
+    device_id = device_data["device_id"]
+    interval = device_data["interval"]
+    startTimestamp = device_data["startTimestamp"]
+    endTimestamp = device_data["endTimestamp"]
+    
+    auth_token = {"Authorization": f"Bearer {api_token}"}
+
+    try:
+        url = f'http://{server}/api/devices/{device_id}/stats?interval={interval}&startTimestamp={startTimestamp}&endTimestamp={endTimestamp}'
+        resp = requests.get(url, headers=auth_token)
+
+        if resp.status_code == 200:
+            device_stats = resp.json()
+            print("Información de estadísticas del device dentro del intervalo de tiempo:")
+            print(device_stats)
+        else:
+            print("Error al obtener las estadísticas del device. Código de estado:", resp.status_code)
+    except requests.exceptions.RequestException as e:
+        print("Error de conexión:", e)
+
+GetDeviceStats()
+
 # get /api/devices/{dev_eui}/keys 
 def GetDeviceKeys(api_token, server, device_id):
     url = f"http://{server}/api/devices/{device_id}/keys"
