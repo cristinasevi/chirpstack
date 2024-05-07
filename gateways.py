@@ -72,6 +72,22 @@ def GetGatewaysSummary():
     return gateway_summaries
 GetGatewaysSummary()
 
+# get /api/internal/gateways/summary 
+def GetGatewayStatus(server, api_token):
+    url = f"http://{server}/api/internal/gateways/summary"
+    auth_token = {"Authorization": f"Bearer {api_token}"}
+
+    response = requests.get(url, headers=auth_token)
+
+    if response.status_code == 200:
+        summary_data = response.json()
+        print("Resumen de información sobre los gateways internos:")
+        print(summary_data)
+    else:
+        print("Error al obtener el resumen de información sobre los gateways internos:", response.status_code)
+
+GetGatewayStatus(server, api_token)
+
 # get /api/gateways/{id} 
 def GetGateways(api_token, server, gateway_id):
     url = f"http://{server}/api/gateways/{gateway_id}"
