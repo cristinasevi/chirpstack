@@ -255,28 +255,22 @@ def GetGatewayStats():
 GetGatewayStats()
 
 # get /api/gateways/{gateway_id}/pings/last
-def GetGatewayPing(server, api_token, gateway_id):
+def GetGatewayPings():    
     url = f"http://{server}/api/gateways/{gateway_id}/pings/last"
     auth_token = [("authorization", "Bearer %s" % api_token)]
+    
+    response = requests.get(url, headers=dict(auth_token))
 
-    try:
-        response = requests.get(url, headers=dict(auth_token))
-        if response.status_code == 200:
-            ping_data = response.json()
-            return ping_data
-        else:
-            print(f"Error al obtener el último ping para el gateway {gateway_id}. Código de estado: {response.status_code}")
-            return None
-    except Exception as e:
-        print(f"Error al enviar la solicitud GET: {str(e)}")
-        return None
+    if response.status_code == 200:
+        last_ping_data = response.json()
+        print("Última señal del gateway:")
+        print(last_ping_data)
+    else:
+        print("Error al realizar la solicitud:", response.status_code)
 
-gateway_id = "0000000000000002"
+gateway_id =  "00800000a00097b3"
 
-last_ping_data = GetGatewayPing(server, api_token, gateway_id)
-if last_ping_data:
-    print("Información del último ping:")
-    print(last_ping_data)
+GetGatewayPings()
 
 # delete /api/gateways/{id} 
 def DeleteGateway(gateway_id, server, api_token):
