@@ -72,6 +72,22 @@ def GetDevicesSummary():
 
 GetDevicesSummary()
 
+# get /api/internal/devices/summary
+def GetDeviceStatus(server, api_token):
+    url = f"http://{server}/api/internal/devices/summary"
+    headers = {"Authorization": f"Bearer {api_token}"}
+
+    response = requests.get(url, headers=headers)
+
+    if response.status_code == 200:
+        summary_data = response.json()
+        print("Resumen de información sobre los dispositivos internos:")
+        print(summary_data)
+    else:
+        print("Error al obtener el resumen de información sobre los dispositivos internos:", response.status_code)
+
+GetDeviceStatus(server, api_token)
+
 # get /api/devices/{dev_eui}  
 def GetDeviceData(api_token, server, device_id):
     # Define the API endpoint to get data for a specific device.
