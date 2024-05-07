@@ -62,9 +62,31 @@ def GetDevicesLastPacketRSSI(server, api_token, device_id):
         return None
 
 devices = GetDevicesRSSI(server, api_token)
+
 if devices:
     for device in devices:
         device_id = device["id"]
         last_packet_rssi = GetDevicesLastPacketRSSI(server, api_token, device_id)
         if last_packet_rssi is not None:
             print(f"Valor RSSI del último paquete recibido para el dispositivo {device_id}: {last_packet_rssi}")
+
+
+def GetDeviceRSSI(server, api_token, device_eui):
+    url = f"http://{server}/api/devices/{device_eui}"
+    auth_token = [("authorization", "Bearer %s" % api_token)]
+
+    response = requests.get(url, headers=dict(auth_token))
+
+    if response.status_code == 200:
+        device_info = response.json()
+        return device_info.get("lastDevStatusRxInfo", [{}])[0].get("rssi")
+
+    print(f"Error: {response.status_code} - {response.text}")
+    return None
+
+device_eui = "0004a30b00fef714"
+rssi = GetDeviceRSSI(server, api_token, device_eui)
+if rssi is not None:
+    print(f"RSSI del dispositivo {device_eui}: {rssi}")
+else:
+    print("No se pudo obtener el RSSI del dispositivo.")
