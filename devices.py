@@ -306,6 +306,24 @@ if frames is not None:
     for frame in frames:
         print(f"Timestamp: {frame['timestamp']}, Data: {frame['data']}")
 
+# post /api/devices/{dev_eui}/getRandomDevAddr
+def GetRandomDevAddr(dev_eui, server, api_token):
+    url = f"http://{server}/api/devices/{dev_eui}/getRandomDevAddr"
+    auth_token = {"Authorization": f"Bearer {api_token}"}
+
+    response = requests.post(url, headers=auth_token)
+
+    if response.status_code == 200:
+        random_dev_addr = response.json()
+        print("Dirección de dispositivo aleatoria:")
+        print(random_dev_addr)
+    else:
+        print("Error al obtener la dirección de dispositivo aleatoria:", response.status_code)
+
+dev_eui = "0004a30b00fef714"  
+
+GetRandomDevAddr(dev_eui, server, api_token)
+
 # get /api/devices/{dev_eui}/stats
 def GetDeviceStats():
     device_data = {
