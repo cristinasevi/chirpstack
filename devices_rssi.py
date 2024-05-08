@@ -111,23 +111,16 @@ dev_eui = "0004a30b00f98573"
 GetDeviceRSSI(dev_eui)
 
 #########################################
-dev_eui = "0004a30b00f98573"
-url = "curl -X GET --header 'Accept: application/json' --header 'Grpc-Metadata-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiZTc0NjBmNWUtNWNjMy00YWM3LWFkMWYtZjZlYTQ3NWYwMDlkIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTcxNDk4Mjg0OSwic3ViIjoiYXBpX2tleSJ9.PhRDrQFKrhXWJyBkHAEyQuousmOPhCI5WOcNpK5hIbU' 'http://{server}/api/devices/{dev_eui}/frames'"
-print(url)
-
-#########################################
-
 import subprocess
 
 dev_eui = "0004a30b00f98573"
 
-# Construir la URL con el DevEUI proporcionado
-url = f"http://{server}/api/devices/{dev_eui}/frames"
+curl_command = f'curl -X GET --header "Accept: application/json" --header "Grpc-Metadata-Authorization: Bearer {api_token}" "http://{server}/api/devices/{dev_eui}/frames"'
+result = subprocess.run(curl_command, shell=True, capture_output=True, text=True)
 
-# Ejecutar el comando curl y capturar la salida
-result = subprocess.run(['curl', '-X', 'GET', '--header', 'Accept: application/json', '--header',
-                         'Grpc-Metadata-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiZTc0NjBmNWUtNWNjMy00YWM3LWFkMWYtZjZlYTQ3NWYwMDlkIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTcxNDk4Mjg0OSwic3ViIjoiYXBpX2tleSJ9.PhRDrQFKrhXWJyBkHAEyQuousmOPhCI5WOcNpK5hIbU',
-                         url], capture_output=True, text=True)
-
+print("Resultado de la ejecución de curl:")
+print(result.stdout)
+print("Errores:")
+print(result.stderr)
 # Imprimir la salida del comando
 print(result.stdout)
