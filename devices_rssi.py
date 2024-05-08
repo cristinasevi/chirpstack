@@ -9,7 +9,7 @@ import configparser
 import requests 
 
 server = "localhost:8080"
-api_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiNzYyOGE4NGQtOGRhMy00ZDQ1LWJlNmYtZTM4MWY5MzQ5ZWI1IiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTY3NzY4NzI5NCwic3ViIjoiYXBpX2tleSJ9.LBx46H_nzGPkSxqsqVxU_5ig0soMF9dWlsuA6obE1EY"
+api_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiZTc0NjBmNWUtNWNjMy00YWM3LWFkMWYtZjZlYTQ3NWYwMDlkIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTcxNDk4Mjg0OSwic3ViIjoiYXBpX2tleSJ9.PhRDrQFKrhXWJyBkHAEyQuousmOPhCI5WOcNpK5hIbU"
 Com_Count = 0
 last_checked_day = None
 Device_List = []
@@ -109,3 +109,25 @@ def GetDeviceRSSI(dev_eui):
         print("Error al obtener información del dispositivo:", response.status_code)
 dev_eui = "0004a30b00f98573"
 GetDeviceRSSI(dev_eui)
+
+#########################################
+dev_eui = "0004a30b00f98573"
+url = "curl -X GET --header 'Accept: application/json' --header 'Grpc-Metadata-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiZTc0NjBmNWUtNWNjMy00YWM3LWFkMWYtZjZlYTQ3NWYwMDlkIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTcxNDk4Mjg0OSwic3ViIjoiYXBpX2tleSJ9.PhRDrQFKrhXWJyBkHAEyQuousmOPhCI5WOcNpK5hIbU' 'http://{server}/api/devices/{dev_eui}/frames'"
+print(url)
+
+#########################################
+
+import subprocess
+
+dev_eui = "0004a30b00f98573"
+
+# Construir la URL con el DevEUI proporcionado
+url = f"http://{server}/api/devices/{dev_eui}/frames"
+
+# Ejecutar el comando curl y capturar la salida
+result = subprocess.run(['curl', '-X', 'GET', '--header', 'Accept: application/json', '--header',
+                         'Grpc-Metadata-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiZTc0NjBmNWUtNWNjMy00YWM3LWFkMWYtZjZlYTQ3NWYwMDlkIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTcxNDk4Mjg0OSwic3ViIjoiYXBpX2tleSJ9.PhRDrQFKrhXWJyBkHAEyQuousmOPhCI5WOcNpK5hIbU',
+                         url], capture_output=True, text=True)
+
+# Imprimir la salida del comando
+print(result.stdout)
