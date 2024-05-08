@@ -121,6 +121,35 @@ result = subprocess.run(curl_command, shell=True, capture_output=True, text=True
 print("Resultado de la ejecución de curl:")
 print(result.stdout)
 print("Errores:")
+########################################
+import subprocess
+
+# Define el dev_eui y la URL base
+dev_eui = "0004a30b00f98573"
+base_url = "http://10.0.1.90:8080/api/devices/{}/frames"
+
+# Construye la URL utilizando format() para insertar el dev_eui
+url = base_url.format(dev_eui)
+
+# Define el comando curl con la URL construida
+curl_command = [
+    'curl', 
+    '-X', 'GET', 
+    '--header', 'Accept: application/json', 
+    '--header', 'Grpc-Metadata-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiZTc0NjBmNWUtNWNjMy00YWM3LWFkMWYtZjZlYTQ3NWYwMDlkIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTcxNDk4Mjg0OSwic3ViIjoiYXBpX2tleSJ9.PhRDrQFKrhXWJyBkHAEyQuousmOPhCI5WOcNpK5hIbU', 
+    url
+]
+
+try:
+    # Ejecutar el comando curl y capturar su salida
+    output = subprocess.check_output(curl_command, stderr=subprocess.STDOUT)
+    # Decodificar la salida y mostrarla
+    print(output.decode('utf-8'))
+except subprocess.CalledProcessError as e:
+    # Manejar el error si ocurre
+    print(f"Error al ejecutar el comando curl: {e}")
 print(result.stderr)
 # Imprimir la salida del comando
 print(result.stdout)
+
+# curl -X GET --header 'Accept: application/json' --header 'Grpc-Metadata-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiZTc0NjBmNWUtNWNjMy00YWM3LWFkMWYtZjZlYTQ3NWYwMDlkIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTcxNDk4Mjg0OSwic3ViIjoiYXBpX2tleSJ9.PhRDrQFKrhXWJyBkHAEyQuousmOPhCI5WOcNpK5hIbU' 'http://10.0.1.90:8080/api/devices/0004a30b00f98573/frames'
