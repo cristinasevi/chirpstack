@@ -8,3 +8,8 @@ device_data=$(eval $curl_command | head -n 1 | grep -o '"rssi":[^,]*' | cut -d "
 
 # Imprime la primera línea de los datos del dispositivo (el JSON devuelto)
 echo "RSSI: $device_data"
+
+# Poner estos comandos en la terminal
+# sudo chmod +x nombre_del_archivo 
+# sudo chmod 777 nombre_del_archivo
+# dos2unix nombre_del_archivo --> Para que convierta el archivo a formato Unix
