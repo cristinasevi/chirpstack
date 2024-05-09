@@ -8,3 +8,8 @@ device_data=$(eval $curl_command | head -n 1 | grep -o '"data":"[^"]*' | cut -d 
 
 # Imprime el valor de "data"
 echo "DATA: $data_value"
+
+# Poner estos comandos en la terminal
+# sudo chmod +x nombre_del_archivo 
+# sudo chmod 777 nombre_del_archivo
+# dos2unix nombre_del_archivo --> Para que convierta el archivo a formato Unix
