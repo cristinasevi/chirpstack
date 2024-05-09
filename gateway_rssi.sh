@@ -6,7 +6,7 @@ curl_command="curl -s -X GET --header \"Accept: application/json\" --header \"Gr
 # Ejecuta el comando curl y extrae la primera línea de la salida (el JSON devuelto)
 gateway_data=$(eval $curl_command | head -n 1 | grep -o '"rssi":[^,]*' | cut -d ":" -f 2)
 
-# Imprime la primera línea de los datos del dispositivo (el JSON devuelto)
+# Imprime la primera línea de los datos del gateway (el JSON devuelto)
 echo "RSSI: $gateway_data"
 
 # Poner estos comandos en la terminal
