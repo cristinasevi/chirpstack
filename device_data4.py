@@ -35,7 +35,7 @@ def mqtt_subscribe_and_write_to_excel(euis):
 
     for eui in euis:
         # Ejecutar mosquitto_sub y leer los mensajes para cada EUI
-        process = subprocess.Popen(['mosquitto_sub', '-h', '10.139.15.30', '-t', f'application/1/device/0004a30b00fef592/event/up'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+        process = subprocess.Popen(['mosquitto_sub', '-h', '10.139.15.30', '-t', f'application/1/device/{eui}/event/up'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
         for line in process.stdout:
             # Filtrar y extraer las partes de la trama que necesitas
             corriente_part, rssi_part = filter_and_extract_payload(line)
@@ -67,4 +67,5 @@ def mqtt_subscribe_and_write_to_excel(euis):
                 wb.save('device_data.xlsx')
 
 if __name__ == "__main__":
-    mqtt_subscribe_and_write_to_excel()
+    euis = ['0004a30b00fef592', '0004a30b00fef55d', '0004a30b00fef69b'] # Lista de EUIs de los dispositivos a suscribir
+    mqtt_subscribe_and_write_to_excel(euis)
