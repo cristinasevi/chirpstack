@@ -5,7 +5,7 @@ import requests
 # Configuración de ChirpStack MQTT
 chirpstack_mqtt_host = "localhost"  
 chirpstack_mqtt_port = 1883
-chirpstack_mqtt_topic = "application/+/device/+/up"
+chirpstack_mqtt_topic = "application/1/device/+/event/up"
 
 # Configuración de ThingsBoard MQTT
 thingsboard_mqtt_host = "thingsboard.chemik.es"
