@@ -13,6 +13,11 @@ thingsboard_mqtt_port = 1883
 thingsboard_mqtt_topic = "v1/devices/me/telemetry"
 thingsboard_access_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiNzYyOGE4NGQtOGRhMy00ZDQ1LWJlNmYtZTM4MWY5MzQ5ZWI1IiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTY3NzY4NzI5NCwic3ViIjoiYXBpX2tleSJ9.LBx46H_nzGPkSxqsqVxU_5ig0soMF9dWlsuA6obE1EY"
 
+# Configurar el cliente MQTT para ThingsBoard
+tb_client = mqtt.Client()
+tb_client.username_pw_set(username="info@inartecnologias.es", password="Inar.2019")  
+tb_client.connect(thingsboard_mqtt_host, thingsboard_mqtt_port)
+
 # Callback que se ejecuta cuando se conecta al broker MQTT
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -39,11 +44,6 @@ chirpstack_client.on_connect = on_connect
 chirpstack_client.on_message = on_message
 chirpstack_client.connect(chirpstack_mqtt_host, chirpstack_mqtt_port)
 chirpstack_client.subscribe(chirpstack_mqtt_topic)
-
-# Configurar el cliente MQTT para ThingsBoard
-tb_client = mqtt.Client()
-tb_client.username_pw_set(thingsboard_access_token)
-tb_client.connect(thingsboard_mqtt_host, thingsboard_mqtt_port)
 
 # Mantener los clientes MQTT conectados
 chirpstack_client.loop_forever()
