@@ -5,5 +5,6 @@
 - Thingsboard
 - Swagger UI
 - MQTT Explorer
+- MQTTX
 
 curl parrot.live
