@@ -2,7 +2,7 @@
 
 - Chirpstack
 - Chirpstack API
-- Thingsboard
+- ThingsBoard
 - Swagger UI
 - MQTT Explorer
 - MQTTX
