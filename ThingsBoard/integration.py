@@ -6,7 +6,7 @@ import configparser
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-chirpstack_server = config['CONFIG']['chirpstack_server']
+chirpstack_server = "172.16.0.100:8080"
 thingsboard_server = config['CONFIG']['thingsboard_server']
 username = config['CONFIG']['username']
 password = config['CONFIG']['password']
@@ -24,7 +24,7 @@ def activate_integration():
     }
     try:
         # Activar la integración en ChirpStack
-        response = requests.post(f"{chirpstack_server}/api/integration/thingsboard", headers=headers, json=integration_data)
+        response = requests.post(f"http://{chirpstack_server}/api/integration/thingsboard", headers=headers, json=integration_data)
         response.raise_for_status()
         print("Integration activated with ThingsBoard")
     except requests.exceptions.RequestException as e:
