@@ -75,7 +75,7 @@ def obtener_token_de_dispositivo(device_id):
         return None
 
 # Función para enviar datos a ThingsBoard
-def enviar_datos_a_thingsboard(datos_dispositivo, cliente_id, dev_eui_tb):
+def enviar_datos_a_thingsboard(datos_dispositivo, cliente_id, dev_eui_tb, device_profile_id):
     # Obtener el token de acceso de ThingsBoard
     access_token_thingsboard = obtener_token_de_acceso_thingsboard()
     if access_token_thingsboard:
@@ -168,7 +168,7 @@ credentialsId = obtener_token_de_dispositivo(device_id)
 datos_dispositivo = obtener_dispositivo_por_dev_eui(dev_eui, token_chirpstack)
 if datos_dispositivo:
     dev_eui_tb = credentialsId
-    enviar_datos_a_thingsboard(datos_dispositivo, cliente_id, dev_eui_tb)
+    enviar_datos_a_thingsboard(datos_dispositivo, cliente_id, dev_eui_tb, device_profile_id)
 
 # Asignar el dispositivo a un cliente y perfil en ThingsBoard
 asignar_dispositivo_a_cliente(dev_eui, cliente_id, device_profile_id, credentialsId)
