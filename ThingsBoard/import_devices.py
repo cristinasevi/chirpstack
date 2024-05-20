@@ -117,7 +117,6 @@ def asignar_dispositivo_a_cliente(dev_eui, cliente_id, device_profile_id, creden
         datos_dispositivo = {
             "device": {
                 "name": dev_eui,
-                "type": "checkness",
                 "customerId": {
                     "id": cliente_id,
                     "entityType": "CUSTOMER"

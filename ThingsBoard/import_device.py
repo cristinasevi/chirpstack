@@ -117,7 +117,6 @@ def asignar_dispositivo_a_cliente(dev_eui, cliente_id, device_profile_id, creden
         datos_dispositivo = {
             "device": {
                 "name": dev_eui,
-                "type": "checkness",
                 "customerId": {
                     "id": cliente_id,
                     "entityType": "CUSTOMER"
@@ -155,8 +154,8 @@ def asignar_dispositivo_a_cliente(dev_eui, cliente_id, device_profile_id, creden
             print(e)
 
 # Variables
-device_id = "ffaa3c20-16ab-11ef-994d-e3af5413ffbe"
-dev_eui = "0004a30b00f98573"
+device_id = "680c0860-16b7-11ef-994d-e3af5413ffbe"
+dev_eui = "0004a30b00f98da1"
 token_chirpstack = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiZTc0NjBmNWUtNWNjMy00YWM3LWFkMWYtZjZlYTQ3NWYwMDlkIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTcxNDk4Mjg0OSwic3ViIjoiYXBpX2tleSJ9.PhRDrQFKrhXWJyBkHAEyQuousmOPhCI5WOcNpK5hIbU"
 cliente_id = "dc8383c0-f0d9-11ee-a9f5-675b85d8bd3b"
 device_profile_id = "45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe"
@@ -172,3 +171,4 @@ if datos_dispositivo:
 
 # Asignar el dispositivo a un cliente y perfil en ThingsBoard
 asignar_dispositivo_a_cliente(dev_eui, cliente_id, device_profile_id, credentialsId)
+ 
