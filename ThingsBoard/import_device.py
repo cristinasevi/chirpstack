@@ -156,7 +156,7 @@ def asignar_dispositivo_a_cliente(dev_eui, cliente_id, device_profile_id, creden
 
 # Variables
 device_id = "ffaa3c20-16ab-11ef-994d-e3af5413ffbe"
-device_eui_cs = "0004a30b00f98573"
+dev_eui = "0004a30b00f98573"
 token_chirpstack = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiZTc0NjBmNWUtNWNjMy00YWM3LWFkMWYtZjZlYTQ3NWYwMDlkIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTcxNDk4Mjg0OSwic3ViIjoiYXBpX2tleSJ9.PhRDrQFKrhXWJyBkHAEyQuousmOPhCI5WOcNpK5hIbU"
 cliente_id = "dc8383c0-f0d9-11ee-a9f5-675b85d8bd3b"
 device_profile_id = "45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe"
@@ -165,10 +165,10 @@ device_profile_id = "45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe"
 credentialsId = obtener_token_de_dispositivo(device_id)
 
 # Obtener datos del dispositivo en ChirpStack
-datos_dispositivo = obtener_dispositivo_por_dev_eui(device_eui_cs, token_chirpstack)
+datos_dispositivo = obtener_dispositivo_por_dev_eui(dev_eui, token_chirpstack)
 if datos_dispositivo:
     dev_eui_tb = credentialsId
     enviar_datos_a_thingsboard(datos_dispositivo, cliente_id, dev_eui_tb)
 
 # Asignar el dispositivo a un cliente y perfil en ThingsBoard
-asignar_dispositivo_a_cliente(device_eui_cs, cliente_id, device_profile_id, credentialsId)
+asignar_dispositivo_a_cliente(dev_eui, cliente_id, device_profile_id, credentialsId)
