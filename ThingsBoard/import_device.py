@@ -78,7 +78,7 @@ def enviar_datos_a_thingsboard(datos_dispositivo, cliente_id):
             print(e)
 
 # Obtener datos del dispositivo por su dev_eui
-dev_eui_tb = "7b07ef70-167f-11ef-994d-e3af5413ffbe"  
+dev_eui_tb = "9bbWXDsP2yxXS4jAcG3S"  
 
 # Obtener el token de acceso de ChirpStack
 token_chirpstack = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiZTc0NjBmNWUtNWNjMy00YWM3LWFkMWYtZjZlYTQ3NWYwMDlkIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTcxNDk4Mjg0OSwic3ViIjoiYXBpX2tleSJ9.PhRDrQFKrhXWJyBkHAEyQuousmOPhCI5WOcNpK5hIbU"
@@ -115,7 +115,7 @@ def asignar_dispositivo_a_cliente(dev_eui, cliente_id, device_profile_id):
             },
             "credentials": {
                 "credentialsType": "ACCESS_TOKEN",
-                "credentialsId": access_token_thingsboard,
+                 "credentialsId": credentialsId,
             }
         }
 
@@ -141,8 +141,9 @@ def asignar_dispositivo_a_cliente(dev_eui, cliente_id, device_profile_id):
             print(e)
 
 # Llamar a la función para asignar el dispositivo a un cliente y un perfil de dispositivo
-dev_eui = "0004a30b00f98573"  # Reemplazar con el dev_eui correcto
+dev_eui = "0004a30b00f98573"  
 cliente_id = "dc8383c0-f0d9-11ee-a9f5-675b85d8bd3b"
-device_profile_id = "45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe"  # Reemplazar con el ID correcto del perfil de dispositivo
+device_profile_id = "45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe"  
+credentialsId = "9bbWXDsP2yxXS4jAcG3S"
 asignar_dispositivo_a_cliente(dev_eui, cliente_id, device_profile_id)
 
