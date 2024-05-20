@@ -1,5 +1,6 @@
 import requests
 
+# Función para obtener el token de acceso del usuario en ThingsBoard
 def obtener_token_de_acceso_thingsboard():
     login_endpoint = "http://thingsboard.chemik.es/api/auth/login"
     auth_data = {
@@ -20,9 +21,10 @@ def obtener_token_de_acceso_thingsboard():
         print(e)
         return None
 
+# Función para obtener información de un dispositivo en ChirpStack usando su DevEUI
 def obtener_dispositivo_por_dev_eui(dev_eui, token_chirpstack):
     # Endpoint de ChirpStack para buscar un dispositivo por dev_eui
-    chirpstack_endpoint = f"http://localhost:8080/api/devices/{device_eui_cs}"
+    chirpstack_endpoint = f"http://localhost:8080/api/devices/{dev_eui}"
     headers = {
         "Grpc-Metadata-Authorization": f"Bearer {token_chirpstack}"
     }
@@ -44,10 +46,36 @@ def obtener_dispositivo_por_dev_eui(dev_eui, token_chirpstack):
         print("Error al conectar con ChirpStack.")
         print(e)
         return None
-device_eui_cs = "0004a30b00f98573"
 
+# Función para obtener el token de un dispositivo en ThingsBoard usando su ID
+def obtener_token_de_dispositivo(device_id):
+    access_token = obtener_token_de_acceso_thingsboard()
+    if access_token is None:
+        print("No se pudo obtener el token de acceso del usuario.")
+        return None
 
-def enviar_datos_a_thingsboard(datos_dispositivo, cliente_id):
+    device_token_endpoint = f"http://thingsboard.chemik.es/api/device/{device_id}/credentials"
+    headers = {
+        "X-Authorization": f"Bearer {access_token}"
+    }
+
+    try:
+        response = requests.get(device_token_endpoint, headers=headers)
+        if response.status_code == 200:
+            device_credentials = response.json()
+            device_token = device_credentials.get("credentialsId")
+            return device_token
+        else:
+            print(f"Error al obtener el token del dispositivo. Código de estado: {response.status_code}")
+            print(response.text)
+            return None
+    except Exception as e:
+        print("Error al conectar con ThingsBoard para obtener el token del dispositivo.")
+        print(e)
+        return None
+
+# Función para enviar datos a ThingsBoard
+def enviar_datos_a_thingsboard(datos_dispositivo, cliente_id, dev_eui_tb):
     # Obtener el token de acceso de ThingsBoard
     access_token_thingsboard = obtener_token_de_acceso_thingsboard()
     if access_token_thingsboard:
@@ -60,7 +88,7 @@ def enviar_datos_a_thingsboard(datos_dispositivo, cliente_id):
 
         # Agregar el cliente_id a los datos del dispositivo
         datos_dispositivo["customerId"] = cliente_id
-        datos_dispositivo["deviceProfileId"] = "45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe"  
+        datos_dispositivo["deviceProfileId"] = device_profile_id 
 
         try:
             # Realizar la solicitud para enviar datos del dispositivo a ThingsBoard
@@ -77,22 +105,8 @@ def enviar_datos_a_thingsboard(datos_dispositivo, cliente_id):
             print("Error al conectar con ThingsBoard.")
             print(e)
 
-# Obtener datos del dispositivo por su dev_eui
-dev_eui_tb = "9bbWXDsP2yxXS4jAcG3S"  
-
-# Obtener el token de acceso de ChirpStack
-token_chirpstack = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiZTc0NjBmNWUtNWNjMy00YWM3LWFkMWYtZjZlYTQ3NWYwMDlkIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTcxNDk4Mjg0OSwic3ViIjoiYXBpX2tleSJ9.PhRDrQFKrhXWJyBkHAEyQuousmOPhCI5WOcNpK5hIbU"
-
-# Obtener los datos del dispositivo en ChirpStack
-datos_dispositivo = obtener_dispositivo_por_dev_eui(device_eui_cs, token_chirpstack)
-
-if datos_dispositivo:
-    # Enviar los datos del dispositivo a ThingsBoard con el cliente PRUEBA
-    cliente_id = "dc8383c0-f0d9-11ee-a9f5-675b85d8bd3b"
-    enviar_datos_a_thingsboard(datos_dispositivo, cliente_id)
-
-
-def asignar_dispositivo_a_cliente(dev_eui, cliente_id, device_profile_id):
+# Función para asignar un dispositivo a un cliente y perfil en ThingsBoard
+def asignar_dispositivo_a_cliente(dev_eui, cliente_id, device_profile_id, credentialsId):
     # Obtener el token de acceso de ThingsBoard
     access_token_thingsboard = obtener_token_de_acceso_thingsboard()
     if access_token_thingsboard:
@@ -140,10 +154,21 @@ def asignar_dispositivo_a_cliente(dev_eui, cliente_id, device_profile_id):
             print("Error al conectar con ThingsBoard.")
             print(e)
 
-# Llamar a la función para asignar el dispositivo a un cliente y un perfil de dispositivo
-dev_eui = "0004a30b00f98573"  
+# Variables
+device_id = "ffaa3c20-16ab-11ef-994d-e3af5413ffbe"
+device_eui_cs = "0004a30b00f98573"
+token_chirpstack = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiZTc0NjBmNWUtNWNjMy00YWM3LWFkMWYtZjZlYTQ3NWYwMDlkIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTcxNDk4Mjg0OSwic3ViIjoiYXBpX2tleSJ9.PhRDrQFKrhXWJyBkHAEyQuousmOPhCI5WOcNpK5hIbU"
 cliente_id = "dc8383c0-f0d9-11ee-a9f5-675b85d8bd3b"
-device_profile_id = "45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe"  
-credentialsId = "9bbWXDsP2yxXS4jAcG3S"
-asignar_dispositivo_a_cliente(dev_eui, cliente_id, device_profile_id)
+device_profile_id = "45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe"
 
+# Obtener el token de acceso del dispositivo
+credentialsId = obtener_token_de_dispositivo(device_id)
+
+# Obtener datos del dispositivo en ChirpStack
+datos_dispositivo = obtener_dispositivo_por_dev_eui(device_eui_cs, token_chirpstack)
+if datos_dispositivo:
+    dev_eui_tb = credentialsId
+    enviar_datos_a_thingsboard(datos_dispositivo, cliente_id, dev_eui_tb)
+
+# Asignar el dispositivo a un cliente y perfil en ThingsBoard
+asignar_dispositivo_a_cliente(device_eui_cs, cliente_id, device_profile_id, credentialsId)
