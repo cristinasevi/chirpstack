@@ -100,7 +100,7 @@ if access_token:
         "credentials": {
             "createdTime": 1715866860000,
             "credentialsType": "ACCESS_TOKEN",
-            "credentialsId": access_token,
+            "credentialsId": "",
         }
     }
 
@@ -108,6 +108,3 @@ if access_token:
     nuevo_dispositivo = crear_dispositivo(access_token, device_info)
     if nuevo_dispositivo:
         print("Nuevo dispositivo creado:", nuevo_dispositivo)
-
-
-
