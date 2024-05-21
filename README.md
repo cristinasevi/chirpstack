@@ -1,7 +1,8 @@
 # chirpstack
 
 - Chirpstack
-- Chirpstack API
+- Chirpstack Application Server API REST
+- Chirpstack API REST
 - ThingsBoard
 - Swagger UI
 - MQTT Explorer
