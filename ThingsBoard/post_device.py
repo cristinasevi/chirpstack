@@ -79,7 +79,6 @@ if access_token:
             "entityType": "DEVICE"
             },
             "name": "0000000000000002",
-            "type": "chekness",
             "label": None,
             "deviceProfileId": {
             "id": "45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe",
