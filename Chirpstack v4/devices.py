@@ -70,3 +70,22 @@ device_data = {
 }
 
 PostDevice(server, api_token, device_data)
+
+
+# delete /api/devices/{dev_eui}
+def DeleteDevice(server, api_token, dev_eui):
+    url = f"http://{server}/api/devices/{dev_eui}"
+    auth_token = {"authorization": f"Bearer {api_token}"}
+
+    try:
+        response = requests.delete(url, headers=auth_token)
+        if response.status_code == 200:
+            print("Dispositivo eliminado correctamente.")
+        else:
+            print(f"Error al eliminar el dispositivo. Código de estado: {response.status_code}")
+    except Exception as e:
+        print(f"Error al enviar la solicitud DELETE: {str(e)}")
+
+dev_eui = "0000000000000002"
+
+DeleteDevice(server, api_token, dev_eui)
