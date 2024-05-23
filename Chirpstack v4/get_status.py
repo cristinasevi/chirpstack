@@ -41,9 +41,9 @@ if response.status_code == 200:
     # Mostrar los resultados
     print("Resumen de estado de los gateways:")
     print(f"activeCount: {active_count}")
-    print(f"inactveCount: {inactive_count}")
+    print(f"inactiveCount: {inactive_count}")
     print(f"neverseenCount: {never_seen_count}")
 else:
-    print("Error al obtener el estado de las gateways:", response.status_code)
+    print("Error al obtener el estado de los gateways:", response.status_code)
     print("Mensaje:", response.text)
 
