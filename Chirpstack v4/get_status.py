@@ -1,44 +1,49 @@
 import requests
 
-server = "localhost:8090"
-api_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjaGlycHN0YWNrIiwiaXNzIjoiY2hpcnBzdGFjayIsInN1YiI6IjJjYmZjOWIxLWIzZDgtNDU3NC1hMTJjLWVmNzhiYWIwZTAyOCIsInR5cCI6ImtleSJ9.4Qzq6v_KcOvKEgXzewMNbRPS4uxE-pwcGKNjemDsRrk"
+# URL base de la API de ChirpStack
+base_url = "http://localhost:8090/api"
 
+# Endpoint para obtener el estado de las gateways
+endpoint = "/gateways?limit=100"
 
-def GetDeviceStatus(server, api_token):
-    url = f"http://{server}/api/device/status"
-    headers = {
-        "accept": "application/json",
-        "Grpc-Metadata-Authorization": f"Bearer {api_token}",
-        "Content-Type": "application/json"
-    }
+# Token de acceso para autenticación
+token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjaGlycHN0YWNrIiwiaXNzIjoiY2hpcnBzdGFjayIsInN1YiI6IjJjYmZjOWIxLWIzZDgtNDU3NC1hMTJjLWVmNzhiYWIwZTAyOCIsInR5cCI6ImtleSJ9.4Qzq6v_KcOvKEgXzewMNbRPS4uxE-pwcGKNjemDsRrk"
 
-    response = requests.get(url, headers=headers)
+# Encabezados de la solicitud con el token de acceso
+headers = {
+    "Grpc-Metadata-Authorization": f"Bearer {token}",
+    "Content-Type": "application/json"
+}
 
-    if response.status_code == 200:
-        summary_data = response.json()
-        print("Resumen de información sobre los dispositivos internos:")
-        print(summary_data)
-    else:
-        print("Error al obtener el resumen de información sobre los dispositivos internos:", response.status_code)
+# Hacer la solicitud GET a la API
+response = requests.get(base_url + endpoint, headers=headers)
 
-GetDeviceStatus(server, api_token)
+# Verificar si la solicitud fue exitosa (código de estado 200)
+if response.status_code == 200:
+    # Convertir la respuesta JSON en un diccionario de Python
+    gateways = response.json()["result"]
 
+    # Contadores para los estados de las gateways
+    active_count = 0
+    inactive_count = 0
+    never_seen_count = 0
 
-def GetGatewayStatus(server, api_token):
-    url = f"http://{server}/api/gateways/status"
-    headers = {
-        "accept": "application/json",
-        "Grpc-Metadata-Authorization": f"Bearer {api_token}",
-        "Content-Type": "application/json"
-    }
+    # Iterar sobre las gateways y contar su estado
+    for gateway in gateways:
+        last_seen_at = gateway.get("lastSeenAt")
+        if last_seen_at is None:
+            never_seen_count += 1
+        elif gateway.get("status", {}).get("connected", False):
+            active_count += 1
+        else:
+            inactive_count += 1
 
-    response = requests.get(url, headers=headers)
+    # Mostrar los resultados
+    print("Resumen de estado de los gateways:")
+    print(f"activeCount: {active_count}")
+    print(f"inactveCount: {inactive_count}")
+    print(f"neverseenCount: {never_seen_count}")
+else:
+    print("Error al obtener el estado de las gateways:", response.status_code)
+    print("Mensaje:", response.text)
 
-    if response.status_code == 200:
-        gateway_stats = response.json()
-        print("Resumen de información sobre los gateways internos:")
-        print(gateway_stats)
-    else:
-        print("Error al obtener el resumen de información sobre los gateways internos:", response.status_code)
-
-GetGatewayStatus(server, api_token)
