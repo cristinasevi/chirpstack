@@ -19,10 +19,6 @@ Gateway_List = []
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-Comm_Threshold = config['DEFAULT'].getint('Comm_Threshold', 300)  # Convertir a entero, usar 300 por defecto si no se encuentra
-Log_Rate = config['DEFAULT'].getint('Log_Rate', 60)  # Convertir a entero, usar 60 por defecto si no se encuentra
-Plant_Name = config['DEFAULT'].get('Plant_Name', 'Test')  # Si no se encuentra, usar 'Test' por defecto
-
 
 def GetDevicesSummary():
     # The API token (retrieved using the web-interface).
@@ -216,7 +212,7 @@ device_id = "0004a30b00fef714"
 device_activations = GetDeviceActivation(api_token, server, device_id)
 
 if device_activations:
-    print("Device Activations::", device_activations)
+    print("Device Activations:", device_activations)
 
 # delete /api/devices/{dev_eui}/activation 
 def DeleteDeviceActivation(api_token, server, dev_eui):
