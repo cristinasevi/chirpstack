@@ -12,18 +12,11 @@ import pandas as pd
 
 server = "localhost:8090"
 api_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjaGlycHN0YWNrIiwiaXNzIjoiY2hpcnBzdGFjayIsInN1YiI6IjJjYmZjOWIxLWIzZDgtNDU3NC1hMTJjLWVmNzhiYWIwZTAyOCIsInR5cCI6ImtleSJ9.4Qzq6v_KcOvKEgXzewMNbRPS4uxE-pwcGKNjemDsRrk"
-Com_Count = 0
-last_checked_day = None
-Device_List = []
-Gateway_List = []
 
 # Leer configuraciones desde config.ini
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-Comm_Threshold = config['DEFAULT'].getint('Comm_Threshold', 300)  # Convertir a entero, usar 300 por defecto si no se encuentra
-Log_Rate = config['DEFAULT'].getint('Log_Rate', 60)  # Convertir a entero, usar 60 por defecto si no se encuentra
-Plant_Name = config['DEFAULT'].get('Plant_Name', 'Erla')  # Si no se encuentra, usar 'Erla' por defecto
 
 def PostDeviceActivation(api_token, server, dev_eui, activation_data):
     url = f"http://{server}/api/devices/{dev_eui}/activate"
