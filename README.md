@@ -1,4 +1,4 @@
-# chirpstack
+# chirpstack-thingsboard
 
 - Chirpstack
 - Chirpstack Application Server API REST
