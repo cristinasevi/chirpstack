@@ -75,12 +75,12 @@ def obtener_token_de_dispositivo(device_id):
         return None
 
 # Función para enviar datos a ThingsBoard
-def enviar_datos_a_thingsboard(datos_dispositivo, cliente_id, dev_eui_tb, device_profile_id):
+def enviar_datos_a_thingsboard(datos_dispositivo, cliente_id, credentialsId, device_profile_id):
     # Obtener el token de acceso de ThingsBoard
     access_token_thingsboard = obtener_token_de_acceso_thingsboard()
     if access_token_thingsboard:
         # Endpoint de ThingsBoard para enviar datos del dispositivo
-        thingsboard_endpoint = f"http://thingsboard.chemik.es/api/v1/{dev_eui_tb}/telemetry"
+        thingsboard_endpoint = f"http://thingsboard.chemik.es/api/v1/{credentialsId}/telemetry"
         headers = {
             "X-Authorization": f"Bearer {access_token_thingsboard}",
             "Content-Type": "application/json"
@@ -154,9 +154,9 @@ def asignar_dispositivo_a_cliente(dev_eui, cliente_id, device_profile_id, creden
             print(e)
 
 # Variables
-device_id = "680c0860-16b7-11ef-994d-e3af5413ffbe"
-dev_eui = "0004a30b00f98da1"
-token_chirpstack = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiZTc0NjBmNWUtNWNjMy00YWM3LWFkMWYtZjZlYTQ3NWYwMDlkIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTcxNDk4Mjg0OSwic3ViIjoiYXBpX2tleSJ9.PhRDrQFKrhXWJyBkHAEyQuousmOPhCI5WOcNpK5hIbU"
+device_id = "6ba189c0-1c1e-11ef-a4b5-cd877a1ebdc9"
+dev_eui = "0004a30b01055537"
+token_chirpstack = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiNzYyOGE4NGQtOGRhMy00ZDQ1LWJlNmYtZTM4MWY5MzQ5ZWI1IiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTY3NzY4NzI5NCwic3ViIjoiYXBpX2tleSJ9.LBx46H_nzGPkSxqsqVxU_5ig0soMF9dWlsuA6obE1EY"
 cliente_id = "dc8383c0-f0d9-11ee-a9f5-675b85d8bd3b"
 device_profile_id = "45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe"
 
@@ -166,8 +166,7 @@ credentialsId = obtener_token_de_dispositivo(device_id)
 # Obtener datos del dispositivo en ChirpStack
 datos_dispositivo = obtener_dispositivo_por_dev_eui(dev_eui, token_chirpstack)
 if datos_dispositivo:
-    dev_eui_tb = credentialsId
-    enviar_datos_a_thingsboard(datos_dispositivo, cliente_id, dev_eui_tb, device_profile_id)
+    enviar_datos_a_thingsboard(datos_dispositivo, cliente_id, credentialsId, device_profile_id)
 
 # Asignar el dispositivo a un cliente y perfil en ThingsBoard
 asignar_dispositivo_a_cliente(dev_eui, cliente_id, device_profile_id, credentialsId)
