@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "4a4fc783-5116-4685-bf24-50e1754b0d12",
+		"name": "Chirpstack",
+		"description": "ChirpStack is an open-source LoRaWAN Network Server which can be used to setup LoRaWAN networks. ChirpStack provides a web-interface for the management of gateways, devices and tenants as well to setup data integrations with the major cloud providers, databases and services commonly used for handling device data.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35157639",
+		"_collection_link": "https://www.postman.com/cristinasevi/workspace/chirpstack-thingsboard/collection/35157639-4a4fc783-5116-4685-bf24-50e1754b0d12?action=share&source=collection_link&creator=35157639"
+	},
+	"item": [
+		{
+			"name": "list of gateways",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{chirpstack_host}}/api/gateways?limit=100",
+					"host": [
+						"{{chirpstack_host}}"
+					],
+					"path": [
+						"api",
+						"gateways"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{chirpstack_host}}/api/device-profiles/{{device_profile_id}}",
+					"host": [
+						"{{chirpstack_host}}"
+					],
+					"path": [
+						"api",
+						"device-profiles",
+						"{{device_profile_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device data",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{chirpstack_host}}/api/devices/{{dev_eui}}",
+					"host": [
+						"{{chirpstack_host}}"
+					],
+					"path": [
+						"api",
+						"devices",
+						"{{dev_eui}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new device",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"device\": {\r\n    \"devEui\": \"0000000000000001\",\r\n    \"name\": \"0000000000000001\",\r\n    \"applicationId\": \"d56beb5c-5f84-4916-b54b-18c6dd7b2178\",\r\n    \"description\": \"Lo cree automaticamente\",\r\n    \"deviceProfileId\": \"9e9c356b-434b-4cf6-8862-78a57ab8b524\",\r\n    \"skipFCntCheck\": true,\r\n    \"referenceAltitude\": 0,\r\n    \"isDisabled\": false,\r\n    \"tags\": {},\r\n    \"variables\": {}\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{chirpstack_host}}/api/devices",
+					"host": [
+						"{{chirpstack_host}}"
+					],
+					"path": [
+						"api",
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{chirpstack_host}}/api/devices/{{device_id}}",
+					"host": [
+						"{{chirpstack_host}}"
+					],
+					"path": [
+						"api",
+						"devices",
+						"{{device_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

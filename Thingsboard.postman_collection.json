@@ -1,0 +1,444 @@
+{
+	"info": {
+		"_postman_id": "6aac2a97-4ace-49f3-96bd-cc636ac5bd23",
+		"name": "Thingsboard",
+		"description": "ThingsBoard is an open-source IoT platform for data collection, processing, visualization, and device management.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35157639",
+		"_collection_link": "https://www.postman.com/cristinasevi/workspace/chirpstack-thingsboard/collection/35157639-6aac2a97-4ace-49f3-96bd-cc636ac5bd23?action=share&source=collection_link&creator=35157639"
+	},
+	"item": [
+		{
+			"name": "authentification",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"access_token\", jsonData.token);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"{{username}}\", \"password\":\"{{password}}\"}"
+				},
+				"url": {
+					"raw": "{{thingsboard_host}}/api/auth/login",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device data",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}{",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{thingsboard_host}}/api/device/info/{{dev_id}}",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"device",
+						"info",
+						"{{dev_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new device",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}{",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"device\": {\r\n            \"tenantId\": {\r\n            \"id\": \"{{tenantId}}\",\r\n            \"entityType\": \"TENANT\"\r\n            },\r\n            \"customerId\": {\r\n            \"id\": \"{{customerId}}\",\r\n            \"entityType\": \"CUSTOMER\"\r\n            },\r\n            \"ownerId\": {\r\n            \"id\": \"{{ownerId}}\",\r\n            \"entityType\": \"DEVICE\"\r\n            },\r\n            \"name\": \"{{device_id}}\",\r\n            \"label\": null,\r\n            \"deviceProfileId\": {\r\n            \"id\": \"{{deviceProfileId}}\",\r\n            \"entityType\": \"DEVICE_PROFILE\"\r\n            },\r\n            \"deviceData\": {\r\n            \"configuration\": {\r\n                \"type\": \"DEFAULT\"\r\n            },\r\n            \"transportConfiguration\": {\r\n                \"type\": \"DEFAULT\"\r\n            }\r\n            },\r\n            \"firmwareId\": null,\r\n            \"softwareId\": null,\r\n            \"additionalInfo\": null\r\n        },\r\n        \"credentials\": {\r\n            \"createdTime\": 1715866860000,\r\n            \"credentialsType\": \"ACCESS_TOKEN\",\r\n            \"credentialsId\": \"\"\r\n        }\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{thingsboard_host}}/api/device-with-credentials",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"device-with-credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device chirpstack",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Grpc-Metadata-Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{chirpstack_host}}/api/devices/{{dev_eui}}",
+					"host": [
+						"{{chirpstack_host}}"
+					],
+					"path": [
+						"api",
+						"devices",
+						"{{dev_eui}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "move device",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientId\": \"{{customerId}}\",\r\n    \"name\": \"{{dev_eui}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{thingsboard_host}}/api/device",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"device"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "credentialsId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (responseCode.code === 200) {\r",
+							"    var responseData = JSON.parse(responseBody);\r",
+							"    pm.environment.set(\"credentialsId\", responseData.credentialsId);\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{thingsboard_host}}/api/device/{{dev_id}}/credentials",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"device",
+						"{{dev_id}}",
+						"credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "import data",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"device\": {\r\n    \"name\": \"{{dev_id}}\",\r\n    \"customerId\": {\r\n      \"id\": \"{{customerId}}\",\r\n      \"entityType\": \"CUSTOMER\"\r\n    },\r\n    \"deviceProfileId\": {\r\n      \"id\": \"{{deviceProfileId}}\",\r\n      \"entityType\": \"DEVICE_PROFILE\"\r\n    }\r\n  },\r\n  \"credentials\": {\r\n    \"credentialsType\": \"ACCESS_TOKEN\",\r\n    \"credentialsId\": \"{{credentialsId}}\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{thingsboard_host}}/api/device-with-credentials",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"device-with-credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"deviceStatus\", JSON.stringify(pm.response.json()));\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{chirpstack_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{chirpstack_host}}/api/internal/devices/summary",
+					"host": [
+						"{{chirpstack_host}}"
+					],
+					"path": [
+						"api",
+						"internal",
+						"devices",
+						"summary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gateway status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"gatewayStatus\", JSON.stringify(pm.response.json()));\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{chirpstack_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{chirpstack_host}}/api/internal/gateways/summary",
+					"host": [
+						"{{chirpstack_host}}"
+					],
+					"path": [
+						"api",
+						"internal",
+						"gateways",
+						"summary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "telemetry",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let deviceStatus = pm.environment.get(\"deviceStatus\");\r",
+							"let gatewayStatus = pm.environment.get(\"gatewayStatus\");\r",
+							"\r",
+							"let telemetryData = {\r",
+							"    deviceStatus: JSON.parse(deviceStatus),\r",
+							"    gatewayStatus: JSON.parse(gatewayStatus)\r",
+							"};\r",
+							"\r",
+							"pm.environment.set(\"telemetryData\", JSON.stringify(telemetryData));\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{telemetryData}}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{thingsboard_host}}/api/v1/{{customerId}}/telemetry",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"{{customerId}}",
+						"telemetry"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
