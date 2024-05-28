@@ -210,6 +210,245 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "device activation keys",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{chirpstack_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{chirpstack_host}}/api/devices/0004a30b00fef714/activation",
+					"host": [
+						"{{chirpstack_host}}"
+					],
+					"path": [
+						"api",
+						"devices",
+						"0004a30b00fef714",
+						"activation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device stats",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{chirpstack_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{chirpstack_host}}/api/devices/{{device_eui}}/stats?interval=minute&startTimestamp=2023-10-20T20:23:00Z&endTimestamp=2023-10-20T22:23:00Z",
+					"host": [
+						"{{chirpstack_host}}"
+					],
+					"path": [
+						"api",
+						"devices",
+						"{{device_eui}}",
+						"stats"
+					],
+					"query": [
+						{
+							"key": "interval",
+							"value": "minute"
+						},
+						{
+							"key": "startTimestamp",
+							"value": "2023-10-20T20:23:00Z"
+						},
+						{
+							"key": "endTimestamp",
+							"value": "2023-10-20T22:23:00Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list of applications",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{chirpstack_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{chirpstack_host}}/api/applications?limit=100&offset=0",
+					"host": [
+						"{{chirpstack_host}}"
+					],
+					"path": [
+						"api",
+						"applications"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "100"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"deviceStatus\", JSON.stringify(pm.response.json()));\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{chirpstack_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{chirpstack_host}}/api/internal/devices/summary",
+					"host": [
+						"{{chirpstack_host}}"
+					],
+					"path": [
+						"api",
+						"internal",
+						"devices",
+						"summary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gateway status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"gatewayStatus\", JSON.stringify(pm.response.json()));\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{chirpstack_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{chirpstack_host}}/api/internal/gateways/summary",
+					"host": [
+						"{{chirpstack_host}}"
+					],
+					"path": [
+						"api",
+						"internal",
+						"gateways",
+						"summary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device chirpstack",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Grpc-Metadata-Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{chirpstack_host}}/api/devices/{{dev_eui}}",
+					"host": [
+						"{{chirpstack_host}}"
+					],
+					"path": [
+						"api",
+						"devices",
+						"{{dev_eui}}"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

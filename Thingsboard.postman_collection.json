@@ -173,30 +173,6 @@
 			"response": []
 		},
 		{
-			"name": "device chirpstack",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Grpc-Metadata-Authorization",
-						"value": "Bearer {{token}}"
-					}
-				],
-				"url": {
-					"raw": "{{chirpstack_host}}/api/devices/{{dev_eui}}",
-					"host": [
-						"{{chirpstack_host}}"
-					],
-					"path": [
-						"api",
-						"devices",
-						"{{dev_eui}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "move device",
 			"request": {
 				"method": "POST",
@@ -310,97 +286,109 @@
 			"response": []
 		},
 		{
-			"name": "device status",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.environment.set(\"deviceStatus\", JSON.stringify(pm.response.json()));\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
+			"name": "device attributes",
 			"request": {
 				"method": "GET",
 				"header": [
 					{
-						"key": "Authorization",
-						"value": "Bearer {{chirpstack_token}}"
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
 					}
 				],
 				"url": {
-					"raw": "{{chirpstack_host}}/api/internal/devices/summary",
+					"raw": "{{thingsboard_host}}/api/v1/{{device_access_token}}/attributes",
 					"host": [
-						"{{chirpstack_host}}"
+						"{{thingsboard_host}}"
 					],
 					"path": [
 						"api",
-						"internal",
-						"devices",
-						"summary"
+						"v1",
+						"{{device_access_token}}",
+						"attributes"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "gateway status",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.environment.set(\"gatewayStatus\", JSON.stringify(pm.response.json()));\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
+			"name": "device telemetry",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [
 					{
-						"key": "Authorization",
-						"value": "Bearer {{chirpstack_token}}"
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
 					}
 				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"device_status\": {{deviceStatus}},\r\n  \"gateway_status\": {{gatewayStatus}}\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "{{chirpstack_host}}/api/internal/gateways/summary",
+					"raw": "{{thingsboard_host}}/api/v1/{{device_access_token}}/telemetry",
 					"host": [
-						"{{chirpstack_host}}"
+						"{{thingsboard_host}}"
 					],
 					"path": [
 						"api",
-						"internal",
-						"gateways",
-						"summary"
+						"v1",
+						"{{device_access_token}}",
+						"telemetry"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "telemetry",
+			"name": "customer attributes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{thingsboard_host}}/api/v1/a39214a0-19a6-11ef-a4b5-cd877a1ebdc9/attributes",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"a39214a0-19a6-11ef-a4b5-cd877a1ebdc9",
+						"attributes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "customer attributes",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"let deviceStatus = pm.environment.get(\"deviceStatus\");\r",
-							"let gatewayStatus = pm.environment.get(\"gatewayStatus\");\r",
 							"\r",
-							"let telemetryData = {\r",
-							"    deviceStatus: JSON.parse(deviceStatus),\r",
-							"    gatewayStatus: JSON.parse(gatewayStatus)\r",
-							"};\r",
-							"\r",
-							"pm.environment.set(\"telemetryData\", JSON.stringify(telemetryData));\r",
 							""
 						],
 						"type": "text/javascript",
@@ -414,11 +402,19 @@
 					{
 						"key": "Content-Type",
 						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{{telemetryData}}\r\n",
+					"raw": "{\r\n    \"device_status\": \"{{deviceStatus}}\",\r\n    \"gateway_status\": \"{{gatewayStatus}}\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -426,7 +422,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{thingsboard_host}}/api/v1/{{customerId}}/telemetry",
+					"raw": "{{thingsboard_host}}/api/v1/{{customerId}}/attributes",
 					"host": [
 						"{{thingsboard_host}}"
 					],
@@ -434,7 +430,82 @@
 						"api",
 						"v1",
 						"{{customerId}}",
-						"telemetry"
+						"attributes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device server attributes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{thingsboard_host}}/api/v1/{{device_access_token}}/attributes?clientKeys=attribute1,attribute2&sharedKeys=shared1,shared2",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"{{device_access_token}}",
+						"attributes"
+					],
+					"query": [
+						{
+							"key": "clientKeys",
+							"value": "attribute1,attribute2"
+						},
+						{
+							"key": "sharedKeys",
+							"value": "shared1,shared2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device telemetry",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{thingsboard_host}}/api/plugins/telemetry/DEVICE/{{dispositivo_id}}/values/timeseries",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"plugins",
+						"telemetry",
+						"DEVICE",
+						"{{dispositivo_id}}",
+						"values",
+						"timeseries"
 					]
 				}
 			},
