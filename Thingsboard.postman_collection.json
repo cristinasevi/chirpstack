@@ -115,7 +115,94 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "device data",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpbmZvQGluYXJ0ZWNub2xvZ2lhcy5lcyIsInVzZXJJZCI6ImMxYjExMTEwLTJhZGQtMTFlZS1hNGE1LWNmYzJmMjYxNzRmZSIsInNjb3Bl..."
+							}
+						],
+						"url": {
+							"raw": "http://thingsboard.chemik.es/api/device/info/6ba189c0-1c1e-11ef-a4b5-cd877a1ebdc9",
+							"protocol": "http",
+							"host": [
+								"thingsboard",
+								"chemik",
+								"es"
+							],
+							"path": [
+								"api",
+								"device",
+								"info",
+								"6ba189c0-1c1e-11ef-a4b5-cd877a1ebdc9"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "vary",
+							"value": "Origin"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "x-content-type-options",
+							"value": "nosniff"
+						},
+						{
+							"key": "x-xss-protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "expires",
+							"value": "0"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "transfer-encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "date",
+							"value": "Tue, 28 May 2024 07:34:20 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": {\n        \"entityType\": \"DEVICE\",\n        \"id\": \"a39214a0-19a6-11ef-a4b5-cd877a1ebdc9\"\n    },\n    \"createdTime\": 1716538897130,\n    \"additionalInfo\": null,\n    \"tenantId\": {\n        \"entityType\": \"TENANT\",\n        \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n    },\n    \"customerId\": {\n        \"entityType\": \"CUSTOMER\",\n        \"id\": \"d3b64270-2d1e-11ee-8142-4394c74561d5\"\n    },\n    \"name\": \"0004a30b00f98b47\",\n    \"type\": \"chekness\",\n    \"label\": null,\n    \"deviceProfileId\": {\n        \"entityType\": \"DEVICE_PROFILE\",\n        \"id\": \"45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe\"\n    },\n    \"deviceData\": {\n        \"configuration\": {\n            \"type\": \"DEFAULT\"\n        },\n        \"transportConfiguration\": {\n            \"type\": \"DEFAULT\"\n        }\n    },\n    \"firmwareId\": null,\n    \"softwareId\": null,\n    \"externalId\": null,\n    \"ownerName\": \"TELESTO 02\",\n    \"groups\": [],\n    \"active\": true,\n    \"ownerId\": {\n        \"entityType\": \"CUSTOMER\",\n        \"id\": \"d3b64270-2d1e-11ee-8142-4394c74561d5\"\n    }\n}"
+				}
+			]
 		},
 		{
 			"name": "new device",
@@ -206,7 +293,97 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "move device",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpbmZvQGluYXJ0ZWNub2xvZ2lhcy5lcyIsInVzZXJJZCI6ImMxYjExMTEwLTJhZGQtMTFlZS1hNGE1LWNmYzJmMjYxNzRmZSIsInNjb3Bl..."
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"clientId\": \"dc8383c0-f0d9-11ee-a9f5-675b85d8bd3b\",\r\n    \"name\": \"0004a30b00fef714\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://thingsboard.chemik.es/api/device",
+							"protocol": "http",
+							"host": [
+								"thingsboard",
+								"chemik",
+								"es"
+							],
+							"path": [
+								"api",
+								"device"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "vary",
+							"value": "Origin"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "x-content-type-options",
+							"value": "nosniff"
+						},
+						{
+							"key": "x-xss-protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "expires",
+							"value": "0"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "transfer-encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "date",
+							"value": "Tue, 28 May 2024 07:35:02 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": {\n        \"entityType\": \"DEVICE\",\n        \"id\": \"cbc8d8c0-1cc4-11ef-a4b5-cd877a1ebdc9\"\n    },\n    \"createdTime\": 1716881702988,\n    \"additionalInfo\": null,\n    \"tenantId\": {\n        \"entityType\": \"TENANT\",\n        \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n    },\n    \"customerId\": {\n        \"entityType\": \"CUSTOMER\",\n        \"id\": \"13814000-1dd2-11b2-8080-808080808080\"\n    },\n    \"name\": \"0004a30b00f98da1\",\n    \"type\": \"default\",\n    \"label\": null,\n    \"deviceProfileId\": {\n        \"entityType\": \"DEVICE_PROFILE\",\n        \"id\": \"84cbfb90-2a13-11ee-a87d-e32305a89fd3\"\n    },\n    \"deviceData\": {\n        \"configuration\": {\n            \"type\": \"DEFAULT\"\n        },\n        \"transportConfiguration\": {\n            \"type\": \"DEFAULT\"\n        }\n    },\n    \"firmwareId\": null,\n    \"softwareId\": null,\n    \"externalId\": null,\n    \"ownerId\": {\n        \"entityType\": \"TENANT\",\n        \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n    }\n}"
+				}
+			]
 		},
 		{
 			"name": "credentialsId",
@@ -247,7 +424,86 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "credentialsId",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpbmZvQGluYXJ0ZWNub2xvZ2lhcy5lcyIsInVzZXJJZCI6ImMxYjExMTEwLTJhZGQtMTFlZS1hNGE1LWNmYzJmMjYxNzRmZSIsInNjb3Bl..."
+							}
+						],
+						"url": {
+							"raw": "http://thingsboard.chemik.es/api/device/6ba189c0-1c1e-11ef-a4b5-cd877a1ebdc9/credentials",
+							"protocol": "http",
+							"host": [
+								"thingsboard",
+								"chemik",
+								"es"
+							],
+							"path": [
+								"api",
+								"device",
+								"6ba189c0-1c1e-11ef-a4b5-cd877a1ebdc9",
+								"credentials"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "vary",
+							"value": "Origin"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "x-content-type-options",
+							"value": "nosniff"
+						},
+						{
+							"key": "x-xss-protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "expires",
+							"value": "0"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "transfer-encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "date",
+							"value": "Tue, 28 May 2024 09:20:12 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": {\n        \"id\": \"6ba24d10-1c1e-11ef-a4b5-cd877a1ebdc9\"\n    },\n    \"createdTime\": 1716810245217,\n    \"deviceId\": {\n        \"entityType\": \"DEVICE\",\n        \"id\": \"6ba189c0-1c1e-11ef-a4b5-cd877a1ebdc9\"\n    },\n    \"credentialsType\": \"ACCESS_TOKEN\",\n    \"credentialsId\": \"NL6ER6WOcqCraAcNaq2p\",\n    \"credentialsValue\": null\n}"
+				}
+			]
 		},
 		{
 			"name": "import data",
@@ -265,7 +521,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"device\": {\r\n    \"name\": \"{{dev_id}}\",\r\n    \"customerId\": {\r\n      \"id\": \"{{customerId}}\",\r\n      \"entityType\": \"CUSTOMER\"\r\n    },\r\n    \"deviceProfileId\": {\r\n      \"id\": \"{{deviceProfileId}}\",\r\n      \"entityType\": \"DEVICE_PROFILE\"\r\n    }\r\n  },\r\n  \"credentials\": {\r\n    \"credentialsType\": \"ACCESS_TOKEN\",\r\n    \"credentialsId\": \"{{credentialsId}}\"\r\n  }\r\n}",
+					"raw": "{\r\n  \"device\": {\r\n    \"name\": \"{{dev_id}}\",\r\n    \"customerId\": {\r\n      \"id\": \"{{customerId}}\",\r\n      \"entityType\": \"CUSTOMER\"\r\n    },\r\n    \"deviceProfileId\": {\r\n      \"id\": \"{{deviceProfileId}}\",\r\n      \"entityType\": \"DEVICE_PROFILE\"\r\n    }\r\n  },\r\n  \"credentials\": {\r\n    \"credentialsType\": \"ACCESS_TOKEN\",\r\n    \"credentialsId\": \"credentialsId\"\r\n  }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -283,7 +539,220 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "import data",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"device\": {\r\n    \"name\": \"{{dev_id}}\",\r\n    \"customerId\": {\r\n      \"id\": \"{{customerId}}\",\r\n      \"entityType\": \"CUSTOMER\"\r\n    },\r\n    \"deviceProfileId\": {\r\n      \"id\": \"{{deviceProfileId}}\",\r\n      \"entityType\": \"DEVICE_PROFILE\"\r\n    }\r\n  },\r\n  \"credentials\": {\r\n    \"credentialsType\": \"ACCESS_TOKEN\",\r\n    \"credentialsId\": \"credentialsId\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{thingsboard_host}}/api/device-with-credentials",
+							"host": [
+								"{{thingsboard_host}}"
+							],
+							"path": [
+								"api",
+								"device-with-credentials"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "vary",
+							"value": "Origin"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "x-content-type-options",
+							"value": "nosniff"
+						},
+						{
+							"key": "x-xss-protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "expires",
+							"value": "0"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "transfer-encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "date",
+							"value": "Wed, 29 May 2024 09:09:09 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": {\n        \"entityType\": \"DEVICE\",\n        \"id\": \"1c69b200-1d9b-11ef-a4b5-cd877a1ebdc9\"\n    },\n    \"createdTime\": 1716973750560,\n    \"additionalInfo\": null,\n    \"tenantId\": {\n        \"entityType\": \"TENANT\",\n        \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n    },\n    \"customerId\": {\n        \"entityType\": \"CUSTOMER\",\n        \"id\": \"dc8383c0-f0d9-11ee-a9f5-675b85d8bd3b\"\n    },\n    \"name\": \"6ba189c0-1c1e-11ef-a4b5-cd877a1ebdc9\",\n    \"type\": \"chekness\",\n    \"label\": null,\n    \"deviceProfileId\": {\n        \"entityType\": \"DEVICE_PROFILE\",\n        \"id\": \"45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe\"\n    },\n    \"deviceData\": {\n        \"configuration\": {\n            \"type\": \"DEFAULT\"\n        },\n        \"transportConfiguration\": {\n            \"type\": \"DEFAULT\"\n        }\n    },\n    \"firmwareId\": null,\n    \"softwareId\": null,\n    \"externalId\": null,\n    \"ownerId\": {\n        \"entityType\": \"CUSTOMER\",\n        \"id\": \"dc8383c0-f0d9-11ee-a9f5-675b85d8bd3b\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "device telemetry",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{thingsboard_host}}/api/plugins/telemetry/DEVICE/{{dispositivo_id}}/values/timeseries",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"plugins",
+						"telemetry",
+						"DEVICE",
+						"{{dispositivo_id}}",
+						"values",
+						"timeseries"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "device telemetry",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpbmZvQGluYXJ0ZWNub2xvZ2lhcy5lcyIsInVzZXJJZCI6ImMxYjExMTEwLTJhZGQtMTFlZS1hNGE1LWNmYzJmMjYxNzRmZSIsInNjb3Bl..."
+							}
+						],
+						"url": {
+							"raw": "http://thingsboard.chemik.es/api/plugins/telemetry/DEVICE/a39214a0-19a6-11ef-a4b5-cd877a1ebdc9/values/timeseries",
+							"protocol": "http",
+							"host": [
+								"thingsboard",
+								"chemik",
+								"es"
+							],
+							"path": [
+								"api",
+								"plugins",
+								"telemetry",
+								"DEVICE",
+								"a39214a0-19a6-11ef-a4b5-cd877a1ebdc9",
+								"values",
+								"timeseries"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "vary",
+							"value": "Origin"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "x-content-type-options",
+							"value": "nosniff"
+						},
+						{
+							"key": "x-xss-protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "expires",
+							"value": "0"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "transfer-encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "date",
+							"value": "Tue, 28 May 2024 07:36:35 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"msgDailyCounter\": [\n        {\n            \"ts\": 1716881777483,\n            \"value\": \"153\"\n        }\n    ],\n    \"data_corriente1\": [\n        {\n            \"ts\": 1716881777483,\n            \"value\": \"13.9\"\n        }\n    ],\n    \"data_corriente2\": [\n        {\n            \"ts\": 1716881777483,\n            \"value\": \"13.7\"\n        }\n    ],\n    \"data_corriente3\": [\n        {\n            \"ts\": 1716881777483,\n            \"value\": \"13.5\"\n        }\n    ],\n    \"data_corriente4\": [\n        {\n            \"ts\": 1716881777483,\n            \"value\": \"0\"\n        }\n    ],\n    \"rssi\": [\n        {\n            \"ts\": 1716881777483,\n            \"value\": \"-87\"\n        }\n    ],\n    \"snr\": [\n        {\n            \"ts\": 1716881777483,\n            \"value\": \"9\"\n        }\n    ],\n    \"firstMsg\": [\n        {\n            \"ts\": 1716872454583,\n            \"value\": \"1716872454583\"\n        }\n    ],\n    \"date1\": [\n        {\n            \"ts\": 1716872454583,\n            \"value\": \"2024-05-27T19:23:27.341Z\"\n        }\n    ],\n    \"date2\": [\n        {\n            \"ts\": 1716872454583,\n            \"value\": \"2024-05-28T05:00:54.583Z\"\n        }\n    ]\n}"
+				}
+			]
 		},
 		{
 			"name": "device attributes",
@@ -300,19 +769,102 @@
 					}
 				],
 				"url": {
-					"raw": "{{thingsboard_host}}/api/v1/{{device_access_token}}/attributes",
+					"raw": "{{thingsboard_host}}/api/v1/{{dev_access_token}}/attributes",
 					"host": [
 						"{{thingsboard_host}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"{{device_access_token}}",
+						"{{dev_access_token}}",
 						"attributes"
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "device attributes",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpbmZvQGluYXJ0ZWNub2xvZ2lhcy5lcyIsInVzZXJJZCI6ImMxYjExMTEwLTJhZGQtMTFlZS1hNGE1LWNmYzJmMjYxNzRmZSIsInNjb3Bl..."
+							}
+						],
+						"url": {
+							"raw": "http://thingsboard.chemik.es/api/v1/lSkMSAiRneywRODbC07T/attributes",
+							"protocol": "http",
+							"host": [
+								"thingsboard",
+								"chemik",
+								"es"
+							],
+							"path": [
+								"api",
+								"v1",
+								"lSkMSAiRneywRODbC07T",
+								"attributes"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "vary",
+							"value": "Origin"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "x-content-type-options",
+							"value": "nosniff"
+						},
+						{
+							"key": "x-xss-protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "expires",
+							"value": "0"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "content-length",
+							"value": "138"
+						},
+						{
+							"key": "date",
+							"value": "Wed, 29 May 2024 06:40:09 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"client\": {\n        \"application_id\": 1,\n        \"application_name\": \"PV_San_Andres_Telesto02\",\n        \"dev_eui\": \"0004a30b00f98b47\",\n        \"device_name\": \"0004a30b00f98b47\"\n    }\n}"
+				}
+			]
 		},
 		{
 			"name": "device telemetry",
@@ -346,6 +898,48 @@
 						"api",
 						"v1",
 						"{{device_access_token}}",
+						"telemetry"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device last telemetry",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"device\": {\r\n    \"name\": \"dev_id\",\r\n    \"customerId\": {\r\n      \"id\": \"customerId\",\r\n      \"entityType\": \"CUSTOMER\"\r\n  \t},\r\n    \"deviceProfileId\": {\r\n      \"id\": \"deviceProfileId\",\r\n      \"entityType\": \"DEVICE_PROFILE\"\r\n    }\r\n  },\r\n  \"credentials\": {\r\n    \"credentialsType\": \"ACCESS_TOKEN\",\r\n    \"credentialsId\": \"credentialsId\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{thingsboard_host}}/api/v1/{{credentialsId}}/telemetry",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"{{credentialsId}}",
 						"telemetry"
 					]
 				}
@@ -388,7 +982,6 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"\r",
 							""
 						],
 						"type": "text/javascript",
@@ -414,7 +1007,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"device_status\": \"{{deviceStatus}}\",\r\n    \"gateway_status\": \"{{gatewayStatus}}\"\r\n}\r\n",
+					"raw": "{\r\n    \"device_status\": {{deviceStatus}},\r\n    \"gateway_status\": {{gatewayStatus}}\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -476,9 +1069,9 @@
 			"response": []
 		},
 		{
-			"name": "device telemetry",
+			"name": "device customer attributes",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -493,19 +1086,171 @@
 						"value": "Bearer {{access_token}}"
 					}
 				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"application_id\": \"1\",\r\n    \"application_name\": \"PRUEBAS\",\r\n    \"dev_eui\": \"0004a30b01055537\",\r\n    \"device_name\": \"0004a30b01055537\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "{{thingsboard_host}}/api/plugins/telemetry/DEVICE/{{dispositivo_id}}/values/timeseries",
+					"raw": "{{thingsboard_host}}/api/v1/{{device_access_token}}/attributes",
 					"host": [
 						"{{thingsboard_host}}"
 					],
 					"path": [
 						"api",
-						"plugins",
-						"telemetry",
-						"DEVICE",
-						"{{dispositivo_id}}",
-						"values",
-						"timeseries"
+						"v1",
+						"{{device_access_token}}",
+						"attributes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device in customer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{thingsboard_host}}/api/customer/{{customerId}}/device/{{dev_id}}",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"customer",
+						"{{customerId}}",
+						"device",
+						"{{dev_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete device attributes",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{thingsboard_host}}/api/v1/{{customerId}}/attributes/delete",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"{{customerId}}",
+						"attributes",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete device",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{thingsboard_host}}/api/device/{{dev_id}}",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"device",
+						"{{dev_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete device attributes",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{thingsboard_host}}/api/device/{{dev_id}}/attributes",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"device",
+						"{{dev_id}}",
+						"attributes"
 					]
 				}
 			},
