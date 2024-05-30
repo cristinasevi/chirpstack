@@ -21,7 +21,6 @@ def obtener_token_de_acceso_thingsboard():
         print(e)
         return None
 
-
 # Función para eliminar varios dispositivos en ThingsBoard
 def eliminar_dispositivos_thingsboard(device_ids):
     access_token = obtener_token_de_acceso_thingsboard()
@@ -43,6 +42,5 @@ def eliminar_dispositivos_thingsboard(device_ids):
             print("Error al eliminar dispositivos en ThingsBoard.")
             print(e)
 
-# Ejemplo de uso
 dispositivos_a_eliminar = ["d337e5f0-1e69-11ef-a4b5-cd877a1ebdc9", "d36b2af0-1e69-11ef-a4b5-cd877a1ebdc9"]
 eliminar_dispositivos_thingsboard(dispositivos_a_eliminar)
