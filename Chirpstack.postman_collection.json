@@ -186,14 +186,14 @@
 					}
 				],
 				"url": {
-					"raw": "{{chirpstack_host}}/api/devices/{{dev_eui}}",
+					"raw": "{{chirpstack_host}}/api/devices/{{dispositivo_eui}}",
 					"host": [
 						"{{chirpstack_host}}"
 					],
 					"path": [
 						"api",
 						"devices",
-						"{{dev_eui}}"
+						"{{dispositivo_eui}}"
 					]
 				}
 			},
@@ -509,14 +509,14 @@
 					}
 				],
 				"url": {
-					"raw": "{{chirpstack_host}}/api/devices/{{dev_eui}}",
+					"raw": "{{chirpstack_host}}/api/devices/{{dispositivo_eui}}",
 					"host": [
 						"{{chirpstack_host}}"
 					],
 					"path": [
 						"api",
 						"devices",
-						"{{dev_eui}}"
+						"{{dispositivo_eui}}"
 					]
 				}
 			},

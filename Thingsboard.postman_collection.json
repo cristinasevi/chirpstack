@@ -131,22 +131,19 @@
 							},
 							{
 								"key": "X-Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpbmZvQGluYXJ0ZWNub2xvZ2lhcy5lcyIsInVzZXJJZCI6ImMxYjExMTEwLTJhZGQtMTFlZS1hNGE1LWNmYzJmMjYxNzRmZSIsInNjb3Bl..."
+								"value": "Bearer {{access_token}}"
 							}
 						],
 						"url": {
-							"raw": "http://thingsboard.chemik.es/api/device/info/6ba189c0-1c1e-11ef-a4b5-cd877a1ebdc9",
-							"protocol": "http",
+							"raw": "{{thingsboard_host}}/api/device/info/{{dev_id}}",
 							"host": [
-								"thingsboard",
-								"chemik",
-								"es"
+								"{{thingsboard_host}}"
 							],
 							"path": [
 								"api",
 								"device",
 								"info",
-								"6ba189c0-1c1e-11ef-a4b5-cd877a1ebdc9"
+								"{{dev_id}}"
 							]
 						}
 					},
@@ -305,12 +302,12 @@
 							},
 							{
 								"key": "X-Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpbmZvQGluYXJ0ZWNub2xvZ2lhcy5lcyIsInVzZXJJZCI6ImMxYjExMTEwLTJhZGQtMTFlZS1hNGE1LWNmYzJmMjYxNzRmZSIsInNjb3Bl..."
+								"value": "Bearer {{access_token}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"clientId\": \"dc8383c0-f0d9-11ee-a9f5-675b85d8bd3b\",\r\n    \"name\": \"0004a30b00fef714\"\r\n}",
+							"raw": "{\r\n    \"clientId\": \"{{customerId}}\",\r\n    \"name\": \"{{dev_eui}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -318,12 +315,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://thingsboard.chemik.es/api/device",
-							"protocol": "http",
+							"raw": "{{thingsboard_host}}/api/device",
 							"host": [
-								"thingsboard",
-								"chemik",
-								"es"
+								"{{thingsboard_host}}"
 							],
 							"path": [
 								"api",
@@ -432,21 +426,18 @@
 						"header": [
 							{
 								"key": "X-Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpbmZvQGluYXJ0ZWNub2xvZ2lhcy5lcyIsInVzZXJJZCI6ImMxYjExMTEwLTJhZGQtMTFlZS1hNGE1LWNmYzJmMjYxNzRmZSIsInNjb3Bl..."
+								"value": "Bearer {{access_token}}"
 							}
 						],
 						"url": {
-							"raw": "http://thingsboard.chemik.es/api/device/6ba189c0-1c1e-11ef-a4b5-cd877a1ebdc9/credentials",
-							"protocol": "http",
+							"raw": "{{thingsboard_host}}/api/device/{{dev_id}}/credentials",
 							"host": [
-								"thingsboard",
-								"chemik",
-								"es"
+								"{{thingsboard_host}}"
 							],
 							"path": [
 								"api",
 								"device",
-								"6ba189c0-1c1e-11ef-a4b5-cd877a1ebdc9",
+								"{{dev_id}}",
 								"credentials"
 							]
 						}
@@ -678,23 +669,20 @@
 							},
 							{
 								"key": "X-Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpbmZvQGluYXJ0ZWNub2xvZ2lhcy5lcyIsInVzZXJJZCI6ImMxYjExMTEwLTJhZGQtMTFlZS1hNGE1LWNmYzJmMjYxNzRmZSIsInNjb3Bl..."
+								"value": "Bearer {{access_token}}"
 							}
 						],
 						"url": {
-							"raw": "http://thingsboard.chemik.es/api/plugins/telemetry/DEVICE/a39214a0-19a6-11ef-a4b5-cd877a1ebdc9/values/timeseries",
-							"protocol": "http",
+							"raw": "{{thingsboard_host}}/api/plugins/telemetry/DEVICE/{{dispositivo_id}}/values/timeseries",
 							"host": [
-								"thingsboard",
-								"chemik",
-								"es"
+								"{{thingsboard_host}}"
 							],
 							"path": [
 								"api",
 								"plugins",
 								"telemetry",
 								"DEVICE",
-								"a39214a0-19a6-11ef-a4b5-cd877a1ebdc9",
+								"{{dispositivo_id}}",
 								"values",
 								"timeseries"
 							]
@@ -793,21 +781,18 @@
 							},
 							{
 								"key": "X-Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpbmZvQGluYXJ0ZWNub2xvZ2lhcy5lcyIsInVzZXJJZCI6ImMxYjExMTEwLTJhZGQtMTFlZS1hNGE1LWNmYzJmMjYxNzRmZSIsInNjb3Bl..."
+								"value": "Bearer {{access_token}}"
 							}
 						],
 						"url": {
-							"raw": "http://thingsboard.chemik.es/api/v1/lSkMSAiRneywRODbC07T/attributes",
-							"protocol": "http",
+							"raw": "{{thingsboard_host}}/api/v1/{{dev_access_token}}/attributes",
 							"host": [
-								"thingsboard",
-								"chemik",
-								"es"
+								"{{thingsboard_host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"lSkMSAiRneywRODbC07T",
+								"{{dev_access_token}}",
 								"attributes"
 							]
 						}
@@ -1186,13 +1171,11 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"value": "application/json"
 					},
 					{
 						"key": "X-Authorization",
-						"value": "Bearer {{access_token}}",
-						"type": "text"
+						"value": "Bearer {{access_token}}"
 					}
 				],
 				"body": {
@@ -1232,25 +1215,97 @@
 						"value": "Bearer {{access_token}}"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "{{thingsboard_host}}/api/device/{{dev_id}}/attributes",
+					"raw": "{{thingsboard_host}}/api/plugins/telemetry/{{dev_id}}/CLIENT_SCOPE?keys=device",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"plugins",
+						"telemetry",
+						"{{dev_id}}",
+						"CLIENT_SCOPE"
+					],
+					"query": [
+						{
+							"key": "keys",
+							"value": "device"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete some devices",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Almacena la lista de dev_eui en el entorno de Postman si no está ya configurada\r",
+							"if (!pm.environment.get(\"devEuis\")) {\r",
+							"    const devEuis = [\r",
+							"        \"7f95dd00-1dc7-11ef-a4b5-cd877a1ebdc9\",\r",
+							"        \"fe404980-1dca-11ef-a4b5-cd877a1ebdc9\"\r",
+							"    ];\r",
+							"    pm.environment.set(\"devEuis\", JSON.stringify(devEuis));\r",
+							"    pm.environment.set(\"currentIndex\", 0);\r",
+							"}\r",
+							"\r",
+							"// Recupera la lista de dev_eui y el índice actual\r",
+							"let devEuis = JSON.parse(pm.environment.get(\"devEuis\"));\r",
+							"let currentIndex = parseInt(pm.environment.get(\"currentIndex\"));\r",
+							"\r",
+							"// Verifica si todavía hay dev_eui que procesar\r",
+							"if (currentIndex < devEuis.length) {\r",
+							"    // Establece el dev_eui actual en la variable de entorno 'dev_eui'\r",
+							"    pm.environment.set(\"dev_eui\", devEuis[currentIndex]);\r",
+							"    // Incrementa el índice para el siguiente dispositivo\r",
+							"    pm.environment.set(\"currentIndex\", currentIndex + 1);\r",
+							"\r",
+							"    // Vuelve a ejecutar la misma solicitud para el siguiente dispositivo\r",
+							"    postman.setNextRequest(pm.info.requestName);\r",
+							"} else {\r",
+							"    // Limpia las variables de entorno una vez que todos los dispositivos han sido procesados\r",
+							"    pm.environment.unset(\"devEuis\");\r",
+							"    pm.environment.unset(\"currentIndex\");\r",
+							"    pm.environment.unset(\"dev_eui\");\r",
+							"}\r",
+							"var currentCount = pm.environment.get(\"count\")\r",
+							"if (currentCount > 0){\r",
+							" currentCount = currentCount -1 ;\r",
+							" pm.environment.set(\"count\", currentCount);\r",
+							" postman.setNextRequest(\"Create SE\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{thingsboard_host}}/api/device/{{dev_eui}}",
 					"host": [
 						"{{thingsboard_host}}"
 					],
 					"path": [
 						"api",
 						"device",
-						"{{dev_id}}",
-						"attributes"
+						"{{dev_eui}}"
 					]
 				}
 			},
