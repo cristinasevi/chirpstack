@@ -1126,45 +1126,6 @@
 			"response": []
 		},
 		{
-			"name": "delete device attributes",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					},
-					{
-						"key": "X-Authorization",
-						"value": "Bearer {{access_token}}"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{thingsboard_host}}/api/v1/{{customerId}}/attributes/delete",
-					"host": [
-						"{{thingsboard_host}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"{{customerId}}",
-						"attributes",
-						"delete"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "delete device",
 			"request": {
 				"method": "DELETE",
@@ -1310,6 +1271,127 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "device id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{thingsboard_host}}/api/tenant/devices?deviceName=0004a30b00fef714",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"tenant",
+						"devices"
+					],
+					"query": [
+						{
+							"key": "deviceName",
+							"value": "0004a30b00fef714"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "device id",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{thingsboard_host}}/api/tenant/devices?deviceName=0004a30b00fef714",
+							"host": [
+								"{{thingsboard_host}}"
+							],
+							"path": [
+								"api",
+								"tenant",
+								"devices"
+							],
+							"query": [
+								{
+									"key": "deviceName",
+									"value": "0004a30b00fef714"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "vary",
+							"value": "Origin"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "x-content-type-options",
+							"value": "nosniff"
+						},
+						{
+							"key": "x-xss-protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "expires",
+							"value": "0"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "transfer-encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "date",
+							"value": "Fri, 31 May 2024 05:13:01 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": {\n        \"entityType\": \"DEVICE\",\n        \"id\": \"15371070-1d89-11ef-a4b5-cd877a1ebdc9\"\n    },\n    \"createdTime\": 1716966007543,\n    \"additionalInfo\": null,\n    \"tenantId\": {\n        \"entityType\": \"TENANT\",\n        \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n    },\n    \"customerId\": {\n        \"entityType\": \"CUSTOMER\",\n        \"id\": \"13814000-1dd2-11b2-8080-808080808080\"\n    },\n    \"name\": \"0004a30b00fef714\",\n    \"type\": \"default\",\n    \"label\": null,\n    \"deviceProfileId\": {\n        \"entityType\": \"DEVICE_PROFILE\",\n        \"id\": \"84cbfb90-2a13-11ee-a87d-e32305a89fd3\"\n    },\n    \"deviceData\": {\n        \"configuration\": {\n            \"type\": \"DEFAULT\"\n        },\n        \"transportConfiguration\": {\n            \"type\": \"DEFAULT\"\n        }\n    },\n    \"firmwareId\": null,\n    \"softwareId\": null,\n    \"externalId\": null,\n    \"ownerId\": {\n        \"entityType\": \"TENANT\",\n        \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n    }\n}"
+				}
+			]
 		}
 	]
 }
