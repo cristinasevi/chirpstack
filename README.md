@@ -8,5 +8,3 @@
 - MQTT Explorer
 - MQTTX
 - Postman API
-
-curl parrot.live
