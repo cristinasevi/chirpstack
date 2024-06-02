@@ -11,7 +11,7 @@ def filter_and_extract_rssi(message):
     return rssi_part
 
 def process_eui(eui):
-    process = subprocess.Popen(['mosquitto_sub', '-h', 'localhost', '-t', f'application/1/device/{eui}/event/up'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    process = subprocess.Popen(['mosquitto_sub', '-h', 'localhost', '-t', f'application/{{application_id}}/device/{eui}/event/up'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     for line in process.stdout:
         rssi_part = filter_and_extract_rssi(line)
         if rssi_part:
