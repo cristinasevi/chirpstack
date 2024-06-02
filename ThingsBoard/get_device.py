@@ -2,12 +2,12 @@ import requests
 
 def obtener_token_de_acceso():
     # Endpoint de autenticación
-    login_endpoint = "http://thingsboard.chemik.es/api/auth/login"
+    login_endpoint = "{{thingsboard_host}}/api/auth/login"
 
     # Datos de autenticación
     auth_data = {
-        "username": "info@inartecnologias.es",
-        "password": "Inar.2019"
+        "username": "{{username}}",
+        "password": "{{password}}"
     }
 
     try:
@@ -31,7 +31,7 @@ def obtener_token_de_acceso():
 
 def obtener_datos_dispositivo(access_token, device_id):
     # Endpoint para obtener datos de un dispositivo específico
-    device_endpoint = f"http://thingsboard.chemik.es/api/device/info/{device_id}"
+    device_endpoint = f"{{thingsboard_host}}/api/device/info/{device_id}"
 
     # Encabezado de autorización con el token de acceso
     headers = {
@@ -64,7 +64,7 @@ if access_token:
     print("Token de acceso:", access_token)
 
     # ID del dispositivo específico al que deseas acceder
-    dispositivo_id = "0e93e290-e84e-11ee-a9f5-675b85d8bd3b"
+    dispositivo_id = "{{device_id}}"
 
     # Utilizar el token de acceso para obtener datos del dispositivo específico
     datos_dispositivo = obtener_datos_dispositivo(access_token, dispositivo_id)
