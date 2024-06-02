@@ -4,7 +4,7 @@ from chirpstack_api.as_pb.external import api
 import requests 
 
 server = "localhost:8090"
-api_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjaGlycHN0YWNrIiwiaXNzIjoiY2hpcnBzdGFjayIsInN1YiI6IjJjYmZjOWIxLWIzZDgtNDU3NC1hMTJjLWVmNzhiYWIwZTAyOCIsInR5cCI6ImtleSJ9.4Qzq6v_KcOvKEgXzewMNbRPS4uxE-pwcGKNjemDsRrk"
+api_token = "{{token_chirpstack}}"
 
 # get /api/devices/{dev_eui}  
 def GetDeviceData(api_token, server, device_id):
@@ -27,7 +27,7 @@ def GetDeviceData(api_token, server, device_id):
         print(f"Failed to get device data: {response.text}")
         return None
 
-device_id = "0123456789abcdef"
+device_id = "{{dev_eui}}"
 
 # Get data for the specified device.
 device_data = GetDeviceData(api_token, server, device_id)
@@ -56,11 +56,11 @@ def PostDevice(server, api_token, device_data):
 
 device_data = {
   "device": {
-    "devEui": "0000000000000001",
-    "name": "0000000000000001",
-    "applicationId": "d56beb5c-5f84-4916-b54b-18c6dd7b2178",
+    "devEui": "{{dev_eui}}",
+    "name": "{{dev_eui}}",
+    "applicationId": "{{applicationId}}",
     "description": "Lo cree automaticamente",
-    "deviceProfileId": "9e9c356b-434b-4cf6-8862-78a57ab8b524",
+    "deviceProfileId": "{{deviceProfileId}}",
     "skipFCntCheck": True,
     "referenceAltitude": 0,
     "isDisabled": False,
@@ -86,6 +86,6 @@ def DeleteDevice(server, api_token, dev_eui):
     except Exception as e:
         print(f"Error al enviar la solicitud DELETE: {str(e)}")
 
-dev_eui = "0000000000000002"
+dev_eui = "{{dev_eui}}"
 
 DeleteDevice(server, api_token, dev_eui)
