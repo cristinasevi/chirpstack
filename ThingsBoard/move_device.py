@@ -2,12 +2,12 @@ import requests
 
 def obtener_token_de_acceso_thingsboard():
     # Endpoint de autenticación de ThingsBoard
-    login_endpoint = "http://thingsboard.chemik.es/api/auth/login"
+    login_endpoint = "{{thingsboard_host}}/api/auth/login"
 
     # Datos de autenticación de ThingsBoard
     auth_data = {
-        "username": "info@inartecnologias.es",
-        "password": "Inar.2019"
+        "username": "{{username}}",
+        "password": "{{password}}"
     }
 
     try:
@@ -59,7 +59,7 @@ def enviar_datos_a_thingsboard(datos_dispositivo, cliente_id):
     access_token_thingsboard = obtener_token_de_acceso_thingsboard()
     if access_token_thingsboard:
         # Endpoint de ThingsBoard para enviar datos del dispositivo
-        thingsboard_endpoint = "http://thingsboard.chemik.es/api/device"
+        thingsboard_endpoint = "{{thingsboard_host}}/api/device"
         headers = {
             "X-Authorization": f"Bearer {access_token_thingsboard}",
             "Content-Type": "application/json"
@@ -88,10 +88,10 @@ def enviar_datos_a_thingsboard(datos_dispositivo, cliente_id):
             print(e)
 
 # Obtener datos del dispositivo por su dev_eui
-dev_eui = "0004a30b00f98573"  
+dev_eui = "{{dev_eui}}"  
 
 # Obtener el token de acceso de ChirpStack
-token_chirpstack = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiZTc0NjBmNWUtNWNjMy00YWM3LWFkMWYtZjZlYTQ3NWYwMDlkIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTcxNDk4Mjg0OSwic3ViIjoiYXBpX2tleSJ9.PhRDrQFKrhXWJyBkHAEyQuousmOPhCI5WOcNpK5hIbU"
+token_chirpstack = "{{token_chirpstack}}"
 
 # Obtener los datos del dispositivo en ChirpStack
 datos_dispositivo = obtener_dispositivo_por_dev_eui(dev_eui, token_chirpstack)
@@ -100,4 +100,3 @@ if datos_dispositivo:
     # Enviar los datos del dispositivo a ThingsBoard con el cliente PRUEBA
     cliente_id = "dc8383c0-f0d9-11ee-a9f5-675b85d8bd3b"
     enviar_datos_a_thingsboard(datos_dispositivo, cliente_id)
-
