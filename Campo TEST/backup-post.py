@@ -11,7 +11,7 @@ import requests
 import pandas as pd
 
 server = "localhost:8080"
-api_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiNzYyOGE4NGQtOGRhMy00ZDQ1LWJlNmYtZTM4MWY5MzQ5ZWI1IiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTY3NzY4NzI5NCwic3ViIjoiYXBpX2tleSJ9.LBx46H_nzGPkSxqsqVxU_5ig0soMF9dWlsuA6obE1EY"
+api_token = "{{token_chirpstack}}"
 
 # Leer configuraciones desde config.ini
 config = configparser.ConfigParser()
@@ -66,4 +66,3 @@ start_row = 619
 end_row = 2216
 
 PostDeviceActivationXLSX(api_token, server, xlsx_file, start_row, end_row)
-
