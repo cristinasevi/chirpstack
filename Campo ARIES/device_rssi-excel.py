@@ -11,7 +11,7 @@ def filter_and_extract_rssi(message):
     return rssi_part
 
 def process_eui(eui):
-    process = subprocess.Popen(['mosquitto_sub', '-h', '10.139.15.30', '-t', f'application/1/device/{eui}/event/up'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    process = subprocess.Popen(['mosquitto_sub', '-h', 'localhost', '-t', f'application/1/device/{eui}/event/up'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     for line in process.stdout:
         rssi_part = filter_and_extract_rssi(line)
         if rssi_part:
@@ -38,5 +38,5 @@ def mqtt_subscribe_and_write_to_excel(euis):
     wb.save('device_rssi.xlsx')
 
 if __name__ == "__main__":
-    euis = ['0004a30b00fef592', '0004a30b00fef55d', '0004a30b00fef69b']
+    euis = ['{{dev_eui1}}', '{{dev_eui2}}', '{{dev_eui3}}']
     mqtt_subscribe_and_write_to_excel(euis)
