@@ -47,6 +47,3 @@ def mqtt_subscribe_and_write_to_excel(euis):
 if __name__ == "__main__":
     euis = ['0004a30b00fef592', '0004a30b00fef55d', '0004a30b00fef69b']
     mqtt_subscribe_and_write_to_excel(euis)
-
-
-
