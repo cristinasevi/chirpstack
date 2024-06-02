@@ -9,7 +9,7 @@ import configparser
 import requests 
 
 server = "localhost:8080"
-api_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiNzYyOGE4NGQtOGRhMy00ZDQ1LWJlNmYtZTM4MWY5MzQ5ZWI1IiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTY3NzY4NzI5NCwic3ViIjoiYXBpX2tleSJ9.LBx46H_nzGPkSxqsqVxU_5ig0soMF9dWlsuA6obE1EY"
+api_token = "{{token_chirpstack}}"
 
 # Leer configuraciones desde config.ini
 config = configparser.ConfigParser()
@@ -30,7 +30,7 @@ def GetGatewayProfiles(server, api_token, gateway_id):
         print(f"Error al obtener los perfiles de dispositivos: {response.status_code}")
         return None
 
-gateway_id = "6152528c-0d49-4fd4-9a2f-d377a912e0d3"
+gateway_id = "{{gateway_id}}"
 
 gateway_profiles = GetGatewayProfiles(server, api_token, gateway_id)
 if gateway_profiles:
@@ -67,7 +67,7 @@ gateway_profile_data = {
             ]
         }
         ],
-        "id": "f0f2edea-5151-4aa1-b16b-44e47347c92f",
+        "id": "{{gateway_id}}",
         "name": "NewGatewayPofile",
         "networkServerID": "27",
         "statsInterval": "30s"
@@ -92,7 +92,7 @@ def PutGatewayProfile(server, api_token, gateway_id, gateway_profile_data):
     else:
         print(f"Error al actualizar el perfil de gateway para {gateway_id}: {response.status_code}")
 
-gateway_id = "f0f2edea-5151-4aa1-b16b-44e47347c92f"
+gateway_id = "{{gateway_id}}"
 
 gateway_profile_data = {
     "gatewayProfile": {
@@ -110,7 +110,7 @@ gateway_profile_data = {
             ]
         }
         ],
-        "id": "f0f2edea-5151-4aa1-b16b-44e47347c92f",
+        "id": "{{gateway_id}}",
         "name": "NewGatewayPofile",
         "networkServerID": "27",
         "statsInterval": "30s"
@@ -133,6 +133,6 @@ def DeleteGatewayProfile(api_token, server, profile_id):
     else:
         print(f"Error al eliminar el perfil de gateway con ID {profile_id}. Código de error: {response.status_code}")
 
-profile_id = "9822c51d-5ce6-4109-bbc0-09e068c7d9e7"
+profile_id = "{{profile_id}}"
 
 DeleteGatewayProfile(api_token, server, profile_id)
