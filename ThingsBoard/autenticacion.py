@@ -1,11 +1,11 @@
 import requests
 
 # Datos de autenticación
-username = "info@inartecnologias.es"
-password = "Inar.2019"
+username = "{{username}}"
+password = "{{password}}"
 
 # Endpoint de autenticación
-login_endpoint = "http://thingsboard.chemik.es/api/auth/login"
+login_endpoint = "{{thingsboard_host}}/api/auth/login"
 
 # Datos de autenticación
 auth_data = {
