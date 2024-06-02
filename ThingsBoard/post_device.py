@@ -2,12 +2,12 @@ import requests
 
 def obtener_token_de_acceso():
     # Endpoint de autenticación
-    login_endpoint = "http://thingsboard.chemik.es/api/auth/login"
+    login_endpoint = "{{thingsboard_host}}/api/auth/login"
 
     # Datos de autenticación
     auth_data = {
-        "username": "info@inartecnologias.es",
-        "password": "Inar.2019"
+        "username": "{{username}}",
+        "password": "{{password}}"
     }
 
     try:
@@ -32,7 +32,7 @@ def obtener_token_de_acceso():
 
 def crear_dispositivo(access_token, device_info):
     # Endpoint para crear un nuevo dispositivo
-    create_device_endpoint = f"https://thingsboard.chemik.es:443/api/device-with-credentials" 
+    create_device_endpoint = f"{{thingsboard_host}}:443/api/device-with-credentials" 
 
     # Encabezado de autorización con el token de acceso
     headers = {
@@ -67,21 +67,21 @@ if access_token:
     device_info = {
         "device": {
             "tenantId": {
-            "id": "c1b11110-2add-11ee-a4a5-cfc2f26174fe",
+            "id": "{{tenant_id}}",
             "entityType": "TENANT"
             },
             "customerId": {
-            "id": "dc8383c0-f0d9-11ee-a9f5-675b85d8bd3b",
+            "id": "{{customer_id}}",
             "entityType": "CUSTOMER"
             },
             "ownerId": {
-            "id": "dc8383c0-f0d9-11ee-a9f5-675b85d8bd3b",
+            "id": "{{owner_id}}",
             "entityType": "DEVICE"
             },
-            "name": "0000000000000002",
+            "name": "{{dev_eui}}",
             "label": None,
             "deviceProfileId": {
-            "id": "45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe",
+            "id": "{{deviceProfileId}}",
             "entityType": "DEVICE_PROFILE"
             },
             "deviceData": {
