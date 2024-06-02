@@ -11,8 +11,8 @@ def leer_dispositivos_desde_excel(ruta_excel):
     return dispositivos
 
 def enviar_mensaje_mqtt(dispositivos):
-    broker_address = "172.16.0.100"
-    base_topic = "application/1/device/"
+    broker_address = "localhost"
+    base_topic = "application/{{application_id}}/device/"
     suffix_topic = "/command/down"
     message = '{"fport": 2, "confirmed": true, "data": "BAM="}'
     qos = 1
@@ -23,7 +23,7 @@ def enviar_mensaje_mqtt(dispositivos):
         time.sleep(1)
 
 # Ruta del archivo Excel que contiene la lista de dispositivos (Cambiar a la ruta necesaria)
-ruta_excel = "C:\\Users\\user_name\\Desktop\\Disp_lab_pruebas.xlsx"
+ruta_excel = "C:\\Users\\{{user_name}}\\Desktop\\Disp_lab_pruebas.xlsx"
 
 # Lee los dispositivos desde el archivo Excel
 dispositivos = leer_dispositivos_desde_excel(ruta_excel)
