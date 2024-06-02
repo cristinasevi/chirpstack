@@ -2,10 +2,10 @@ import requests
 
 # Función para obtener el token de acceso del usuario en ThingsBoard
 def obtener_token_de_acceso_thingsboard():
-    login_endpoint = "http://thingsboard.chemik.es/api/auth/login"
+    login_endpoint = "{{thingsboard_host}}/api/auth/login"
     auth_data = {
-        "username": "info@inartecnologias.es",
-        "password": "Inar.2019"
+        "username": "{{username}}",
+        "password": "{{password}}"
     }
     try:
         response = requests.post(login_endpoint, json=auth_data)
@@ -25,7 +25,7 @@ def obtener_token_de_acceso_thingsboard():
 def eliminar_dispositivos_thingsboard(device_ids):
     access_token = obtener_token_de_acceso_thingsboard()
     if access_token:
-        delete_endpoint = "http://thingsboard.chemik.es/api/device"
+        delete_endpoint = "{{thingsboard_host}}/api/device"
         headers = {
             "Content-Type": "application/json",
             "X-Authorization": f"Bearer {access_token}"
@@ -42,5 +42,5 @@ def eliminar_dispositivos_thingsboard(device_ids):
             print("Error al eliminar dispositivos en ThingsBoard.")
             print(e)
 
-dispositivos_a_eliminar = ["d337e5f0-1e69-11ef-a4b5-cd877a1ebdc9", "d36b2af0-1e69-11ef-a4b5-cd877a1ebdc9"]
+dispositivos_a_eliminar = ["{{device_id1}}", "{{device_id2}}"]
 eliminar_dispositivos_thingsboard(dispositivos_a_eliminar)
