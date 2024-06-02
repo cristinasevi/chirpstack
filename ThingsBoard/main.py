@@ -14,7 +14,7 @@ import configparser
 
 print("Solar plant generator version: 1.8")
 
-class DeviceChemik:
+class Device:
     campo = None
     eui = None
     power_station = None
@@ -653,6 +653,3 @@ else:
 
 
 print("Proceso finalizado")
-
-
-
