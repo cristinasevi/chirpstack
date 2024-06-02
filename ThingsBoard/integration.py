@@ -6,7 +6,7 @@ import configparser
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-chirpstack_server = "172.16.0.100:8080"
+chirpstack_server = "localhost:8080"
 thingsboard_server = config['CONFIG']['thingsboard_server']
 username = config['CONFIG']['username']
 password = config['CONFIG']['password']
