@@ -14,7 +14,7 @@ def filter_and_extract_payload(message):
 
 def mqtt_subscribe():
     # Ejecuta mosquitto_sub y lee los mensajes
-    process = subprocess.Popen(['mosquitto_sub', '-h', '10.139.15.30', '-t', 'application/1/device/0004a30b00fef592/event/up'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    process = subprocess.Popen(['mosquitto_sub', '-h', 'localhost', '-t', 'application/{{application_id}}/device/{{dev_eui}}/event/up'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     for line in process.stdout:
         # Filtramos y extraemos las partes de la trama que necesitas
         corriente_part, rssi_part = filter_and_extract_payload(line)
