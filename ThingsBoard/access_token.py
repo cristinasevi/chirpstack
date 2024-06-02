@@ -1,10 +1,10 @@
 import requests
 
 def obtener_token_de_acceso_thingsboard():
-    login_endpoint = "http://thingsboard.chemik.es/api/auth/login"
+    login_endpoint = "{{thingsboard_host}}/api/auth/login"
     auth_data = {
-        "username": "info@inartecnologias.es",
-        "password": "Inar.2019"
+        "username": "{{username}}",
+        "password": "{{password}}"
     }
     try:
         response = requests.post(login_endpoint, json=auth_data)
@@ -26,7 +26,7 @@ def obtener_token_de_dispositivo(device_id):
         print("No se pudo obtener el token de acceso del usuario.")
         return None
 
-    device_token_endpoint = f"http://thingsboard.chemik.es/api/device/{device_id}/credentials"
+    device_token_endpoint = f"{{thingsboard_host}}/api/device/{device_id}/credentials"
     headers = {
         "X-Authorization": f"Bearer {access_token}"
     }
@@ -46,7 +46,7 @@ def obtener_token_de_dispositivo(device_id):
         print(e)
         return None
 
-device_id = "20988cd0-1683-11ef-994d-e3af5413ffbe"
+device_id = "{{device_id}}"
 token = obtener_token_de_dispositivo(device_id)
 if token:
     print(f"El token de acceso del dispositivo es: {token}")
