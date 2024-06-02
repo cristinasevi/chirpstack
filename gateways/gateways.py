@@ -9,7 +9,7 @@ import configparser
 import requests 
 
 server = "localhost:8080"
-api_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiNzYyOGE4NGQtOGRhMy00ZDQ1LWJlNmYtZTM4MWY5MzQ5ZWI1IiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTY3NzY4NzI5NCwic3ViIjoiYXBpX2tleSJ9.LBx46H_nzGPkSxqsqVxU_5ig0soMF9dWlsuA6obE1EY"
+api_token = {{token_chirpstack}}"
 
 # Leer configuraciones desde config.ini
 config = configparser.ConfigParser()
@@ -97,7 +97,7 @@ def GetGateways(api_token, server, gateway_id):
         print(f"Failed to get gateway data: {response.text}")
         return None
 
-gateway_id = "00800000a00097b3"
+gateway_id = "{{gateway_id}}"
 
 gateway_data = GetGateways(api_token, server, gateway_id)
 if gateway_data is not None:
@@ -121,8 +121,8 @@ gateway_data = {
         "boards": [],
         "description": "NewGateway",
         "discoveryEnabled": False,
-        "gatewayProfileID": "6152528c-0d49-4fd4-9a2f-d377a912e0d4",
-        "id": "0000000000000001",
+        "gatewayProfileID": "{{gatewayProfileID}}",
+        "id": "{{gateway_id}}",
         "location": {
         "accuracy": 0,
         "altitude": 273,
@@ -132,9 +132,9 @@ gateway_data = {
         },
         "metadata": {},
         "name": "NewGateway",
-        "networkServerID": "27",
-        "organizationID": "1",
-        "serviceProfileID": "540e9054-ec59-4098-8fa1-8806e7cf02d3",
+        "networkServerID": "{{networkServerID}}",
+        "organizationID": "{{organizationID}}",
+        "serviceProfileID": "{{serviceProfileID}}",
         "tags": {}
     }
 }
@@ -161,15 +161,15 @@ def PutGateways(server, api_token, gateway_id, gateway_body):
         print("Error al enviar la solicitud PUT:", str(e))
         return None
 
-gateway_id = "0000000000000002"
+gateway_id = "{{gateway_id}}"
 
 gateway_body = {
     "gateway": {
         "boards": [],
         "description": "NewGateway",
         "discoveryEnabled": False,
-        "gatewayProfileID": "6152528c-0d49-4fd4-9a2f-d377a912e0d4",
-        "id": "0000000000000002",
+        "gatewayProfileID": "{{gatewayProfileID}}",
+        "id": "{{gateway_id}}",
         "location": {
         "accuracy": 0,
         "altitude": 273,
@@ -179,9 +179,9 @@ gateway_body = {
         },
         "metadata": {},
         "name": "NewGateway",
-        "networkServerID": "27",
-        "organizationID": "1",
-        "serviceProfileID": "540e9054-ec59-4098-8fa1-8806e7cf02d3",
+        "networkServerID": "{{networkServerID}}",
+        "organizationID": "{{organizationID}}",
+        "serviceProfileID": "{{serviceProfileID}}",
         "tags": {}
     }
 }
@@ -209,7 +209,7 @@ def DeleteGateway(gateway_id, server, api_token):
     except Exception as e:
         print(f"Error al enviar la solicitud DELETE: {str(e)}")
 
-gateway_id = "0000000000000001"
+gateway_id = "{{gateway_id}}"
 
 DeleteGateway(gateway_id, server, api_token)
 
@@ -228,7 +228,7 @@ def GetGatewayFrames(gateway_id, server, api_token):
     except requests.exceptions.RequestException as e:
         print("Se produjo un error:", e)
 
-gateway_id = "00800000a00097b3"
+gateway_id = "{{gateway_id}}"
 
 GetGatewayFrames(gateway_id, server, api_token)
 
@@ -249,7 +249,7 @@ def PostGatewayGenerateCertificate(server, api_token, gateway_id):
         print(f"Error al enviar la solicitud para generar el certificado: {str(e)}")
         return None
 
-gateway_id = "00800000a00097b3"
+gateway_id = "{{gateway_id}}"
 
 certificate_data = PostGatewayGenerateCertificate(server, api_token, gateway_id)
 if certificate_data:
@@ -270,14 +270,14 @@ def GetGatewayPings():
     else:
         print("Error al realizar la solicitud:", response.status_code)
 
-gateway_id =  "00800000a00097b3"
+gateway_id =  "{{gateway_id}}"
 
 GetGatewayPings()
 
 # get /api/gateways/{gateway_id}/stats 
 def GetGatewayStats():
     gateway_data = {
-    "gateway_id": "00800000a00097b3",
+    "gateway_id": "{{gateway_id}}",
     "interval": "minute",
     "startTimestamp": "2024-04-30T09:12:09.358Z",  
     "endTimestamp": "2024-04-30T10:12:09.358Z",  
