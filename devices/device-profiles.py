@@ -9,7 +9,7 @@ import configparser
 import requests 
 
 server = "localhost:8080"
-api_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiNzYyOGE4NGQtOGRhMy00ZDQ1LWJlNmYtZTM4MWY5MzQ5ZWI1IiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTY3NzY4NzI5NCwic3ViIjoiYXBpX2tleSJ9.LBx46H_nzGPkSxqsqVxU_5ig0soMF9dWlsuA6obE1EY"
+api_token = "{{token_chirpstack}}"
 
 # Leer configuraciones desde config.ini
 config = configparser.ConfigParser()
@@ -30,7 +30,7 @@ def GetDeviceProfiles(server, api_token, device_id):
         print(f"Error al obtener los perfiles de dispositivos: {response.status_code}")
         return None
 
-device_id = "3363bcd9-6520-48c6-8d9d-845608aa5e57"
+device_id = "{{device_id}}"
 
 device_profiles = GetDeviceProfiles(server, api_token, device_id)
 if device_profiles:
@@ -105,7 +105,7 @@ def PutDeviceProfile(server, api_token, dev_eui, device_profile_data):
     else:
         print(f"Error al actualizar el perfil de dispositivo para {dev_eui}: {response.status_code}")
 
-dev_eui = "6bdf9a7d-cc64-4fd2-91a2-41b0a7f00c93"
+dev_eui = "{{dev_eui}}"
 
 device_profile_data = {
     "deviceProfile": {
@@ -158,7 +158,5 @@ def DeleteDeviceProfile(api_token, server, profile_id):
     else:
         print(f"Error al eliminar el perfil de dispositivo con ID {profile_id}. Código de error: {response.status_code}")
 
-profile_id = "6bdf9a7d-cc64-4fd2-91a2-41b0a7f00c93"
+profile_id = "{{profile_id}}"
 DeleteDeviceProfile(api_token, server, profile_id)
-
-
