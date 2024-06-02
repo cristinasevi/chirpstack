@@ -2,10 +2,10 @@ import requests
 
 # Función para obtener el token de acceso del usuario en ThingsBoard
 def obtener_token_de_acceso_thingsboard():
-    login_endpoint = "http://thingsboard.chemik.es/api/auth/login"
+    login_endpoint = "{{thingsboard_host}}/api/auth/login"
     auth_data = {
-        "username": "info@inartecnologias.es",
-        "password": "Inar.2019"
+        "username": "{{username}}",
+        "password": "{{password}}"
     }
     try:
         response = requests.post(login_endpoint, json=auth_data)
@@ -45,7 +45,7 @@ def obtener_dispositivo_por_dev_eui(dev_eui, token_chirpstack):
 
 # Función para obtener el device id de un dispositivo en ThingsBoard usando su device name
 def obtener_device_id(device_name):
-    url_base = "https://thingsboard.chemik.es:443/api/tenant/devices"
+    url_base = "{{thingsboard_host}}:443/api/tenant/devices"
     params = {"deviceName": device_name}
     access_token = obtener_token_de_acceso_thingsboard()
     if access_token is None:
@@ -83,7 +83,7 @@ def obtener_token_de_dispositivo(device_id):
         print("No se pudo obtener el token de acceso del usuario.")
         return None
 
-    device_token_endpoint = f"http://thingsboard.chemik.es/api/device/{device_id}/credentials"
+    device_token_endpoint = f"{{thingsboard_host}}/api/device/{device_id}/credentials"
     headers = {
         "X-Authorization": f"Bearer {access_token}"
     }
@@ -107,7 +107,7 @@ def obtener_token_de_dispositivo(device_id):
 def enviar_datos_a_thingsboard(datos_dispositivo, cliente_id, credentialsId, device_profile_id):
     access_token_thingsboard = obtener_token_de_acceso_thingsboard()
     if access_token_thingsboard:
-        thingsboard_endpoint = f"http://thingsboard.chemik.es/api/v1/{credentialsId}/telemetry"
+        thingsboard_endpoint = f"{{thingsboard_host}}/api/v1/{credentialsId}/telemetry"
         headers = {
             "X-Authorization": f"Bearer {access_token_thingsboard}",
             "Content-Type": "application/json"
@@ -133,7 +133,7 @@ def asignar_dispositivo_a_cliente(dev_eui, cliente_id, device_profile_id, creden
     access_token_thingsboard = obtener_token_de_acceso_thingsboard()
     if access_token_thingsboard:
         # Endpoint de ThingsBoard para asignar un dispositivo a un cliente y un perfil de dispositivo
-        thingsboard_endpoint = "https://thingsboard.chemik.es:443/api/device-with-credentials"
+        thingsboard_endpoint = "{{thingsboard_host}}:443/api/device-with-credentials"
 
         # Datos a enviar al dispositivo
         datos_dispositivo = {
@@ -176,10 +176,10 @@ def asignar_dispositivo_a_cliente(dev_eui, cliente_id, device_profile_id, creden
             print(e)
 
 # Variables
-dev_eui = "0004a30b00fefa2f"
-token_chirpstack = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiNzYyOGE4NGQtOGRhMy00ZDQ1LWJlNmYtZTM4MWY5MzQ5ZWI1IiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTY3NzY4NzI5NCwic3ViIjoiYXBpX2tleSJ9.LBx46H_nzGPkSxqsqVxU_5ig0soMF9dWlsuA6obE1EY"
-cliente_id = "dc8383c0-f0d9-11ee-a9f5-675b85d8bd3b"
-device_profile_id = "45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe"
+dev_eui = "{{dev_eui}}"
+token_chirpstack = "{{token_chirpstack}}"
+cliente_id = "{{cliente_id}}"
+device_profile_id = "{{device_profile_id}}"
 device_name = dev_eui
 
 # Obtener el device ID del dispositivo en ThingsBoard
