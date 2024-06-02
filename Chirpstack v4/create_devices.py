@@ -3,7 +3,7 @@ import requests
 
 # Configuración del servidor y token API
 server = "localhost:8090"
-api_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjaGlycHN0YWNrIiwiaXNzIjoiY2hpcnBzdGFjayIsInN1YiI6IjJjYmZjOWIxLWIzZDgtNDU3NC1hMTJjLWVmNzhiYWIwZTAyOCIsInR5cCI6ImtleSJ9.4Qzq6v_KcOvKEgXzewMNbRPS4uxE-pwcGKNjemDsRrk"
+api_token = "{{token_chirpstack}}"
 
 # Función para enviar la solicitud POST y crear el dispositivo
 def PostDevice(server, api_token, device_data):
@@ -45,9 +45,9 @@ def create_devices_from_excel(xlsx_file, start_row, end_row):
                             "device": {
                                 "devEui": dev_eui,
                                 "name": dev_eui,
-                                "applicationId": "d56beb5c-5f84-4916-b54b-18c6dd7b2178",
+                                "applicationId": "{{applicationId}}",
                                 "description": "Lo cree automaticamente",
-                                "deviceProfileId": "9e9c356b-434b-4cf6-8862-78a57ab8b524",  
+                                "deviceProfileId": "{{deviceProfileId}}",  
                                 "isDisabled": False,
                                 "skipFcntCheck": True,
                                 "tags": {},
