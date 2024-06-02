@@ -7,7 +7,7 @@ base_url = "http://localhost:8090/api"
 endpoint = "/gateways?limit=100"
 
 # Token de acceso para autenticación
-token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjaGlycHN0YWNrIiwiaXNzIjoiY2hpcnBzdGFjayIsInN1YiI6IjJjYmZjOWIxLWIzZDgtNDU3NC1hMTJjLWVmNzhiYWIwZTAyOCIsInR5cCI6ImtleSJ9.4Qzq6v_KcOvKEgXzewMNbRPS4uxE-pwcGKNjemDsRrk"
+token = "{{token_chirpstack}}"
 
 # Encabezados de la solicitud con el token de acceso
 headers = {
@@ -46,4 +46,3 @@ if response.status_code == 200:
 else:
     print("Error al obtener el estado de los gateways:", response.status_code)
     print("Mensaje:", response.text)
-
