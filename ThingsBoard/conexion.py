@@ -5,17 +5,17 @@ import requests
 # Configuración de ChirpStack MQTT
 chirpstack_mqtt_host = "localhost"  
 chirpstack_mqtt_port = 1883
-chirpstack_mqtt_topic = "application/1/device/+/event/up"
+chirpstack_mqtt_topic = "application/{{application_id}}/device/+/event/up"
 
 # Configuración de ThingsBoard MQTT
-thingsboard_mqtt_host = "thingsboard.chemik.es"
+thingsboard_mqtt_host = "{{thingsboard_host}}"
 thingsboard_mqtt_port = 1883
 thingsboard_mqtt_topic = "v1/devices/me/telemetry"
-thingsboard_access_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiNzYyOGE4NGQtOGRhMy00ZDQ1LWJlNmYtZTM4MWY5MzQ5ZWI1IiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTY3NzY4NzI5NCwic3ViIjoiYXBpX2tleSJ9.LBx46H_nzGPkSxqsqVxU_5ig0soMF9dWlsuA6obE1EY"
+thingsboard_access_token = "{{token_thingsboard}}"
 
 # Configurar el cliente MQTT para ThingsBoard
 tb_client = mqtt.Client()
-tb_client.username_pw_set(username="info@inartecnologias.es", password="Inar.2019")  
+tb_client.username_pw_set(username="{{username}}", password="{{password}}")  
 tb_client.connect(thingsboard_mqtt_host, thingsboard_mqtt_port)
 
 # Callback que se ejecuta cuando se conecta al broker MQTT
@@ -57,17 +57,17 @@ import requests
 # Configuración de ChirpStack MQTT
 chirpstack_mqtt_host = "localhost"  
 chirpstack_mqtt_port = 1883
-chirpstack_mqtt_topic = "application/1/device/+/event/up"
+chirpstack_mqtt_topic = "application/{{application_id}}/device/+/event/up"
 
 # Configuración de ThingsBoard MQTT
-thingsboard_mqtt_host = "thingsboard.chemik.es"
+thingsboard_mqtt_host = "{{thingsboard_host}}"
 thingsboard_mqtt_port = 1883
 thingsboard_mqtt_topic = "v1/devices/me/telemetry"
-# thingsboard_access_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiNzYyOGE4NGQtOGRhMy00ZDQ1LWJlNmYtZTM4MWY5MzQ5ZWI1IiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTY3NzY4NzI5NCwic3ViIjoiYXBpX2tleSJ9.LBx46H_nzGPkSxqsqVxU_5ig0soMF9dWlsuA6obE1EY"
+# thingsboard_access_token = "{{token_thingsboard}}"
 
 # Credenciales de acceso a ThingsBoard
-thingsboard_username = "info@inartecnologias.es"
-thingsboard_password = "Inar.2019"
+thingsboard_username = "{{username}}"
+thingsboard_password = "{{password}}"
 
 # Configurar el cliente MQTT para ThingsBoard
 tb_client = mqtt.Client()
@@ -103,7 +103,7 @@ chirpstack_client.subscribe(chirpstack_mqtt_topic)
 
 # Realizar operaciones adicionales aquí si es necesario
 def GetDeviceStatus():
-    tenant_id = "56ebaf60-085a-11ef-a40f-599c8728de1f"
+    tenant_id = "{{tenant_id}}"
     url = f"https://{thingsboard_mqtt_host}/api/tenant/{tenant_id}/devices"
 
 
