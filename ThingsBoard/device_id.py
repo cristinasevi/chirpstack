@@ -2,10 +2,10 @@ import requests
 
 # Función para obtener el token de acceso del usuario en ThingsBoard
 def obtener_token_de_acceso_thingsboard():
-    login_endpoint = "http://thingsboard.chemik.es/api/auth/login"
+    login_endpoint = "{{thingsboard_host}}/api/auth/login"
     auth_data = {
-        "username": "info@inartecnologias.es",
-        "password": "Inar.2019"
+        "username": "{{username}}",
+        "password": "{{password}}"
     }
     try:
         response = requests.post(login_endpoint, json=auth_data)
@@ -23,7 +23,7 @@ def obtener_token_de_acceso_thingsboard():
     
 # Función para obtener el device id de un dispositivo en ThingsBoard usando su device name
 def obtener_device_id(device_name):
-    url_base = "https://thingsboard.chemik.es:443/api/tenant/devices"
+    url_base = {{thingsboard_host}}:443/api/tenant/devices"
     params = {"deviceName": device_name}
     access_token = obtener_token_de_acceso_thingsboard()
     if access_token is None:
@@ -55,7 +55,7 @@ def obtener_device_id(device_name):
         print(f"Error al realizar la solicitud: {e}")
         return None
 
-dev_eui = "0004a30b00fefa2f"
+dev_eui = "{{dev_eui}}"
 device_name = dev_eui
 
 device_id = obtener_device_id(device_name)
