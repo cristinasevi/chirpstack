@@ -65,7 +65,8 @@
 						"auth",
 						"login"
 					]
-				}
+				},
+				"description": "The `auth/login` route is an API for logging in to ThingsBoard. It allows users to authenticate by sending credentials to the server. If the credentials are valid, an authentication token is issued for accessing protected resources within the system."
 			},
 			"response": []
 		},
@@ -113,7 +114,8 @@
 						"info",
 						"{{dev_id}}"
 					]
-				}
+				},
+				"description": "This HTTP request fetches information about a specific device identified by the UUID from the ThingsBoard platform. It likely returns details such as device status, telemetry data, and configuration settings."
 			},
 			"response": [
 				{
@@ -252,7 +254,8 @@
 						"api",
 						"device-with-credentials"
 					]
-				}
+				},
+				"description": "This allows for the creation of a device with specific characteristics, using the credentials provided during device creation to authenticate with the platform."
 			},
 			"response": []
 		},
@@ -288,7 +291,8 @@
 						"api",
 						"device"
 					]
-				}
+				},
+				"description": "Enables transferring a device to another client by specifying the client ID."
 			},
 			"response": [
 				{
@@ -416,7 +420,8 @@
 						"{{dev_id}}",
 						"credentials"
 					]
-				}
+				},
+				"description": "It is used to retrieve the credentials associated with the device identified by the UUID."
 			},
 			"response": [
 				{
@@ -1279,13 +1284,11 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"value": "application/json"
 					},
 					{
 						"key": "X-Authorization",
-						"value": "Bearer {{access_token}}",
-						"type": "text"
+						"value": "Bearer {{access_token}}"
 					}
 				],
 				"url": {
@@ -1390,6 +1393,228 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"id\": {\n        \"entityType\": \"DEVICE\",\n        \"id\": \"15371070-1d89-11ef-a4b5-cd877a1ebdc9\"\n    },\n    \"createdTime\": 1716966007543,\n    \"additionalInfo\": null,\n    \"tenantId\": {\n        \"entityType\": \"TENANT\",\n        \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n    },\n    \"customerId\": {\n        \"entityType\": \"CUSTOMER\",\n        \"id\": \"13814000-1dd2-11b2-8080-808080808080\"\n    },\n    \"name\": \"0004a30b00fef714\",\n    \"type\": \"default\",\n    \"label\": null,\n    \"deviceProfileId\": {\n        \"entityType\": \"DEVICE_PROFILE\",\n        \"id\": \"84cbfb90-2a13-11ee-a87d-e32305a89fd3\"\n    },\n    \"deviceData\": {\n        \"configuration\": {\n            \"type\": \"DEFAULT\"\n        },\n        \"transportConfiguration\": {\n            \"type\": \"DEFAULT\"\n        }\n    },\n    \"firmwareId\": null,\n    \"softwareId\": null,\n    \"externalId\": null,\n    \"ownerId\": {\n        \"entityType\": \"TENANT\",\n        \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "device info",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{thingsboard_host}}/api/device/info/a39214a0-19a6-11ef-a4b5-cd877a1ebdc9",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"device",
+						"info",
+						"a39214a0-19a6-11ef-a4b5-cd877a1ebdc9"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "device info",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{thingsboard_host}}/api/device/info/a39214a0-19a6-11ef-a4b5-cd877a1ebdc9",
+							"host": [
+								"{{thingsboard_host}}"
+							],
+							"path": [
+								"api",
+								"device",
+								"info",
+								"a39214a0-19a6-11ef-a4b5-cd877a1ebdc9"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "vary",
+							"value": "Origin"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "x-content-type-options",
+							"value": "nosniff"
+						},
+						{
+							"key": "x-xss-protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "expires",
+							"value": "0"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "transfer-encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "date",
+							"value": "Fri, 31 May 2024 08:14:51 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": {\n        \"entityType\": \"DEVICE\",\n        \"id\": \"a39214a0-19a6-11ef-a4b5-cd877a1ebdc9\"\n    },\n    \"createdTime\": 1716538897130,\n    \"additionalInfo\": null,\n    \"tenantId\": {\n        \"entityType\": \"TENANT\",\n        \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n    },\n    \"customerId\": {\n        \"entityType\": \"CUSTOMER\",\n        \"id\": \"d3b64270-2d1e-11ee-8142-4394c74561d5\"\n    },\n    \"name\": \"0004a30b00f98b47\",\n    \"type\": \"chekness\",\n    \"label\": null,\n    \"deviceProfileId\": {\n        \"entityType\": \"DEVICE_PROFILE\",\n        \"id\": \"45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe\"\n    },\n    \"deviceData\": {\n        \"configuration\": {\n            \"type\": \"DEFAULT\"\n        },\n        \"transportConfiguration\": {\n            \"type\": \"DEFAULT\"\n        }\n    },\n    \"firmwareId\": null,\n    \"softwareId\": null,\n    \"externalId\": null,\n    \"ownerName\": \"TELESTO 02\",\n    \"groups\": [],\n    \"active\": true,\n    \"ownerId\": {\n        \"entityType\": \"CUSTOMER\",\n        \"id\": \"d3b64270-2d1e-11ee-8142-4394c74561d5\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "assign device to tenant",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{thingsboard_host}}/api/tenant/{{tenant_id}}/device/{{dispositivo_id}}",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"tenant",
+						"{{tenant_id}}",
+						"device",
+						"{{dispositivo_id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "assign device to tenant",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{thingsboard_host}}/api/tenant/{{tenant_id}}/device/{{dispositivo_id}}",
+							"host": [
+								"{{thingsboard_host}}"
+							],
+							"path": [
+								"api",
+								"tenant",
+								"{{tenant_id}}",
+								"device",
+								"{{dispositivo_id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "vary",
+							"value": "Origin"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "x-content-type-options",
+							"value": "nosniff"
+						},
+						{
+							"key": "x-xss-protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "expires",
+							"value": "0"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "transfer-encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "date",
+							"value": "Mon, 03 Jun 2024 10:10:01 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": {\n        \"entityType\": \"DEVICE\",\n        \"id\": \"a39214a0-19a6-11ef-a4b5-cd877a1ebdc9\"\n    },\n    \"createdTime\": 1716538897130,\n    \"additionalInfo\": null,\n    \"tenantId\": {\n        \"entityType\": \"TENANT\",\n        \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n    },\n    \"customerId\": {\n        \"entityType\": \"CUSTOMER\",\n        \"id\": \"13814000-1dd2-11b2-8080-808080808080\"\n    },\n    \"name\": \"0004a30b00f98b47\",\n    \"type\": \"chekness\",\n    \"label\": null,\n    \"deviceProfileId\": {\n        \"entityType\": \"DEVICE_PROFILE\",\n        \"id\": \"45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe\"\n    },\n    \"deviceData\": {\n        \"configuration\": {\n            \"type\": \"DEFAULT\"\n        },\n        \"transportConfiguration\": {\n            \"type\": \"DEFAULT\"\n        }\n    },\n    \"firmwareId\": null,\n    \"softwareId\": null,\n    \"externalId\": null,\n    \"ownerId\": {\n        \"entityType\": \"TENANT\",\n        \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n    }\n}"
 				}
 			]
 		}
