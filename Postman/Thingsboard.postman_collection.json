@@ -9,6 +9,95 @@
 	},
 	"item": [
 		{
+			"name": "pruebas",
+			"item": [
+				{
+					"name": "device last telemetry",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"activeDevices\": {{activeDevices}},\r\n  \"inactiveDevices\": {{inactiveDevices}},\r\n  \"neverSeenDevices\": {{neverSeenDevices}},\r\n  \"activeGateways\": {{activeGateways}},\r\n  \"inactiveGateways\": {{inactiveGateways}},\r\n  \"neverSeenGateways\": {{neverSeenGateways}}\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{thingsboard_host}}/api/v1/{{credentialsId}}/telemetry",
+							"host": [
+								"{{thingsboard_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"{{credentialsId}}",
+								"telemetry"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "device customer attributes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"application_id\": \"1\",\r\n    \"application_name\": \"PRUEBAS\",\r\n    \"dev_eui\": \"Total Gateways\",\r\n    \"device_name\": \"Total Gateways\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{thingsboard_host}}/api/v1/mgbTV68ccjZj1Iztk4uw/attributes",
+							"host": [
+								"{{thingsboard_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mgbTV68ccjZj1Iztk4uw",
+								"attributes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "authentification",
 			"event": [
 				{
@@ -937,6 +1026,48 @@
 			"response": []
 		},
 		{
+			"name": "device last telemetry 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"data_corriente1\": \"6.8\",\r\n  \"data_corriente2\": \"6.9\",\r\n  \"data_corriente3\": \"6.1\",\r\n  \"data_corriente4\": \"0\",\r\n  \"date1\": \"2024-05-29T19:26:58.928Z\",\r\n  \"date2\": \"2024-05-30T05:00:25.087Z\",\r\n  \"firstMsg\": \"1717045225087\",\r\n  \"msgDailyCounter\": \"115\",\r\n  \"rssi\": \"-87\",\r\n  \"snr\": \"10.2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{thingsboard_host}}/api/v1/{{credentialsId}}/telemetry",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"{{credentialsId}}",
+						"telemetry"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "customer attributes",
 			"request": {
 				"method": "GET",
@@ -1506,19 +1637,144 @@
 			]
 		},
 		{
+			"name": "devices from tenant",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{thingsboard_host}}/api/tenant/devices?page=0&pageSize=10",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"tenant",
+						"devices"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "devices from tenant",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{thingsboard_host}}/api/tenant/devices?page=0&pageSize=10",
+							"host": [
+								"{{thingsboard_host}}"
+							],
+							"path": [
+								"api",
+								"tenant",
+								"devices"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "vary",
+							"value": "Origin"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "x-content-type-options",
+							"value": "nosniff"
+						},
+						{
+							"key": "x-xss-protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "expires",
+							"value": "0"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "transfer-encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "date",
+							"value": "Mon, 03 Jun 2024 11:08:06 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": [\n        {\n            \"id\": {\n                \"entityType\": \"DEVICE\",\n                \"id\": \"000426d0-217f-11ef-a4b5-cd877a1ebdc9\"\n            },\n            \"createdTime\": 1717401481661,\n            \"additionalInfo\": null,\n            \"tenantId\": {\n                \"entityType\": \"TENANT\",\n                \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n            },\n            \"customerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"583a31f0-0d48-11ef-8724-b1dfb72e4ebd\"\n            },\n            \"name\": \"0004a30b010e4ced\",\n            \"type\": \"chekness\",\n            \"label\": null,\n            \"deviceProfileId\": {\n                \"entityType\": \"DEVICE_PROFILE\",\n                \"id\": \"45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe\"\n            },\n            \"deviceData\": {\n                \"configuration\": {\n                    \"type\": \"DEFAULT\"\n                },\n                \"transportConfiguration\": {\n                    \"type\": \"DEFAULT\"\n                }\n            },\n            \"firmwareId\": null,\n            \"softwareId\": null,\n            \"externalId\": null,\n            \"ownerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"583a31f0-0d48-11ef-8724-b1dfb72e4ebd\"\n            }\n        },\n        {\n            \"id\": {\n                \"entityType\": \"DEVICE\",\n                \"id\": \"00097190-0c84-11ef-8724-b1dfb72e4ebd\"\n            },\n            \"createdTime\": 1715094654761,\n            \"additionalInfo\": null,\n            \"tenantId\": {\n                \"entityType\": \"TENANT\",\n                \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n            },\n            \"customerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"087be460-32c4-11ee-8142-4394c74561d5\"\n            },\n            \"name\": \"0004a30b00ff1a98\",\n            \"type\": \"chekness\",\n            \"label\": null,\n            \"deviceProfileId\": {\n                \"entityType\": \"DEVICE_PROFILE\",\n                \"id\": \"45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe\"\n            },\n            \"deviceData\": {\n                \"configuration\": {\n                    \"type\": \"DEFAULT\"\n                },\n                \"transportConfiguration\": {\n                    \"type\": \"DEFAULT\"\n                }\n            },\n            \"firmwareId\": null,\n            \"softwareId\": null,\n            \"externalId\": null,\n            \"ownerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"087be460-32c4-11ee-8142-4394c74561d5\"\n            }\n        },\n        {\n            \"id\": {\n                \"entityType\": \"DEVICE\",\n                \"id\": \"000a4a10-830a-11ee-95d8-ef0643997844\"\n            },\n            \"createdTime\": 1699978946865,\n            \"additionalInfo\": null,\n            \"tenantId\": {\n                \"entityType\": \"TENANT\",\n                \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n            },\n            \"customerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"e751f380-2f79-11ee-8142-4394c74561d5\"\n            },\n            \"name\": \"0004a30b010adc4f\",\n            \"type\": \"chekness\",\n            \"label\": null,\n            \"deviceProfileId\": {\n                \"entityType\": \"DEVICE_PROFILE\",\n                \"id\": \"45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe\"\n            },\n            \"deviceData\": {\n                \"configuration\": {\n                    \"type\": \"DEFAULT\"\n                },\n                \"transportConfiguration\": {\n                    \"type\": \"DEFAULT\"\n                }\n            },\n            \"firmwareId\": null,\n            \"softwareId\": null,\n            \"externalId\": null,\n            \"ownerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"e751f380-2f79-11ee-8142-4394c74561d5\"\n            }\n        },\n        {\n            \"id\": {\n                \"entityType\": \"DEVICE\",\n                \"id\": \"000c64d0-e692-11ee-a9f5-675b85d8bd3b\"\n            },\n            \"createdTime\": 1710922523549,\n            \"additionalInfo\": null,\n            \"tenantId\": {\n                \"entityType\": \"TENANT\",\n                \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n            },\n            \"customerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"939620c0-e691-11ee-a9f5-675b85d8bd3b\"\n            },\n            \"name\": \"0004a30b00ff79a5\",\n            \"type\": \"chekness\",\n            \"label\": null,\n            \"deviceProfileId\": {\n                \"entityType\": \"DEVICE_PROFILE\",\n                \"id\": \"45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe\"\n            },\n            \"deviceData\": {\n                \"configuration\": {\n                    \"type\": \"DEFAULT\"\n                },\n                \"transportConfiguration\": {\n                    \"type\": \"DEFAULT\"\n                }\n            },\n            \"firmwareId\": null,\n            \"softwareId\": null,\n            \"externalId\": null,\n            \"ownerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"939620c0-e691-11ee-a9f5-675b85d8bd3b\"\n            }\n        },\n        {\n            \"id\": {\n                \"entityType\": \"DEVICE\",\n                \"id\": \"00117540-8eab-11ee-95d8-ef0643997844\"\n            },\n            \"createdTime\": 1701257558676,\n            \"additionalInfo\": null,\n            \"tenantId\": {\n                \"entityType\": \"TENANT\",\n                \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n            },\n            \"customerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"47bce400-6f12-11ee-95d8-ef0643997844\"\n            },\n            \"name\": \"0004a30b010b4cf5\",\n            \"type\": \"chekness\",\n            \"label\": null,\n            \"deviceProfileId\": {\n                \"entityType\": \"DEVICE_PROFILE\",\n                \"id\": \"45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe\"\n            },\n            \"deviceData\": {\n                \"configuration\": {\n                    \"type\": \"DEFAULT\"\n                },\n                \"transportConfiguration\": {\n                    \"type\": \"DEFAULT\"\n                }\n            },\n            \"firmwareId\": null,\n            \"softwareId\": null,\n            \"externalId\": null,\n            \"ownerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"47bce400-6f12-11ee-95d8-ef0643997844\"\n            }\n        },\n        {\n            \"id\": {\n                \"entityType\": \"DEVICE\",\n                \"id\": \"002bc280-ec0a-11ee-a9f5-675b85d8bd3b\"\n            },\n            \"createdTime\": 1711523819176,\n            \"additionalInfo\": null,\n            \"tenantId\": {\n                \"entityType\": \"TENANT\",\n                \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n            },\n            \"customerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"32857a90-e698-11ee-a9f5-675b85d8bd3b\"\n            },\n            \"name\": \"0004a30b010b140e\",\n            \"type\": \"chekness\",\n            \"label\": null,\n            \"deviceProfileId\": {\n                \"entityType\": \"DEVICE_PROFILE\",\n                \"id\": \"45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe\"\n            },\n            \"deviceData\": {\n                \"configuration\": {\n                    \"type\": \"DEFAULT\"\n                },\n                \"transportConfiguration\": {\n                    \"type\": \"DEFAULT\"\n                }\n            },\n            \"firmwareId\": null,\n            \"softwareId\": null,\n            \"externalId\": null,\n            \"ownerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"32857a90-e698-11ee-a9f5-675b85d8bd3b\"\n            }\n        },\n        {\n            \"id\": {\n                \"entityType\": \"DEVICE\",\n                \"id\": \"002c3b20-e68d-11ee-a9f5-675b85d8bd3b\"\n            },\n            \"createdTime\": 1710920376274,\n            \"additionalInfo\": null,\n            \"tenantId\": {\n                \"entityType\": \"TENANT\",\n                \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n            },\n            \"customerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"6a81c5f0-c0d9-11ee-95d8-ef0643997844\"\n            },\n            \"name\": \"0004a30b00ff6f7c\",\n            \"type\": \"chekness\",\n            \"label\": null,\n            \"deviceProfileId\": {\n                \"entityType\": \"DEVICE_PROFILE\",\n                \"id\": \"45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe\"\n            },\n            \"deviceData\": {\n                \"configuration\": {\n                    \"type\": \"DEFAULT\"\n                },\n                \"transportConfiguration\": {\n                    \"type\": \"DEFAULT\"\n                }\n            },\n            \"firmwareId\": null,\n            \"softwareId\": null,\n            \"externalId\": null,\n            \"ownerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"6a81c5f0-c0d9-11ee-95d8-ef0643997844\"\n            }\n        },\n        {\n            \"id\": {\n                \"entityType\": \"DEVICE\",\n                \"id\": \"00322940-168a-11ef-994d-e3af5413ffbe\"\n            },\n            \"createdTime\": 1716196743636,\n            \"additionalInfo\": null,\n            \"tenantId\": {\n                \"entityType\": \"TENANT\",\n                \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n            },\n            \"customerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"5633f2b0-2ae0-11ee-a4a5-cfc2f26174fe\"\n            },\n            \"name\": \"0004a30b00ff2e3e\",\n            \"type\": \"chekness\",\n            \"label\": null,\n            \"deviceProfileId\": {\n                \"entityType\": \"DEVICE_PROFILE\",\n                \"id\": \"45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe\"\n            },\n            \"deviceData\": {\n                \"configuration\": {\n                    \"type\": \"DEFAULT\"\n                },\n                \"transportConfiguration\": {\n                    \"type\": \"DEFAULT\"\n                }\n            },\n            \"firmwareId\": null,\n            \"softwareId\": null,\n            \"externalId\": null,\n            \"ownerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"5633f2b0-2ae0-11ee-a4a5-cfc2f26174fe\"\n            }\n        },\n        {\n            \"id\": {\n                \"entityType\": \"DEVICE\",\n                \"id\": \"003280b0-19a6-11ef-a4b5-cd877a1ebdc9\"\n            },\n            \"createdTime\": 1716538623035,\n            \"additionalInfo\": null,\n            \"tenantId\": {\n                \"entityType\": \"TENANT\",\n                \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n            },\n            \"customerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"d3b64270-2d1e-11ee-8142-4394c74561d5\"\n            },\n            \"name\": \"0004a30b01002ec6\",\n            \"type\": \"chekness\",\n            \"label\": null,\n            \"deviceProfileId\": {\n                \"entityType\": \"DEVICE_PROFILE\",\n                \"id\": \"45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe\"\n            },\n            \"deviceData\": {\n                \"configuration\": {\n                    \"type\": \"DEFAULT\"\n                },\n                \"transportConfiguration\": {\n                    \"type\": \"DEFAULT\"\n                }\n            },\n            \"firmwareId\": null,\n            \"softwareId\": null,\n            \"externalId\": null,\n            \"ownerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"d3b64270-2d1e-11ee-8142-4394c74561d5\"\n            }\n        },\n        {\n            \"id\": {\n                \"entityType\": \"DEVICE\",\n                \"id\": \"00352c50-6e5e-11ee-95d8-ef0643997844\"\n            },\n            \"createdTime\": 1697706050453,\n            \"additionalInfo\": null,\n            \"tenantId\": {\n                \"entityType\": \"TENANT\",\n                \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n            },\n            \"customerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"e751f380-2f79-11ee-8142-4394c74561d5\"\n            },\n            \"name\": \"0004a30b00ff6b3e\",\n            \"type\": \"chekness\",\n            \"label\": null,\n            \"deviceProfileId\": {\n                \"entityType\": \"DEVICE_PROFILE\",\n                \"id\": \"45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe\"\n            },\n            \"deviceData\": {\n                \"configuration\": {\n                    \"type\": \"DEFAULT\"\n                },\n                \"transportConfiguration\": {\n                    \"type\": \"DEFAULT\"\n                }\n            },\n            \"firmwareId\": null,\n            \"softwareId\": null,\n            \"externalId\": null,\n            \"ownerId\": {\n                \"entityType\": \"CUSTOMER\",\n                \"id\": \"e751f380-2f79-11ee-8142-4394c74561d5\"\n            }\n        }\n    ],\n    \"totalPages\": 1320,\n    \"totalElements\": 13197,\n    \"hasNext\": true\n}"
+				}
+			]
+		},
+		{
 			"name": "assign device to tenant",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"value": "application/json"
 					},
 					{
 						"key": "X-Authorization",
-						"value": "Bearer {{access_token}}",
-						"type": "text"
+						"value": "Bearer {{access_token}}"
 					}
 				],
 				"url": {
@@ -1615,6 +1871,115 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"id\": {\n        \"entityType\": \"DEVICE\",\n        \"id\": \"a39214a0-19a6-11ef-a4b5-cd877a1ebdc9\"\n    },\n    \"createdTime\": 1716538897130,\n    \"additionalInfo\": null,\n    \"tenantId\": {\n        \"entityType\": \"TENANT\",\n        \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n    },\n    \"customerId\": {\n        \"entityType\": \"CUSTOMER\",\n        \"id\": \"13814000-1dd2-11b2-8080-808080808080\"\n    },\n    \"name\": \"0004a30b00f98b47\",\n    \"type\": \"chekness\",\n    \"label\": null,\n    \"deviceProfileId\": {\n        \"entityType\": \"DEVICE_PROFILE\",\n        \"id\": \"45cef3b0-2ad7-11ee-a4a5-cfc2f26174fe\"\n    },\n    \"deviceData\": {\n        \"configuration\": {\n            \"type\": \"DEFAULT\"\n        },\n        \"transportConfiguration\": {\n            \"type\": \"DEFAULT\"\n        }\n    },\n    \"firmwareId\": null,\n    \"softwareId\": null,\n    \"externalId\": null,\n    \"ownerId\": {\n        \"entityType\": \"TENANT\",\n        \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "tenant info",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{thingsboard_host}}/api/tenant/{{tenant_id}}",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"tenant",
+						"{{tenant_id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "tenant info",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{thingsboard_host}}/api/tenant/{{tenant_id}}",
+							"host": [
+								"{{thingsboard_host}}"
+							],
+							"path": [
+								"api",
+								"tenant",
+								"{{tenant_id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "vary",
+							"value": "Origin"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "x-content-type-options",
+							"value": "nosniff"
+						},
+						{
+							"key": "x-xss-protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "expires",
+							"value": "0"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "transfer-encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "date",
+							"value": "Tue, 04 Jun 2024 06:58:21 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": {\n        \"entityType\": \"TENANT\",\n        \"id\": \"84c78ec0-2a13-11ee-a87d-e32305a89fd3\"\n    },\n    \"createdTime\": 1690197381548,\n    \"additionalInfo\": null,\n    \"country\": null,\n    \"state\": null,\n    \"city\": null,\n    \"address\": null,\n    \"address2\": null,\n    \"zip\": null,\n    \"phone\": null,\n    \"email\": null,\n    \"title\": \"Tenant\",\n    \"region\": \"Global\",\n    \"tenantProfileId\": {\n        \"entityType\": \"TENANT_PROFILE\",\n        \"id\": \"833c81f0-2a13-11ee-a87d-e32305a89fd3\"\n    },\n    \"name\": \"Tenant\"\n}"
 				}
 			]
 		}
