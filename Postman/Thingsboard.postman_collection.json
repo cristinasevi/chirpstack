@@ -94,6 +94,50 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "device server attributes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"activeDevices\": {{activeDevices}},\r\n  \"inactiveDevices\": {{inactiveDevices}},\r\n  \"neverSeenDevices\": {{neverSeenDevices}},\r\n  \"activeGateways\": {{activeGateways}},\r\n  \"inactiveGateways\": {{inactiveGateways}},\r\n  \"neverSeenGateways\": {{neverSeenGateways}}\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{thingsboard_host}}/api/plugins/telemetry/DEVICE/0d537d60-21b4-11ef-a4b5-cd877a1ebdc9/SERVER_SCOPE",
+							"host": [
+								"{{thingsboard_host}}"
+							],
+							"path": [
+								"api",
+								"plugins",
+								"telemetry",
+								"DEVICE",
+								"0d537d60-21b4-11ef-a4b5-cd877a1ebdc9",
+								"SERVER_SCOPE"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1068,89 +1112,6 @@
 			"response": []
 		},
 		{
-			"name": "customer attributes",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					},
-					{
-						"key": "X-Authorization",
-						"value": "Bearer {{access_token}}"
-					}
-				],
-				"url": {
-					"raw": "{{thingsboard_host}}/api/v1/a39214a0-19a6-11ef-a4b5-cd877a1ebdc9/attributes",
-					"host": [
-						"{{thingsboard_host}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"a39214a0-19a6-11ef-a4b5-cd877a1ebdc9",
-						"attributes"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "customer attributes",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json"
-					},
-					{
-						"key": "X-Authorization",
-						"value": "Bearer {{access_token}}"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"device_status\": {{deviceStatus}},\r\n    \"gateway_status\": {{gatewayStatus}}\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{thingsboard_host}}/api/v1/{{customerId}}/attributes",
-					"host": [
-						"{{thingsboard_host}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"{{customerId}}",
-						"attributes"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "device server attributes",
 			"request": {
 				"method": "GET",
@@ -1278,6 +1239,133 @@
 					"body": "{\n    \"client\": {\n        \"application_id\": 1,\n        \"application_name\": \"PRUEBA\",\n        \"dev_eui\": \"0004a30b01055537\",\n        \"device_name\": \"0004a30b01055537\"\n    }\n}"
 				}
 			]
+		},
+		{
+			"name": "device server attributes",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"activeDevices\": {{activeDevices}},\r\n  \"inactiveDevices\": {{inactiveDevices}},\r\n  \"neverSeenDevices\": {{neverSeenDevices}},\r\n  \"activeGateways\": {{activeGateways}},\r\n  \"inactiveGateways\": {{inactiveGateways}},\r\n  \"neverSeenGateways\": {{neverSeenGateways}}\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{thingsboard_host}}/api/plugins/telemetry/DEVICE/0d537d60-21b4-11ef-a4b5-cd877a1ebdc9/SERVER_SCOPE",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"plugins",
+						"telemetry",
+						"DEVICE",
+						"0d537d60-21b4-11ef-a4b5-cd877a1ebdc9",
+						"SERVER_SCOPE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "customer attributes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{thingsboard_host}}/api/v1/a39214a0-19a6-11ef-a4b5-cd877a1ebdc9/attributes",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"a39214a0-19a6-11ef-a4b5-cd877a1ebdc9",
+						"attributes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "customer attributes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"device_status\": {{deviceStatus}},\r\n    \"gateway_status\": {{gatewayStatus}}\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{thingsboard_host}}/api/v1/{{customerId}}/attributes",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"{{customerId}}",
+						"attributes"
+					]
+				}
+			},
+			"response": []
 		},
 		{
 			"name": "device customer attributes",
