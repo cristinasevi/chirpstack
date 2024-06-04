@@ -456,7 +456,52 @@
 						"devices",
 						"summary"
 					]
+				},
+				"description": "This function retrieves the total number of devices, including active, inactive, or never-seen devices."
+			},
+			"response": []
+		},
+		{
+			"name": "device status 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.environment.set(\"activeDevices\", jsonData.activeCount);\r",
+							"pm.environment.set(\"inactiveDevices\", jsonData.inactiveCount);\r",
+							"pm.environment.set(\"neverSeenDevices\", jsonData.neverSeenCount);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
 				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{chirpstack_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{chirpstack_host}}/api/internal/devices/summary",
+					"host": [
+						"{{chirpstack_host}}"
+					],
+					"path": [
+						"api",
+						"internal",
+						"devices",
+						"summary"
+					]
+				},
+				"description": "This function retrieves the total number of devices, including active, inactive, or never-seen devices."
 			},
 			"response": []
 		},
@@ -494,7 +539,50 @@
 						"gateways",
 						"summary"
 					]
+				},
+				"description": "This function retrieves the total number of gateways, including active, inactive, or never-seen devices."
+			},
+			"response": []
+		},
+		{
+			"name": "gateway status 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.environment.set(\"activeGateways\", jsonData.activeCount);\r",
+							"pm.environment.set(\"inactiveGateways\", jsonData.inactiveCount);\r",
+							"pm.environment.set(\"neverSeenGateways\", jsonData.neverSeenCount);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
 				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{chirpstack_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{chirpstack_host}}/api/internal/gateways/summary",
+					"host": [
+						"{{chirpstack_host}}"
+					],
+					"path": [
+						"api",
+						"internal",
+						"gateways",
+						"summary"
+					]
+				},
+				"description": "This function retrieves the total number of gateways, including active, inactive, or never-seen devices."
 			},
 			"response": []
 		},
