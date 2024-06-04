@@ -1165,29 +1165,119 @@
 					}
 				],
 				"url": {
-					"raw": "{{thingsboard_host}}/api/v1/{{device_access_token}}/attributes?clientKeys=attribute1,attribute2&sharedKeys=shared1,shared2",
+					"raw": "{{thingsboard_host}}/api/v1/{{dev_access_token}}/attributes?clientKeys=application_id,application_name,dev_eui,device_name&sharedKeys=attribute1,attribute2",
 					"host": [
 						"{{thingsboard_host}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"{{device_access_token}}",
+						"{{dev_access_token}}",
 						"attributes"
 					],
 					"query": [
 						{
 							"key": "clientKeys",
-							"value": "attribute1,attribute2"
+							"value": "application_id,application_name,dev_eui,device_name"
 						},
 						{
 							"key": "sharedKeys",
-							"value": "shared1,shared2"
+							"value": "attribute1,attribute2"
 						}
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "device server attributes",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{thingsboard_host}}/api/v1/{{dev_access_token}}/attributes?clientKeys=application_id,application_name,dev_eui,device_name&sharedKeys=attribute1,attribute2",
+							"host": [
+								"{{thingsboard_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"{{dev_access_token}}",
+								"attributes"
+							],
+							"query": [
+								{
+									"key": "clientKeys",
+									"value": "application_id,application_name,dev_eui,device_name"
+								},
+								{
+									"key": "sharedKeys",
+									"value": "attribute1,attribute2"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "vary",
+							"value": "Origin"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "x-content-type-options",
+							"value": "nosniff"
+						},
+						{
+							"key": "x-xss-protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "expires",
+							"value": "0"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "content-length",
+							"value": "121"
+						},
+						{
+							"key": "date",
+							"value": "Tue, 04 Jun 2024 07:33:48 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"client\": {\n        \"application_id\": 1,\n        \"application_name\": \"PRUEBA\",\n        \"dev_eui\": \"0004a30b01055537\",\n        \"device_name\": \"0004a30b01055537\"\n    }\n}"
+				}
+			]
 		},
 		{
 			"name": "device customer attributes",
@@ -1881,13 +1971,11 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"value": "application/json"
 					},
 					{
 						"key": "X-Authorization",
-						"value": "Bearer {{access_token}}",
-						"type": "text"
+						"value": "Bearer {{access_token}}"
 					}
 				],
 				"url": {
