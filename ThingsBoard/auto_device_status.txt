@@ -28,7 +28,7 @@ WantedBy=multi-user.target
 
 sudo systemctl daemon-reload
 sudo systemctl enable device_status.service
-sudo systemctl start device_staus.service
+sudo systemctl start device_status.service
 
 5º Verifica el estado del servicio:
 
