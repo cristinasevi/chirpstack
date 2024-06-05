@@ -20,9 +20,9 @@ def imprimir_status(status):
     inactive_devices = status.get('inactiveCount', 'N/A')
     never_seen_devices = status.get('neverSeenCount', 'N/A')
 
-    print(f"Active devices: {active_devices}")
-    print(f"Inactive devices: {inactive_devices}")
-    print(f"Never Seen devices: {never_seen_devices}")
+    print(f"activeDevices: {active_devices}")
+    print(f"inactiveDevices: {inactive_devices}")
+    print(f"neverSeenDevices: {never_seen_devices}")
 
 def obtener_token_de_acceso_thingsboard():
     login_endpoint = "http://thingsboard.chemik.es/api/auth/login"

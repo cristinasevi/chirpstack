@@ -20,9 +20,9 @@ def imprimir_status(status):
     inactive_gateways = status.get('inactiveCount', 'N/A')
     never_seen_gateways = status.get('neverSeenCount', 'N/A')
 
-    print(f"Active Gateways: {active_gateways}")
-    print(f"Inactive Gateways: {inactive_gateways}")
-    print(f"Never Seen Gateways: {never_seen_gateways}")
+    print(f"activeGateways: {active_gateways}")
+    print(f"inactiveGateways: {inactive_gateways}")
+    print(f"neverSeenGateways: {never_seen_gateways}")
 
 def obtener_token_de_acceso_thingsboard():
     login_endpoint = "http://thingsboard.chemik.es/api/auth/login"
