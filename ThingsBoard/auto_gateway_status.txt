@@ -1,0 +1,35 @@
+1º Crear el fichero en esta ruta:
+ 
+sudo nano /usr/local/bin/gateway_status.py
+	escribir todo el código de la función
+
+2º Darle permisos de ejecución al script
+
+sudo chmod +x /usr/local/bin/gateway_status.py
+
+3º Crear el script que crea el servicio
+sudo nano /etc/systemd/system/gateway_status.service
+	escribir este código para crear el servicio
+[Unit]
+Description=Gateway Status
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /usr/local/bin/gateway_status.py
+Restart=always
+User=nobody
+Group=nogroup
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
+
+4º Recargar 'systemd' y habilitar el servicio:
+
+sudo systemctl daemon-reload
+sudo systemctl enable gateway_status.service
+sudo systemctl start gateway_status.service
+
+5º Verifica el estado del servicio:
+
+sudo systemctl status gateway_status.service

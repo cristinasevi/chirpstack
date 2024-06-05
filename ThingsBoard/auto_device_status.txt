@@ -1,0 +1,35 @@
+1º Crear el fichero en esta ruta:
+ 
+sudo nano /usr/local/bin/device_status.py
+	escribir todo el código de la función
+
+2º Darle permisos de ejecución al script
+
+sudo chmod +x /usr/local/bin/device_status.py
+
+3º Crear el script que crea el servicio
+sudo nano /etc/systemd/system/device_status.service
+	escribir este código para crear el servicio
+[Unit]
+Description=Device Status
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /usr/local/bin/device_status.py
+Restart=always
+User=nobody
+Group=nogroup
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
+
+4º Recargar 'systemd' y habilitar el servicio:
+
+sudo systemctl daemon-reload
+sudo systemctl enable device_status.service
+sudo systemctl start device_staus.service
+
+5º Verifica el estado del servicio:
+
+sudo systemctl status device_status.service
