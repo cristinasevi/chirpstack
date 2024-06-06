@@ -1,13 +1,16 @@
 import uuid
 
-hex_string = "0004a30b01001171"
+hex_string = "0004a30b00f98573"
 
-# Agregar guiones para que la cadena tenga formato UUID
-uuid_string = '-'.join([hex_string[:8], hex_string[8:12], hex_string[12:16], hex_string[16:20], hex_string[20:]])
+# Pad the hex string to ensure it is 32 characters long
+padded_hex_string = hex_string.ljust(32, '0')
 
-# Convertir la cadena a un objeto UUID
+# Add dashes to format the padded hex string as a UUID
+uuid_string = '-'.join([padded_hex_string[:8], padded_hex_string[8:12], padded_hex_string[12:16], padded_hex_string[16:20], padded_hex_string[20:]])
+
+# Convert the string to a UUID object
 uuid_obj = uuid.UUID(uuid_string)
 
 print("UUID:", uuid_obj)
 
-# Resultado: 0e93e290-e84e-11ee-a9f5-675b85d8bd3b
+# Resultado: 0004a30b-00f9-8573-0000-000000000000
