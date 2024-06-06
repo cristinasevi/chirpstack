@@ -88,7 +88,7 @@ def actualizar_inactivity_timeout(device_name, access_token):
 def actualizar_inactivity_timeout_multiples_dispositivos(device_names):
     access_token = obtener_token_de_acceso_thingsboard()
     if access_token is None:
-        print("No se pudo obtener el token de acceso del usuario.")
+        print(Error con el token de acceso.")
         return
 
     for device_name in device_names:
