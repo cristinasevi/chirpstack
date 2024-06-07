@@ -1,0 +1,4110 @@
+[
+    {
+        "id": {
+            "entityType": "DASHBOARD",
+            "id": "17aa9c90-249c-11ef-a4b5-cd877a1ebdc9"
+        },
+        "createdTime": 1713529723138,
+        "tenantId": null,
+        "customerId": null,
+        "title": "Resumen de campos",
+        "image": null,
+        "assignedCustomers": null,
+        "mobileHide": false,
+        "mobileOrder": null,
+        "configuration": {
+            "description": "Vision de lista de chekness de campo solar",
+            "widgets": {
+                "dd65a180-1965-f097-2338-61d4a53143d4": {
+                    "isSystemType": true,
+                    "bundleAlias": "charts",
+                    "typeAlias": "doughnut_chart_js",
+                    "type": "latest",
+                    "title": "New widget",
+                    "image": null,
+                    "description": null,
+                    "sizeX": 7,
+                    "sizeY": 5,
+                    "config": {
+                        "datasources": [
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "223fb1b8-b651-3279-d993-1ffe519fccc5",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Activos",
+                                        "color": "#14AB04",
+                                        "settings": {},
+                                        "_hash": 0.6276757353826945,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "98a0b157-cc05-dac2-60ad-0a2da151d9c0",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Inactivos + Nunca vistos",
+                                        "color": "#FC341E",
+                                        "settings": {},
+                                        "_hash": 0.5420381411525694,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            }
+                        ],
+                        "timewindow": {
+                            "displayValue": "",
+                            "selectedTab": 0,
+                            "realtime": {
+                                "realtimeType": 1,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "history": {
+                                "historyType": 0,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "fixedTimewindow": {
+                                    "startTimeMs": 1711985300015,
+                                    "endTimeMs": 1712071700015
+                                },
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "aggregation": {
+                                "type": "AVG",
+                                "limit": 25000
+                            }
+                        },
+                        "showTitle": true,
+                        "backgroundColor": "#fff",
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "padding": "8px",
+                        "settings": {
+                            "borderWidth": 5,
+                            "borderColor": "#fff",
+                            "legend": {
+                                "display": true,
+                                "labelsFontColor": "#666666"
+                            }
+                        },
+                        "title": "TELESTO 10",
+                        "dropShadow": true,
+                        "enableFullscreen": true,
+                        "titleStyle": {
+                            "fontSize": "16px",
+                            "fontWeight": 400
+                        },
+                        "useDashboardTimewindow": true,
+                        "showTitleIcon": false,
+                        "titleTooltip": "",
+                        "enableDataExport": true,
+                        "widgetStyle": {},
+                        "widgetCss": "",
+                        "pageSize": 1024,
+                        "noDataDisplayMessage": "",
+                        "showLegend": false
+                    },
+                    "row": 0,
+                    "col": 0,
+                    "id": "dd65a180-1965-f097-2338-61d4a53143d4"
+                },
+                "71f3afe4-1dee-f2df-5419-2c2b46351aa6": {
+                    "isSystemType": true,
+                    "bundleAlias": "charts",
+                    "typeAlias": "doughnut_chart_js",
+                    "type": "latest",
+                    "title": "New widget",
+                    "image": null,
+                    "description": null,
+                    "sizeX": 7,
+                    "sizeY": 5,
+                    "config": {
+                        "datasources": [
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "71d6948a-ed56-1d09-cbba-94851926dca8",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Activos",
+                                        "color": "#14AB04",
+                                        "settings": {},
+                                        "_hash": 0.5922767727714675,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "9fa1f8ca-11ab-d810-6a75-af74a4568491",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Inactivos + Nunca vistos",
+                                        "color": "#FC341E",
+                                        "settings": {},
+                                        "_hash": 0.5290930148865305,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            }
+                        ],
+                        "timewindow": {
+                            "displayValue": "",
+                            "selectedTab": 0,
+                            "realtime": {
+                                "realtimeType": 1,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "history": {
+                                "historyType": 0,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "fixedTimewindow": {
+                                    "startTimeMs": 1713080108078,
+                                    "endTimeMs": 1713166508078
+                                },
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "aggregation": {
+                                "type": "AVG",
+                                "limit": 25000
+                            }
+                        },
+                        "showTitle": true,
+                        "backgroundColor": "#fff",
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "padding": "8px",
+                        "settings": {
+                            "borderWidth": 5,
+                            "borderColor": "#fff",
+                            "legend": {
+                                "display": true,
+                                "labelsFontColor": "#666666"
+                            }
+                        },
+                        "title": "TELESTO 07",
+                        "dropShadow": true,
+                        "enableFullscreen": true,
+                        "titleStyle": {
+                            "fontSize": "16px",
+                            "fontWeight": 400
+                        },
+                        "useDashboardTimewindow": true,
+                        "showTitleIcon": false,
+                        "titleTooltip": "",
+                        "enableDataExport": true,
+                        "widgetStyle": {},
+                        "widgetCss": "",
+                        "pageSize": 1024,
+                        "noDataDisplayMessage": "",
+                        "showLegend": false
+                    },
+                    "row": 0,
+                    "col": 0,
+                    "id": "71f3afe4-1dee-f2df-5419-2c2b46351aa6"
+                },
+                "6b11f9d1-be09-c578-d278-9ac3ef8e92f8": {
+                    "isSystemType": true,
+                    "bundleAlias": "charts",
+                    "typeAlias": "doughnut_chart_js",
+                    "type": "latest",
+                    "title": "New widget",
+                    "image": null,
+                    "description": null,
+                    "sizeX": 7,
+                    "sizeY": 5,
+                    "config": {
+                        "datasources": [
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "29001b44-5fb0-c396-99be-fe4cdd3f3d75",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Activos",
+                                        "color": "#14AB04",
+                                        "settings": {},
+                                        "_hash": 0.3946885552311712,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "cae37be3-6ef5-5fd4-82b5-8b5ca8f8f15a",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Inactivos + Nunca vistos",
+                                        "color": "#FC341E",
+                                        "settings": {},
+                                        "_hash": 0.878841654477289,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            }
+                        ],
+                        "timewindow": {
+                            "displayValue": "",
+                            "selectedTab": 0,
+                            "realtime": {
+                                "realtimeType": 1,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "history": {
+                                "historyType": 0,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "fixedTimewindow": {
+                                    "startTimeMs": 1713080464865,
+                                    "endTimeMs": 1713166864865
+                                },
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "aggregation": {
+                                "type": "AVG",
+                                "limit": 25000
+                            }
+                        },
+                        "showTitle": true,
+                        "backgroundColor": "#fff",
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "padding": "8px",
+                        "settings": {
+                            "borderWidth": 5,
+                            "borderColor": "#fff",
+                            "legend": {
+                                "display": true,
+                                "labelsFontColor": "#666666"
+                            }
+                        },
+                        "title": "TELESTO 02",
+                        "dropShadow": true,
+                        "enableFullscreen": true,
+                        "titleStyle": {
+                            "fontSize": "16px",
+                            "fontWeight": 400
+                        },
+                        "useDashboardTimewindow": true,
+                        "showTitleIcon": false,
+                        "titleTooltip": "",
+                        "enableDataExport": true,
+                        "widgetStyle": {},
+                        "widgetCss": "",
+                        "pageSize": 1024,
+                        "noDataDisplayMessage": "",
+                        "showLegend": false
+                    },
+                    "row": 0,
+                    "col": 0,
+                    "id": "6b11f9d1-be09-c578-d278-9ac3ef8e92f8"
+                },
+                "ee954449-8f6a-438c-6de7-cd4a7da0f3f2": {
+                    "isSystemType": true,
+                    "bundleAlias": "charts",
+                    "typeAlias": "doughnut_chart_js",
+                    "type": "latest",
+                    "title": "New widget",
+                    "image": null,
+                    "description": null,
+                    "sizeX": 7,
+                    "sizeY": 5,
+                    "config": {
+                        "datasources": [
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "81b0334d-d8b8-594c-fedc-4170a4381239",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Activos",
+                                        "color": "#14AB04",
+                                        "settings": {},
+                                        "_hash": 0.3691099113336862,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "99f6e4b9-1530-caa8-2371-8430ca693786",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Inactivos + Nunca vistos",
+                                        "color": "#FC341E",
+                                        "settings": {},
+                                        "_hash": 0.5339714043496311,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            }
+                        ],
+                        "timewindow": {
+                            "displayValue": "",
+                            "selectedTab": 0,
+                            "realtime": {
+                                "realtimeType": 1,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "history": {
+                                "historyType": 0,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "fixedTimewindow": {
+                                    "startTimeMs": 1713081423183,
+                                    "endTimeMs": 1713167823183
+                                },
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "aggregation": {
+                                "type": "AVG",
+                                "limit": 25000
+                            }
+                        },
+                        "showTitle": true,
+                        "backgroundColor": "#fff",
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "padding": "8px",
+                        "settings": {
+                            "borderWidth": 5,
+                            "borderColor": "#fff",
+                            "legend": {
+                                "display": true,
+                                "labelsFontColor": "#666666"
+                            }
+                        },
+                        "title": "TELESTO 03",
+                        "dropShadow": true,
+                        "enableFullscreen": true,
+                        "titleStyle": {
+                            "fontSize": "16px",
+                            "fontWeight": 400
+                        },
+                        "useDashboardTimewindow": true,
+                        "showTitleIcon": false,
+                        "titleTooltip": "",
+                        "enableDataExport": true,
+                        "widgetStyle": {},
+                        "widgetCss": "",
+                        "pageSize": 1024,
+                        "noDataDisplayMessage": "",
+                        "showLegend": false
+                    },
+                    "row": 0,
+                    "col": 0,
+                    "id": "ee954449-8f6a-438c-6de7-cd4a7da0f3f2"
+                },
+                "816d84a2-2271-48de-04c2-2cd51becb70c": {
+                    "isSystemType": true,
+                    "bundleAlias": "charts",
+                    "typeAlias": "doughnut_chart_js",
+                    "type": "latest",
+                    "title": "New widget",
+                    "image": null,
+                    "description": null,
+                    "sizeX": 7,
+                    "sizeY": 5,
+                    "config": {
+                        "datasources": [
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "79706b27-c358-0b1d-d6f0-a76006817522",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Activos",
+                                        "color": "#14AB04",
+                                        "settings": {},
+                                        "_hash": 0.9689479796985696,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "72418001-0422-8668-edd6-0d1cd0c961ea",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Inactivos + Nunca vistos",
+                                        "color": "#FC341E",
+                                        "settings": {},
+                                        "_hash": 0.8066516824523937,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            }
+                        ],
+                        "timewindow": {
+                            "displayValue": "",
+                            "selectedTab": 0,
+                            "realtime": {
+                                "realtimeType": 1,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "history": {
+                                "historyType": 0,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "fixedTimewindow": {
+                                    "startTimeMs": 1713081604154,
+                                    "endTimeMs": 1713168004154
+                                },
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "aggregation": {
+                                "type": "AVG",
+                                "limit": 25000
+                            }
+                        },
+                        "showTitle": true,
+                        "backgroundColor": "#fff",
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "padding": "8px",
+                        "settings": {
+                            "borderWidth": 5,
+                            "borderColor": "#fff",
+                            "legend": {
+                                "display": true,
+                                "labelsFontColor": "#666666"
+                            }
+                        },
+                        "title": "TELESTO 09",
+                        "dropShadow": true,
+                        "enableFullscreen": true,
+                        "titleStyle": {
+                            "fontSize": "16px",
+                            "fontWeight": 400
+                        },
+                        "useDashboardTimewindow": true,
+                        "showTitleIcon": false,
+                        "titleTooltip": "",
+                        "enableDataExport": true,
+                        "widgetStyle": {},
+                        "widgetCss": "",
+                        "pageSize": 1024,
+                        "noDataDisplayMessage": "",
+                        "showLegend": false
+                    },
+                    "row": 0,
+                    "col": 0,
+                    "id": "816d84a2-2271-48de-04c2-2cd51becb70c"
+                },
+                "21d69981-aa5b-423d-508f-65411ff499d3": {
+                    "isSystemType": true,
+                    "bundleAlias": "charts",
+                    "typeAlias": "doughnut_chart_js",
+                    "type": "latest",
+                    "title": "New widget",
+                    "image": null,
+                    "description": null,
+                    "sizeX": 7,
+                    "sizeY": 5,
+                    "config": {
+                        "datasources": [
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "9ddf47e2-8d26-b6af-acc9-31fd1b01c646",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Activos",
+                                        "color": "#14AB04",
+                                        "settings": {},
+                                        "_hash": 0.4120293357154421,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "a17c02fa-4a37-e394-bdda-ba680b395285",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Inactivos + Nunca vistos",
+                                        "color": "#FC341E",
+                                        "settings": {},
+                                        "_hash": 0.2156721851538279,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            }
+                        ],
+                        "timewindow": {
+                            "displayValue": "",
+                            "selectedTab": 0,
+                            "realtime": {
+                                "realtimeType": 1,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "history": {
+                                "historyType": 0,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "fixedTimewindow": {
+                                    "startTimeMs": 1713082985348,
+                                    "endTimeMs": 1713169385348
+                                },
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "aggregation": {
+                                "type": "AVG",
+                                "limit": 25000
+                            }
+                        },
+                        "showTitle": true,
+                        "backgroundColor": "#fff",
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "padding": "8px",
+                        "settings": {
+                            "borderWidth": 5,
+                            "borderColor": "#fff",
+                            "legend": {
+                                "display": true,
+                                "labelsFontColor": "#666666"
+                            }
+                        },
+                        "title": "THERMISTO",
+                        "dropShadow": true,
+                        "enableFullscreen": true,
+                        "titleStyle": {
+                            "fontSize": "16px",
+                            "fontWeight": 400
+                        },
+                        "useDashboardTimewindow": true,
+                        "showTitleIcon": false,
+                        "titleTooltip": "",
+                        "enableDataExport": true,
+                        "widgetStyle": {},
+                        "widgetCss": "",
+                        "pageSize": 1024,
+                        "noDataDisplayMessage": "",
+                        "showLegend": false,
+                        "actions": {
+                            "headerButton": []
+                        }
+                    },
+                    "row": 0,
+                    "col": 0,
+                    "id": "21d69981-aa5b-423d-508f-65411ff499d3"
+                },
+                "d110392b-fd0e-04e1-f76f-fc29d280a7a1": {
+                    "isSystemType": true,
+                    "bundleAlias": "charts",
+                    "typeAlias": "doughnut_chart_js",
+                    "type": "latest",
+                    "title": "New widget",
+                    "image": null,
+                    "description": null,
+                    "sizeX": 7,
+                    "sizeY": 5,
+                    "config": {
+                        "datasources": [
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "956af3df-ef13-e906-44b8-4589fbec221b",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Activos",
+                                        "color": "#14AB04",
+                                        "settings": {},
+                                        "_hash": 0.8792914779553842,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "42c3eaa3-7242-68af-e311-2d4fa17acab4",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Inactivos + Nunca vistos",
+                                        "color": "#FC341E",
+                                        "settings": {},
+                                        "_hash": 0.33682443945248997,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            }
+                        ],
+                        "timewindow": {
+                            "displayValue": "",
+                            "selectedTab": 0,
+                            "realtime": {
+                                "realtimeType": 1,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "history": {
+                                "historyType": 0,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "fixedTimewindow": {
+                                    "startTimeMs": 1713083970362,
+                                    "endTimeMs": 1713170370362
+                                },
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "aggregation": {
+                                "type": "AVG",
+                                "limit": 25000
+                            }
+                        },
+                        "showTitle": true,
+                        "backgroundColor": "#fff",
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "padding": "8px",
+                        "settings": {
+                            "borderWidth": 5,
+                            "borderColor": "#fff",
+                            "legend": {
+                                "display": true,
+                                "labelsFontColor": "#666666"
+                            }
+                        },
+                        "title": "TELESTO 01",
+                        "dropShadow": true,
+                        "enableFullscreen": true,
+                        "titleStyle": {
+                            "fontSize": "16px",
+                            "fontWeight": 400
+                        },
+                        "useDashboardTimewindow": true,
+                        "showTitleIcon": false,
+                        "titleTooltip": "",
+                        "enableDataExport": true,
+                        "widgetStyle": {},
+                        "widgetCss": "",
+                        "pageSize": 1024,
+                        "noDataDisplayMessage": "",
+                        "showLegend": false
+                    },
+                    "row": 0,
+                    "col": 0,
+                    "id": "d110392b-fd0e-04e1-f76f-fc29d280a7a1"
+                },
+                "241c7eed-1dbc-7392-878d-4a54824da0db": {
+                    "isSystemType": true,
+                    "bundleAlias": "charts",
+                    "typeAlias": "doughnut_chart_js",
+                    "type": "latest",
+                    "title": "New widget",
+                    "image": null,
+                    "description": null,
+                    "sizeX": 7,
+                    "sizeY": 5,
+                    "config": {
+                        "datasources": [
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "75100fec-43d1-c029-5306-8b159d8c1c4d",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Activos",
+                                        "color": "#14AB04",
+                                        "settings": {},
+                                        "_hash": 0.6548647807429826,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "4d9d05cd-c9a7-3c9e-c49a-7bbada18454a",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Inactivos + Nunca vistos",
+                                        "color": "#FC341E",
+                                        "settings": {},
+                                        "_hash": 0.7337384842767125,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            }
+                        ],
+                        "timewindow": {
+                            "displayValue": "",
+                            "selectedTab": 0,
+                            "realtime": {
+                                "realtimeType": 1,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "history": {
+                                "historyType": 0,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "fixedTimewindow": {
+                                    "startTimeMs": 1713084189062,
+                                    "endTimeMs": 1713170589062
+                                },
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "aggregation": {
+                                "type": "AVG",
+                                "limit": 25000
+                            }
+                        },
+                        "showTitle": true,
+                        "backgroundColor": "#fff",
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "padding": "8px",
+                        "settings": {
+                            "borderWidth": 5,
+                            "borderColor": "#fff",
+                            "legend": {
+                                "display": true,
+                                "labelsFontColor": "#666666"
+                            }
+                        },
+                        "title": "TELESTO 04",
+                        "dropShadow": true,
+                        "enableFullscreen": true,
+                        "titleStyle": {
+                            "fontSize": "16px",
+                            "fontWeight": 400
+                        },
+                        "useDashboardTimewindow": true,
+                        "showTitleIcon": false,
+                        "titleTooltip": "",
+                        "enableDataExport": true,
+                        "widgetStyle": {},
+                        "widgetCss": "",
+                        "pageSize": 1024,
+                        "noDataDisplayMessage": "",
+                        "showLegend": false
+                    },
+                    "row": 0,
+                    "col": 0,
+                    "id": "241c7eed-1dbc-7392-878d-4a54824da0db"
+                },
+                "cf07b18f-faf3-194d-98eb-f8d795a452e3": {
+                    "isSystemType": true,
+                    "bundleAlias": "charts",
+                    "typeAlias": "doughnut_chart_js",
+                    "type": "latest",
+                    "title": "New widget",
+                    "image": null,
+                    "description": null,
+                    "sizeX": 7,
+                    "sizeY": 5,
+                    "config": {
+                        "datasources": [
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "f01840ec-ae0a-0a33-1e3f-9f7a44f5e30e",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Activos",
+                                        "color": "#14AB04",
+                                        "settings": {},
+                                        "_hash": 0.6556289735620782,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "50adb48a-ac11-f9d1-883b-7872b315a3b5",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Inactivos + Nunca vistos",
+                                        "color": "#FC341E",
+                                        "settings": {},
+                                        "_hash": 0.9757884498047082,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            }
+                        ],
+                        "timewindow": {
+                            "displayValue": "",
+                            "selectedTab": 0,
+                            "realtime": {
+                                "realtimeType": 1,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "history": {
+                                "historyType": 0,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "fixedTimewindow": {
+                                    "startTimeMs": 1713084566209,
+                                    "endTimeMs": 1713170966209
+                                },
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "aggregation": {
+                                "type": "AVG",
+                                "limit": 25000
+                            }
+                        },
+                        "showTitle": true,
+                        "backgroundColor": "#fff",
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "padding": "8px",
+                        "settings": {
+                            "borderWidth": 5,
+                            "borderColor": "#fff",
+                            "legend": {
+                                "display": true,
+                                "labelsFontColor": "#666666"
+                            }
+                        },
+                        "title": "TETHYS",
+                        "dropShadow": true,
+                        "enableFullscreen": true,
+                        "titleStyle": {
+                            "fontSize": "16px",
+                            "fontWeight": 400
+                        },
+                        "useDashboardTimewindow": true,
+                        "showTitleIcon": false,
+                        "titleTooltip": "",
+                        "enableDataExport": true,
+                        "widgetStyle": {},
+                        "widgetCss": "",
+                        "pageSize": 1024,
+                        "noDataDisplayMessage": "",
+                        "showLegend": false
+                    },
+                    "row": 0,
+                    "col": 0,
+                    "id": "cf07b18f-faf3-194d-98eb-f8d795a452e3"
+                },
+                "73498e81-8b6d-8dc3-3972-9bf16295696e": {
+                    "isSystemType": true,
+                    "bundleAlias": "charts",
+                    "typeAlias": "doughnut_chart_js",
+                    "type": "latest",
+                    "title": "New widget",
+                    "image": null,
+                    "description": null,
+                    "sizeX": 7,
+                    "sizeY": 5,
+                    "config": {
+                        "datasources": [
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "63468ddb-c344-d608-2014-0303708cce65",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Activos",
+                                        "color": "#14AB04",
+                                        "settings": {},
+                                        "_hash": 0.7214909508846987,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "127f9586-7b01-9709-20df-c0b260f6add4",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Inactivos + Nunca vistos",
+                                        "color": "#FC341E",
+                                        "settings": {},
+                                        "_hash": 0.02374592820308119,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            }
+                        ],
+                        "timewindow": {
+                            "displayValue": "",
+                            "selectedTab": 0,
+                            "realtime": {
+                                "realtimeType": 1,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "history": {
+                                "historyType": 0,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "fixedTimewindow": {
+                                    "startTimeMs": 1713084849261,
+                                    "endTimeMs": 1713171249261
+                                },
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "aggregation": {
+                                "type": "AVG",
+                                "limit": 25000
+                            }
+                        },
+                        "showTitle": true,
+                        "backgroundColor": "#fff",
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "padding": "8px",
+                        "settings": {
+                            "borderWidth": 5,
+                            "borderColor": "#fff",
+                            "legend": {
+                                "display": true,
+                                "labelsFontColor": "#666666"
+                            }
+                        },
+                        "title": "RHEA",
+                        "dropShadow": true,
+                        "enableFullscreen": true,
+                        "titleStyle": {
+                            "fontSize": "16px",
+                            "fontWeight": 400
+                        },
+                        "useDashboardTimewindow": true,
+                        "showTitleIcon": false,
+                        "titleTooltip": "",
+                        "enableDataExport": true,
+                        "widgetStyle": {},
+                        "widgetCss": "",
+                        "pageSize": 1024,
+                        "noDataDisplayMessage": "",
+                        "showLegend": false
+                    },
+                    "row": 0,
+                    "col": 0,
+                    "id": "73498e81-8b6d-8dc3-3972-9bf16295696e"
+                },
+                "b8961dea-876d-18a3-27e7-6c131d1e146f": {
+                    "isSystemType": true,
+                    "bundleAlias": "charts",
+                    "typeAlias": "doughnut_chart_js",
+                    "type": "latest",
+                    "title": "New widget",
+                    "image": null,
+                    "description": null,
+                    "sizeX": 7,
+                    "sizeY": 5,
+                    "config": {
+                        "datasources": [
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "abf4279e-2b20-5d4a-aca7-2b712df0f9b1",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Activos",
+                                        "color": "#14AB04",
+                                        "settings": {},
+                                        "_hash": 0.9043633011623788,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "39d2d2c0-f4dc-031c-127b-430f7be881e6",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Inactivos + Nunca vistos",
+                                        "color": "#FC341E",
+                                        "settings": {},
+                                        "_hash": 0.899084142270429,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            }
+                        ],
+                        "timewindow": {
+                            "displayValue": "",
+                            "selectedTab": 0,
+                            "realtime": {
+                                "realtimeType": 1,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "history": {
+                                "historyType": 0,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "fixedTimewindow": {
+                                    "startTimeMs": 1713089516926,
+                                    "endTimeMs": 1713175916926
+                                },
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "aggregation": {
+                                "type": "AVG",
+                                "limit": 25000
+                            }
+                        },
+                        "showTitle": true,
+                        "backgroundColor": "#fff",
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "padding": "8px",
+                        "settings": {
+                            "borderWidth": 5,
+                            "borderColor": "#fff",
+                            "legend": {
+                                "display": true,
+                                "labelsFontColor": "#666666"
+                            }
+                        },
+                        "title": "ARIES",
+                        "dropShadow": true,
+                        "enableFullscreen": true,
+                        "titleStyle": {
+                            "fontSize": "16px",
+                            "fontWeight": 400
+                        },
+                        "useDashboardTimewindow": true,
+                        "showTitleIcon": false,
+                        "titleTooltip": "",
+                        "enableDataExport": true,
+                        "widgetStyle": {},
+                        "widgetCss": "",
+                        "pageSize": 1024,
+                        "noDataDisplayMessage": "",
+                        "showLegend": false
+                    },
+                    "row": 0,
+                    "col": 0,
+                    "id": "b8961dea-876d-18a3-27e7-6c131d1e146f"
+                },
+                "46ec84c8-7a51-712b-6b3d-1b8bf3997afa": {
+                    "isSystemType": true,
+                    "bundleAlias": "charts",
+                    "typeAlias": "doughnut_chart_js",
+                    "type": "latest",
+                    "title": "New widget",
+                    "image": null,
+                    "description": null,
+                    "sizeX": 7,
+                    "sizeY": 5,
+                    "config": {
+                        "datasources": [
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "bb2f4626-dcc1-82f8-8d08-487cb98b93ad",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Activos",
+                                        "color": "#14AB04",
+                                        "settings": {},
+                                        "_hash": 0.32343759537881245,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "1134dae1-adb9-4947-f88b-560ebb948ccc",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Inactivos + Nunca vistos",
+                                        "color": "#FC341E",
+                                        "settings": {},
+                                        "_hash": 0.1668173726639015,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            }
+                        ],
+                        "timewindow": {
+                            "displayValue": "",
+                            "selectedTab": 0,
+                            "realtime": {
+                                "realtimeType": 1,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "history": {
+                                "historyType": 0,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "fixedTimewindow": {
+                                    "startTimeMs": 1713094558086,
+                                    "endTimeMs": 1713180958086
+                                },
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "aggregation": {
+                                "type": "AVG",
+                                "limit": 25000
+                            }
+                        },
+                        "showTitle": true,
+                        "backgroundColor": "#fff",
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "padding": "8px",
+                        "settings": {
+                            "borderWidth": 5,
+                            "borderColor": "#fff",
+                            "legend": {
+                                "display": true,
+                                "labelsFontColor": "#666666"
+                            }
+                        },
+                        "title": "HINOJOSAS",
+                        "dropShadow": true,
+                        "enableFullscreen": true,
+                        "titleStyle": {
+                            "fontSize": "16px",
+                            "fontWeight": 400
+                        },
+                        "useDashboardTimewindow": true,
+                        "showTitleIcon": false,
+                        "titleTooltip": "",
+                        "enableDataExport": true,
+                        "widgetStyle": {},
+                        "widgetCss": "",
+                        "pageSize": 1024,
+                        "noDataDisplayMessage": "",
+                        "showLegend": false
+                    },
+                    "row": 0,
+                    "col": 0,
+                    "id": "46ec84c8-7a51-712b-6b3d-1b8bf3997afa"
+                },
+                "0cb04a68-a617-5307-1c27-b0278fd6335d": {
+                    "isSystemType": true,
+                    "bundleAlias": "charts",
+                    "typeAlias": "doughnut_chart_js",
+                    "type": "latest",
+                    "title": "New widget",
+                    "image": null,
+                    "description": null,
+                    "sizeX": 7,
+                    "sizeY": 5,
+                    "config": {
+                        "datasources": [
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "293518cc-9241-d30c-5587-0fb64bdb9d73",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Activos",
+                                        "color": "#14AB04",
+                                        "settings": {},
+                                        "_hash": 0.360974461682936,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "9703428f-1ee0-4bb4-e12b-64f1ddb74881",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Inactivos + Nunca vistos",
+                                        "color": "#FC341E",
+                                        "settings": {},
+                                        "_hash": 0.1553009279021893,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            }
+                        ],
+                        "timewindow": {
+                            "displayValue": "",
+                            "selectedTab": 0,
+                            "realtime": {
+                                "realtimeType": 1,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "history": {
+                                "historyType": 0,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "fixedTimewindow": {
+                                    "startTimeMs": 1713171527607,
+                                    "endTimeMs": 1713257927607
+                                },
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "aggregation": {
+                                "type": "AVG",
+                                "limit": 25000
+                            }
+                        },
+                        "showTitle": true,
+                        "backgroundColor": "#fff",
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "padding": "8px",
+                        "settings": {
+                            "borderWidth": 5,
+                            "borderColor": "#fff",
+                            "legend": {
+                                "display": true,
+                                "labelsFontColor": "#666666"
+                            }
+                        },
+                        "title": "ROCIO 3",
+                        "dropShadow": true,
+                        "enableFullscreen": true,
+                        "titleStyle": {
+                            "fontSize": "16px",
+                            "fontWeight": 400
+                        },
+                        "useDashboardTimewindow": true,
+                        "showTitleIcon": false,
+                        "titleTooltip": "",
+                        "enableDataExport": true,
+                        "widgetStyle": {},
+                        "widgetCss": "",
+                        "pageSize": 1024,
+                        "noDataDisplayMessage": "",
+                        "showLegend": false
+                    },
+                    "row": 0,
+                    "col": 0,
+                    "id": "0cb04a68-a617-5307-1c27-b0278fd6335d"
+                },
+                "908a3655-7363-da45-58f5-a5bc0b0b952d": {
+                    "isSystemType": true,
+                    "bundleAlias": "charts",
+                    "typeAlias": "doughnut_chart_js",
+                    "type": "latest",
+                    "title": "New widget",
+                    "image": null,
+                    "description": null,
+                    "sizeX": 7,
+                    "sizeY": 5,
+                    "config": {
+                        "datasources": [
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "82599fea-13ab-92eb-f7a2-89e22e26c008",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Activos",
+                                        "color": "#14AB04",
+                                        "settings": {},
+                                        "_hash": 0.46134379624473265,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "42456bdc-d951-0f39-f601-5b91c672e98d",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Inactivos + Nunca vistos",
+                                        "color": "#FC341E",
+                                        "settings": {},
+                                        "_hash": 0.611894920141407,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            }
+                        ],
+                        "timewindow": {
+                            "displayValue": "",
+                            "selectedTab": 0,
+                            "realtime": {
+                                "realtimeType": 1,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "history": {
+                                "historyType": 0,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "fixedTimewindow": {
+                                    "startTimeMs": 1713171759204,
+                                    "endTimeMs": 1713258159204
+                                },
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "aggregation": {
+                                "type": "AVG",
+                                "limit": 25000
+                            }
+                        },
+                        "showTitle": true,
+                        "backgroundColor": "#fff",
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "padding": "8px",
+                        "settings": {
+                            "borderWidth": 5,
+                            "borderColor": "#fff",
+                            "legend": {
+                                "display": true,
+                                "labelsFontColor": "#666666"
+                            }
+                        },
+                        "title": "ROCIO 1",
+                        "dropShadow": true,
+                        "enableFullscreen": true,
+                        "titleStyle": {
+                            "fontSize": "16px",
+                            "fontWeight": 400
+                        },
+                        "useDashboardTimewindow": true,
+                        "showTitleIcon": false,
+                        "titleTooltip": "",
+                        "enableDataExport": true,
+                        "widgetStyle": {},
+                        "widgetCss": "",
+                        "pageSize": 1024,
+                        "noDataDisplayMessage": "",
+                        "showLegend": false
+                    },
+                    "row": 0,
+                    "col": 0,
+                    "id": "908a3655-7363-da45-58f5-a5bc0b0b952d"
+                },
+                "d87230d2-86a2-53f1-322b-44bdf221a502": {
+                    "isSystemType": true,
+                    "bundleAlias": "charts",
+                    "typeAlias": "doughnut_chart_js",
+                    "type": "latest",
+                    "title": "New widget",
+                    "image": null,
+                    "description": null,
+                    "sizeX": 7,
+                    "sizeY": 5,
+                    "config": {
+                        "datasources": [
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "8f3bae72-db44-71ce-f72f-0c1cd60f30b6",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Activos",
+                                        "color": "#14AB04",
+                                        "settings": {},
+                                        "_hash": 0.8065832598472404,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "44564e36-8632-56ea-4f09-7f58e02aa84d",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Inactivos + Nunca vistos",
+                                        "color": "#FC341E",
+                                        "settings": {},
+                                        "_hash": 0.856442622737497,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            }
+                        ],
+                        "timewindow": {
+                            "displayValue": "",
+                            "selectedTab": 0,
+                            "realtime": {
+                                "realtimeType": 1,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "history": {
+                                "historyType": 0,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "fixedTimewindow": {
+                                    "startTimeMs": 1713171815516,
+                                    "endTimeMs": 1713258215516
+                                },
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "aggregation": {
+                                "type": "AVG",
+                                "limit": 25000
+                            }
+                        },
+                        "showTitle": true,
+                        "backgroundColor": "#fff",
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "padding": "8px",
+                        "settings": {
+                            "borderWidth": 5,
+                            "borderColor": "#fff",
+                            "legend": {
+                                "display": true,
+                                "labelsFontColor": "#666666"
+                            }
+                        },
+                        "title": "ROCIO 2",
+                        "dropShadow": true,
+                        "enableFullscreen": true,
+                        "titleStyle": {
+                            "fontSize": "16px",
+                            "fontWeight": 400
+                        },
+                        "useDashboardTimewindow": true,
+                        "showTitleIcon": false,
+                        "titleTooltip": "",
+                        "enableDataExport": true,
+                        "widgetStyle": {},
+                        "widgetCss": "",
+                        "pageSize": 1024,
+                        "noDataDisplayMessage": "",
+                        "showLegend": false
+                    },
+                    "row": 0,
+                    "col": 0,
+                    "id": "d87230d2-86a2-53f1-322b-44bdf221a502"
+                },
+                "433a0207-36af-6f41-a0bc-14ec108601a8": {
+                    "isSystemType": true,
+                    "bundleAlias": "charts",
+                    "typeAlias": "doughnut_chart_js",
+                    "type": "latest",
+                    "title": "New widget",
+                    "image": null,
+                    "description": null,
+                    "sizeX": 7,
+                    "sizeY": 5,
+                    "config": {
+                        "datasources": [
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "5fc22047-310d-6e26-2d8e-c3e9f15290a5",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Activos",
+                                        "color": "#14AB04",
+                                        "settings": {},
+                                        "_hash": 0.5107735139065996,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "entityCount",
+                                "name": null,
+                                "entityAliasId": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                                "filterId": "35fe1796-faca-ab40-8a57-ffc67c992e8f",
+                                "dataKeys": [
+                                    {
+                                        "name": "count",
+                                        "type": "count",
+                                        "label": "Inactivos + Nunca vistos",
+                                        "color": "#FC341E",
+                                        "settings": {},
+                                        "_hash": 0.34996135327287803,
+                                        "aggregationType": null,
+                                        "units": null,
+                                        "decimals": null,
+                                        "funcBody": null,
+                                        "usePostProcessing": null,
+                                        "postFuncBody": null
+                                    }
+                                ],
+                                "alarmFilterConfig": {
+                                    "statusList": [
+                                        "ACTIVE"
+                                    ]
+                                }
+                            }
+                        ],
+                        "timewindow": {
+                            "displayValue": "",
+                            "selectedTab": 0,
+                            "realtime": {
+                                "realtimeType": 1,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "history": {
+                                "historyType": 0,
+                                "interval": 1000,
+                                "timewindowMs": 60000,
+                                "fixedTimewindow": {
+                                    "startTimeMs": 1715093789565,
+                                    "endTimeMs": 1715180189565
+                                },
+                                "quickInterval": "CURRENT_DAY"
+                            },
+                            "aggregation": {
+                                "type": "AVG",
+                                "limit": 25000
+                            }
+                        },
+                        "showTitle": true,
+                        "backgroundColor": "#fff",
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "padding": "8px",
+                        "settings": {
+                            "borderWidth": 5,
+                            "borderColor": "#fff",
+                            "legend": {
+                                "display": true,
+                                "labelsFontColor": "#666666"
+                            }
+                        },
+                        "title": "PEGASO",
+                        "dropShadow": true,
+                        "enableFullscreen": true,
+                        "titleStyle": {
+                            "fontSize": "16px",
+                            "fontWeight": 400
+                        },
+                        "useDashboardTimewindow": true,
+                        "showTitleIcon": false,
+                        "titleTooltip": "",
+                        "enableDataExport": true,
+                        "widgetStyle": {},
+                        "widgetCss": "",
+                        "pageSize": 1024,
+                        "noDataDisplayMessage": "",
+                        "showLegend": false
+                    },
+                    "row": 0,
+                    "col": 0,
+                    "id": "433a0207-36af-6f41-a0bc-14ec108601a8"
+                }
+            },
+            "states": {
+                "default": {
+                    "name": "Pruebas",
+                    "root": true,
+                    "layouts": {
+                        "main": {
+                            "widgets": {
+                                "dd65a180-1965-f097-2338-61d4a53143d4": {
+                                    "sizeX": 5,
+                                    "sizeY": 4,
+                                    "row": 4,
+                                    "col": 5
+                                },
+                                "71f3afe4-1dee-f2df-5419-2c2b46351aa6": {
+                                    "sizeX": 5,
+                                    "sizeY": 4,
+                                    "row": 4,
+                                    "col": 0
+                                },
+                                "6b11f9d1-be09-c578-d278-9ac3ef8e92f8": {
+                                    "sizeX": 5,
+                                    "sizeY": 4,
+                                    "row": 0,
+                                    "col": 0
+                                },
+                                "ee954449-8f6a-438c-6de7-cd4a7da0f3f2": {
+                                    "sizeX": 5,
+                                    "sizeY": 4,
+                                    "row": 0,
+                                    "col": 5
+                                },
+                                "816d84a2-2271-48de-04c2-2cd51becb70c": {
+                                    "sizeX": 5,
+                                    "sizeY": 4,
+                                    "row": 0,
+                                    "col": 10
+                                },
+                                "21d69981-aa5b-423d-508f-65411ff499d3": {
+                                    "sizeX": 5,
+                                    "sizeY": 4,
+                                    "row": 4,
+                                    "col": 15
+                                },
+                                "d110392b-fd0e-04e1-f76f-fc29d280a7a1": {
+                                    "sizeX": 5,
+                                    "sizeY": 4,
+                                    "row": 0,
+                                    "col": 15
+                                },
+                                "241c7eed-1dbc-7392-878d-4a54824da0db": {
+                                    "sizeX": 5,
+                                    "sizeY": 4,
+                                    "row": 0,
+                                    "col": 20
+                                },
+                                "cf07b18f-faf3-194d-98eb-f8d795a452e3": {
+                                    "sizeX": 5,
+                                    "sizeY": 4,
+                                    "row": 4,
+                                    "col": 20
+                                },
+                                "73498e81-8b6d-8dc3-3972-9bf16295696e": {
+                                    "sizeX": 5,
+                                    "sizeY": 4,
+                                    "row": 4,
+                                    "col": 10
+                                },
+                                "b8961dea-876d-18a3-27e7-6c131d1e146f": {
+                                    "sizeX": 5,
+                                    "sizeY": 4,
+                                    "row": 8,
+                                    "col": 5
+                                },
+                                "46ec84c8-7a51-712b-6b3d-1b8bf3997afa": {
+                                    "sizeX": 5,
+                                    "sizeY": 4,
+                                    "row": 8,
+                                    "col": 0
+                                },
+                                "0cb04a68-a617-5307-1c27-b0278fd6335d": {
+                                    "sizeX": 5,
+                                    "sizeY": 4,
+                                    "row": 12,
+                                    "col": 0
+                                },
+                                "908a3655-7363-da45-58f5-a5bc0b0b952d": {
+                                    "sizeX": 5,
+                                    "sizeY": 4,
+                                    "row": 8,
+                                    "col": 15
+                                },
+                                "d87230d2-86a2-53f1-322b-44bdf221a502": {
+                                    "sizeX": 5,
+                                    "sizeY": 4,
+                                    "row": 8,
+                                    "col": 20
+                                },
+                                "433a0207-36af-6f41-a0bc-14ec108601a8": {
+                                    "sizeX": 5,
+                                    "sizeY": 4,
+                                    "row": 8,
+                                    "col": 10
+                                }
+                            },
+                            "gridSettings": {
+                                "backgroundColor": "#eeeeee",
+                                "columns": 24,
+                                "margin": 10,
+                                "backgroundSizeMode": "100%",
+                                "outerMargin": true
+                            }
+                        }
+                    }
+                },
+                "detalle_chekness": {
+                    "name": "Detalle Chekness",
+                    "root": false,
+                    "layouts": {
+                        "main": {
+                            "widgets": {},
+                            "gridSettings": {
+                                "backgroundColor": "#eeeeee",
+                                "columns": 24,
+                                "margin": 10,
+                                "backgroundSizeMode": "100%",
+                                "outerMargin": true
+                            }
+                        }
+                    }
+                }
+            },
+            "entityAliases": {
+                "a719f231-b1d2-fa92-929d-d1a4bfb62df3": {
+                    "id": "a719f231-b1d2-fa92-929d-d1a4bfb62df3",
+                    "alias": "chekness",
+                    "filter": {
+                        "type": "deviceType",
+                        "resolveMultiple": true,
+                        "deviceTypes": [
+                            "chekness"
+                        ],
+                        "deviceNameFilter": ""
+                    }
+                },
+                "9cf3e33c-ef9e-9161-2946-62c9610a33f8": {
+                    "id": "9cf3e33c-ef9e-9161-2946-62c9610a33f8",
+                    "alias": "navDev",
+                    "filter": {
+                        "type": "stateEntity",
+                        "resolveMultiple": false,
+                        "stateEntityParamName": null,
+                        "defaultStateEntity": {
+                            "entityType": "DEVICE",
+                            "id": "cadf7810-1013-11ee-bdbd-b1eecfa623bf"
+                        }
+                    }
+                },
+                "0bb0031b-6695-2012-640a-c6b547d3f25f": {
+                    "id": "0bb0031b-6695-2012-640a-c6b547d3f25f",
+                    "alias": "prueba3",
+                    "filter": {
+                        "type": "entityList",
+                        "resolveMultiple": true,
+                        "entityType": "ASSET",
+                        "entityList": [
+                            "05334530-2a15-11ee-9ae9-b9e4ceca519d"
+                        ]
+                    }
+                }
+            },
+            "filters": {
+                "165cb054-a8b6-5f24-0ff2-381748c634d3": {
+                    "id": "165cb054-a8b6-5f24-0ff2-381748c634d3",
+                    "filter": "campo",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "Thermisto",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": false
+                },
+                "223fb1b8-b651-3279-d993-1ffe519fccc5": {
+                    "id": "223fb1b8-b651-3279-d993-1ffe519fccc5",
+                    "filter": "ac T10",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": true,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "TELESTO 10",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "98a0b157-cc05-dac2-60ad-0a2da151d9c0": {
+                    "id": "98a0b157-cc05-dac2-60ad-0a2da151d9c0",
+                    "filter": "nc T10",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": false,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "STARTS_WITH",
+                                        "value": {
+                                            "defaultValue": "TELESTO 10",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "abf4279e-2b20-5d4a-aca7-2b712df0f9b1": {
+                    "id": "abf4279e-2b20-5d4a-aca7-2b712df0f9b1",
+                    "filter": "ac ARIES",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": true,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "ARIES",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "39d2d2c0-f4dc-031c-127b-430f7be881e6": {
+                    "id": "39d2d2c0-f4dc-031c-127b-430f7be881e6",
+                    "filter": "nc ARIES",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": false,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "ARIES",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "71d6948a-ed56-1d09-cbba-94851926dca8": {
+                    "id": "71d6948a-ed56-1d09-cbba-94851926dca8",
+                    "filter": "Telesto 07 ac",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": true,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "TELESTO 07",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "9fa1f8ca-11ab-d810-6a75-af74a4568491": {
+                    "id": "9fa1f8ca-11ab-d810-6a75-af74a4568491",
+                    "filter": "Telesto 07 nc",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": false,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "STARTS_WITH",
+                                        "value": {
+                                            "defaultValue": "TELESTO 07",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "29001b44-5fb0-c396-99be-fe4cdd3f3d75": {
+                    "id": "29001b44-5fb0-c396-99be-fe4cdd3f3d75",
+                    "filter": "Telesto 02 ac",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": true,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "TELESTO 02",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "cae37be3-6ef5-5fd4-82b5-8b5ca8f8f15a": {
+                    "id": "cae37be3-6ef5-5fd4-82b5-8b5ca8f8f15a",
+                    "filter": "Telesto 02 nc",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": false,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "TELESTO 02",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "81b0334d-d8b8-594c-fedc-4170a4381239": {
+                    "id": "81b0334d-d8b8-594c-fedc-4170a4381239",
+                    "filter": "Telesto 03 ac",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": true,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "TELESTO 03",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "99f6e4b9-1530-caa8-2371-8430ca693786": {
+                    "id": "99f6e4b9-1530-caa8-2371-8430ca693786",
+                    "filter": "Telesto 03 nc",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "type": "BOOLEAN",
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": false
+                                        }
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "STARTS_WITH",
+                                        "value": {
+                                            "defaultValue": "TELESTO 03",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "79706b27-c358-0b1d-d6f0-a76006817522": {
+                    "id": "79706b27-c358-0b1d-d6f0-a76006817522",
+                    "filter": "Telesto 09 ac",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": true,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "STARTS_WITH",
+                                        "value": {
+                                            "defaultValue": "TELESTO 09",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "72418001-0422-8668-edd6-0d1cd0c961ea": {
+                    "id": "72418001-0422-8668-edd6-0d1cd0c961ea",
+                    "filter": "Telesto 09 nc",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "type": "BOOLEAN",
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": false
+                                        }
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "TELESTO 09",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "9ddf47e2-8d26-b6af-acc9-31fd1b01c646": {
+                    "id": "9ddf47e2-8d26-b6af-acc9-31fd1b01c646",
+                    "filter": "Thermisto ac",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": true,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "THERMISTO",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "a17c02fa-4a37-e394-bdda-ba680b395285": {
+                    "id": "a17c02fa-4a37-e394-bdda-ba680b395285",
+                    "filter": "Thermisto nc",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "type": "BOOLEAN",
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": false
+                                        }
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "STARTS_WITH",
+                                        "value": {
+                                            "defaultValue": "THERMISTO",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "956af3df-ef13-e906-44b8-4589fbec221b": {
+                    "id": "956af3df-ef13-e906-44b8-4589fbec221b",
+                    "filter": "Telesto 01 ac",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": true,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "TELESTO 01",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "42c3eaa3-7242-68af-e311-2d4fa17acab4": {
+                    "id": "42c3eaa3-7242-68af-e311-2d4fa17acab4",
+                    "filter": "Telesto 01 nc",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "type": "BOOLEAN",
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": false
+                                        }
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "TELESTO 01",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "75100fec-43d1-c029-5306-8b159d8c1c4d": {
+                    "id": "75100fec-43d1-c029-5306-8b159d8c1c4d",
+                    "filter": "Telesto 04 ac",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": true,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "TELESTO 04",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "4d9d05cd-c9a7-3c9e-c49a-7bbada18454a": {
+                    "id": "4d9d05cd-c9a7-3c9e-c49a-7bbada18454a",
+                    "filter": "Telesto 04 nc",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": false,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "TELESTO 04",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "f01840ec-ae0a-0a33-1e3f-9f7a44f5e30e": {
+                    "id": "f01840ec-ae0a-0a33-1e3f-9f7a44f5e30e",
+                    "filter": "Tethys ac",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": true,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "STARTS_WITH",
+                                        "value": {
+                                            "defaultValue": "TETHYS",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "50adb48a-ac11-f9d1-883b-7872b315a3b5": {
+                    "id": "50adb48a-ac11-f9d1-883b-7872b315a3b5",
+                    "filter": "Tethys nc",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": false,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "STARTS_WITH",
+                                        "value": {
+                                            "defaultValue": "TETHYS",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "63468ddb-c344-d608-2014-0303708cce65": {
+                    "id": "63468ddb-c344-d608-2014-0303708cce65",
+                    "filter": "Rhea ac",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": true,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "STARTS_WITH",
+                                        "value": {
+                                            "defaultValue": "RHEA",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "127f9586-7b01-9709-20df-c0b260f6add4": {
+                    "id": "127f9586-7b01-9709-20df-c0b260f6add4",
+                    "filter": "Rhea nc",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": false,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "STARTS_WITH",
+                                        "value": {
+                                            "defaultValue": "RHEA",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "bb2f4626-dcc1-82f8-8d08-487cb98b93ad": {
+                    "id": "bb2f4626-dcc1-82f8-8d08-487cb98b93ad",
+                    "filter": "Hinojosas ac",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": true,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "STARTS_WITH",
+                                        "value": {
+                                            "defaultValue": "HINOJOSAS",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "1134dae1-adb9-4947-f88b-560ebb948ccc": {
+                    "id": "1134dae1-adb9-4947-f88b-560ebb948ccc",
+                    "filter": "Hinojosas nc",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "type": "BOOLEAN",
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": false
+                                        }
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "STARTS_WITH",
+                                        "value": {
+                                            "defaultValue": "HINOJOSAS",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "82599fea-13ab-92eb-f7a2-89e22e26c008": {
+                    "id": "82599fea-13ab-92eb-f7a2-89e22e26c008",
+                    "filter": "Rocio 1 ac",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": true,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "STARTS_WITH",
+                                        "value": {
+                                            "defaultValue": "ROCIO 1",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "42456bdc-d951-0f39-f601-5b91c672e98d": {
+                    "id": "42456bdc-d951-0f39-f601-5b91c672e98d",
+                    "filter": "Rocio 1 nc",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "type": "BOOLEAN",
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": false
+                                        }
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "STARTS_WITH",
+                                        "value": {
+                                            "defaultValue": "ROCIO 1",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "8f3bae72-db44-71ce-f72f-0c1cd60f30b6": {
+                    "id": "8f3bae72-db44-71ce-f72f-0c1cd60f30b6",
+                    "filter": "Rocio 2 ac",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": true,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "ROCIO 2",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "44564e36-8632-56ea-4f09-7f58e02aa84d": {
+                    "id": "44564e36-8632-56ea-4f09-7f58e02aa84d",
+                    "filter": "Rocio 2 nc",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "type": "BOOLEAN",
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": false
+                                        }
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "ROCIO 2",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "293518cc-9241-d30c-5587-0fb64bdb9d73": {
+                    "id": "293518cc-9241-d30c-5587-0fb64bdb9d73",
+                    "filter": "Rocio 3 ac",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": true,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "ROCIO 3",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "9703428f-1ee0-4bb4-e12b-64f1ddb74881": {
+                    "id": "9703428f-1ee0-4bb4-e12b-64f1ddb74881",
+                    "filter": "Rocio 3 nc",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "type": "BOOLEAN",
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": false
+                                        }
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "ROCIO 3",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "5fc22047-310d-6e26-2d8e-c3e9f15290a5": {
+                    "id": "5fc22047-310d-6e26-2d8e-c3e9f15290a5",
+                    "filter": "Pegaso ac",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": true,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "PEGASO",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                },
+                "35fe1796-faca-ab40-8a57-ffc67c992e8f": {
+                    "id": "35fe1796-faca-ab40-8a57-ffc67c992e8f",
+                    "filter": "Pegaso nc",
+                    "keyFilters": [
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "active"
+                            },
+                            "valueType": "BOOLEAN",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": false,
+                                            "dynamicValue": null
+                                        },
+                                        "type": "BOOLEAN"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": {
+                                "type": "ATTRIBUTE",
+                                "key": "campo"
+                            },
+                            "valueType": "STRING",
+                            "predicates": [
+                                {
+                                    "keyFilterPredicate": {
+                                        "operation": "EQUAL",
+                                        "value": {
+                                            "defaultValue": "PEGASO",
+                                            "dynamicValue": null
+                                        },
+                                        "ignoreCase": false,
+                                        "type": "STRING"
+                                    },
+                                    "userInfo": {
+                                        "editable": true,
+                                        "label": "",
+                                        "autogeneratedLabel": true,
+                                        "order": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "editable": true
+                }
+            },
+            "timewindow": {
+                "displayValue": "",
+                "hideInterval": false,
+                "hideLastInterval": false,
+                "hideQuickInterval": false,
+                "hideAggregation": false,
+                "hideAggInterval": false,
+                "hideTimezone": false,
+                "selectedTab": 0,
+                "realtime": {
+                    "realtimeType": 0,
+                    "interval": 1000,
+                    "timewindowMs": 60000,
+                    "quickInterval": "CURRENT_DAY"
+                },
+                "history": {
+                    "historyType": 0,
+                    "interval": 1000,
+                    "timewindowMs": 60000,
+                    "fixedTimewindow": {
+                        "startTimeMs": 1687268636862,
+                        "endTimeMs": 1687355036862
+                    },
+                    "quickInterval": "CURRENT_DAY"
+                },
+                "aggregation": {
+                    "type": "AVG",
+                    "limit": 25000
+                }
+            },
+            "settings": {
+                "stateControllerId": "entity",
+                "showTitle": false,
+                "showDashboardsSelect": true,
+                "showEntitiesSelect": false,
+                "showDashboardTimewindow": false,
+                "showDashboardExport": true,
+                "toolbarAlwaysOpen": true,
+                "titleColor": "rgba(0,0,0,0.870588)",
+                "showDashboardLogo": false,
+                "dashboardLogoUrl": null,
+                "hideToolbar": false,
+                "showFilters": false,
+                "showUpdateDashboardImage": true,
+                "dashboardCss": ""
+            }
+        },
+        "externalId": null,
+        "name": "Resumen de campos",
+        "ownerId": null
+    }
+]

@@ -95,6 +95,6 @@ limit = 1  # Opcional, puedes especificar el límite de dashboards a exportar
 
 dashboards_exportados = exportar_dashboards(ownerType, ownerId, groupType, limit)
 if dashboards_exportados:
-    print(dashboards_exportados)
+    print(json.dumps(dashboards_exportados, indent=4))
 else:
     print("No se pudieron exportar los dashboards o hubo un error.")
