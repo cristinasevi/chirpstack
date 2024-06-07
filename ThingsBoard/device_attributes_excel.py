@@ -102,7 +102,7 @@ def leer_nombres_dispositivos_desde_excel(xlsx_file, start_row, end_row):
         device_names = []
         for row_index, row in data.iterrows():
             if start_row <= row_index + 1 <= end_row:
-                dev_eui = row.iloc[2][3:19]  # Obtener los EUI de la tercera columna del cuarto al decimonoveno caracter
+                dev_eui = row.iloc[5][0:16]  # Obtener los EUI de la tercera columna del cuarto al decimonoveno caracter
                 device_names.append(dev_eui)
         return device_names
     except FileNotFoundError:
@@ -114,8 +114,8 @@ def leer_nombres_dispositivos_desde_excel(xlsx_file, start_row, end_row):
 
 # Ejemplo de uso
 if __name__ == "__main__":
-    xlsx_file = "prueba.xlsx"
-    start_row = 569
-    end_row = 571
+    xlsx_file = "devices.xlsx"
+    start_row = 1
+    end_row = 774
     device_names = leer_nombres_dispositivos_desde_excel(xlsx_file, start_row, end_row)
     actualizar_inactivity_timeout_multiples_dispositivos(device_names)
