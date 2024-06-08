@@ -2,10 +2,10 @@ import requests
 
 # Función para obtener el token de acceso del usuario en ThingsBoard
 def obtener_token_de_acceso_thingsboard():
-    login_endpoint = "http://thingsboard.chemik.es/api/auth/login"
+    login_endpoint = "{{thingsboard_host}}/api/auth/login"
     auth_data = {
-        "username": "info@inartecnologias.es",
-        "password": "Inar.2019"
+        "username": "{{username}}",
+        "password": "{{password}}"
     }
     try:
         response = requests.post(login_endpoint, json=auth_data)
@@ -28,7 +28,7 @@ def obtener_informacion_del_dashboard(dashboard_id):
     if not token:
         return None
     
-    dashboard_info_endpoint = f"http://thingsboard.chemik.es/api/dashboard/info/{dashboard_id}"
+    dashboard_info_endpoint = f"{{thingsboard_host}}/api/dashboard/info/{dashboard_id}"
     headers = {
         "Authorization": f"Bearer {token}"
     }
@@ -48,7 +48,7 @@ def obtener_informacion_del_dashboard(dashboard_id):
         return None
 
 # Ejemplo de uso
-dashboard_id = "55eb6320-0d4c-11ef-8724-b1dfb72e4ebd"  # Reemplaza con el ID del dashboard que deseas obtener
+dashboard_id = "{{dashboard_id}}"  # Reemplaza con el ID del dashboard que deseas obtener
 dashboard_info = obtener_informacion_del_dashboard(dashboard_id)
 if dashboard_info:
     print("Información del Dashboard:")
