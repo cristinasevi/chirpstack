@@ -1,21 +1,8 @@
-import grpc
-from chirpstack_api.as_pb.external import api
-from datetime import datetime
-import time
-import os
-import configparser
-
 import requests 
-
 import csv
 
 server = "localhost:8080"
 api_token = "{{token_chirpstack}}"
-
-# Leer configuraciones desde config.ini
-config = configparser.ConfigParser()
-config.read('config.ini')
-
 
 def DeleteDeviceActivation(api_token, server, dev_eui):
     url = f"http://{server}/api/devices/{dev_eui}/activation"
