@@ -1,22 +1,9 @@
-import grpc
-from chirpstack_api.as_pb.external import api
-from datetime import datetime
-import time
-import openpyxl
-import os
-import configparser
-
 import requests 
-
+import openpyxl
 import pandas as pd
 
 server = "localhost:8090"
 api_token = "{{token_chirpstack}}"
-
-# Leer configuraciones desde config.ini
-config = configparser.ConfigParser()
-config.read('config.ini')
-
 
 def PostDeviceActivation(api_token, server, dev_eui, activation_data):
     url = f"http://{server}/api/devices/{dev_eui}/activate"
