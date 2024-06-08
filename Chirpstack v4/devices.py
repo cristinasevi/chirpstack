@@ -1,6 +1,3 @@
-import grpc
-from chirpstack_api.as_pb.external import api
-
 import requests 
 
 server = "localhost:8090"
@@ -34,7 +31,6 @@ device_data = GetDeviceData(api_token, server, device_id)
 if device_data is not None:
     print("Device Data:")
     print(device_data)
-
 
 # post /api/devices
 def PostDevice(server, api_token, device_data):
@@ -70,7 +66,6 @@ device_data = {
 }
 
 PostDevice(server, api_token, device_data)
-
 
 # delete /api/devices/{dev_eui}
 def DeleteDevice(server, api_token, dev_eui):
