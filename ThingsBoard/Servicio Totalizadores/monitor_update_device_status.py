@@ -92,6 +92,6 @@ if __name__ == "__main__":
         "Content-Type": "application/json"
     }
 
-    telemetry_url = "{{thingsboard_host}}/api/plugins/telemetry/DEVICE/0d537d60-21b4-11ef-a4b5-cd877a1ebdc9/SERVER_SCOPE"
+    telemetry_url = "{{thingsboard_host}}/api/plugins/telemetry/DEVICE/{{device_id}}/SERVER_SCOPE"
 
     actualizar_status_cada_minuto(api_url, headers, telemetry_url)
