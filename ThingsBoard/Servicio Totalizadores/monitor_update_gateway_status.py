@@ -2,7 +2,7 @@ import requests
 import time
 
 server = "localhost:8080"
-api_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiNzYyOGE4NGQtOGRhMy00ZDQ1LWJlNmYtZTM4MWY5MzQ5ZWI1IiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTY3NzY4NzI5NCwic3ViIjoiYXBpX2tleSJ9.LBx46H_nzGPkSxqsqVxU_5ig0soMF9dWlsuA6obE1EY"
+api_token = "{{token_chirpstack}}"
 
 def obtener_status_gateways(api_url, headers):
     try:
@@ -25,10 +25,10 @@ def imprimir_status(status):
     print(f"neverSeenGateways: {never_seen_gateways}")
 
 def obtener_token_de_acceso_thingsboard():
-    login_endpoint = "http://thingsboard.chemik.es/api/auth/login"
+    login_endpoint = "{{thingsboard_host}}/api/auth/login"
     auth_data = {
-        "username": "info@inartecnologias.es",
-        "password": "Inar.2019"
+        "username": "{{username}}",
+        "password": "{{password}}"
     }
     try:
         response = requests.post(login_endpoint, json=auth_data)
@@ -92,6 +92,6 @@ if __name__ == "__main__":
         "Content-Type": "application/json"
     }
 
-    telemetry_url = "http://thingsboard.chemik.es/api/plugins/telemetry/DEVICE/0d537d60-21b4-11ef-a4b5-cd877a1ebdc9/SERVER_SCOPE"
+    telemetry_url = "{{thingsboard_host}}/api/plugins/telemetry/DEVICE/{{device_id}}/SERVER_SCOPE"
 
     actualizar_status_cada_minuto(api_url, headers, telemetry_url)
