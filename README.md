@@ -2,11 +2,11 @@
 
 Este repositorio integra ChirpStack y ThingsBoard, aprovechando varias herramientas para la gestión y visualización de datos IoT. A continuación, se describen las principales tecnologías utilizadas.
 
-## ChirpStack
+### ChirpStack
 
 [ChirpStack](https://www.chirpstack.io) es un conjunto de aplicaciones de servidor para la gestión de redes LoRaWAN, facilitando la implementación y gestión de dispositivos IoT.
 
-## ThingsBoard
+### ThingsBoard
 
 [ThingsBoard](https://thingsboard.io) es una plataforma IoT de código abierto que proporciona herramientas para la recopilación, procesamiento, visualización y gestión de datos de dispositivos IoT en tiempo real.
 
