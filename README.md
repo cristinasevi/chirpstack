@@ -18,3 +18,7 @@ Este repositorio integra ChirpStack y ThingsBoard, aprovechando varias herramien
 - **Postman API**: Herramienta para probar y desarrollar APIs. [Workspace en Postman](https://www.postman.com/cristinasevi/workspace/chirpstack-thingsboard/overview)
 
 ---
+
+Reportes --> https://thingsboard.io/docs/pe/user-guide/reporting/
+IoT Energy Management --> https://thingsboard.io/smart-energy/
+IoT Smart metering --> https://thingsboard.io/smart-metering/
