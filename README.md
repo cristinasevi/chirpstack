@@ -20,5 +20,7 @@ Este repositorio integra ChirpStack y ThingsBoard, aprovechando varias herramien
 ---
 
 Reportes --> https://thingsboard.io/docs/pe/user-guide/reporting/
+
 IoT Energy Management --> https://thingsboard.io/smart-energy/
+
 IoT Smart metering --> https://thingsboard.io/smart-metering/
