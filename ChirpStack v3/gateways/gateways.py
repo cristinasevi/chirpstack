@@ -1,20 +1,9 @@
 import grpc
 from chirpstack_api.as_pb.external import api
-from datetime import datetime
-import time
-import openpyxl
-import os
-import configparser
-
 import requests 
 
 server = "localhost:8080"
 api_token = {{token_chirpstack}}"
-
-# Leer configuraciones desde config.ini
-config = configparser.ConfigParser()
-config.read('config.ini')
-
 
 def GetGatewaysSummary():
     # The API token (retrieved using the web-interface).
