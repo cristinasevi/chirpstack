@@ -53,7 +53,7 @@ def GetDevicesSummary():
 
 GetDevicesSummary()
 
-# get /api/internal/devices/summary
+# GET /api/internal/devices/summary
 def GetDeviceStatus(server, api_token):
     url = f"http://{server}/api/internal/devices/summary"
     headers = {"Authorization": f"Bearer {api_token}"}
@@ -69,7 +69,7 @@ def GetDeviceStatus(server, api_token):
 
 GetDeviceStatus(server, api_token)
 
-# get /api/devices/{dev_eui}  
+# GET /api/devices/{dev_eui}  
 def GetDeviceData(api_token, server, device_id):
     # Define the API endpoint to get data for a specific device.
     url = f"http://{server}/api/devices/{device_id}"
@@ -98,7 +98,7 @@ if device_data is not None:
     print("Device Data:")
     print(device_data)
 
-# put /api/devices/{device.dev_eui}
+# PUT /api/devices/{device.dev_eui}
 def PutDevice(server, api_token, dev_eui, device_data):
     url = f"http://{server}/api/devices/{dev_eui}"
     auth_token = {"authorization": f"Bearer {api_token}"}
@@ -130,7 +130,7 @@ device_data = {
 
 PutDevice(server, api_token, dev_eui, device_data)
 
-# post /api/devices
+# POST /api/devices
 def PostDevice(server, api_token, device_data):
     url = f"http://{server}/api/devices"
     auth_token = {"authorization": f"Bearer {api_token}"}
@@ -161,7 +161,7 @@ device_data = {
 
 PostDevice(server, api_token, device_data)
 
-# delete /api/devices/{dev_eui}
+# DELETE /api/devices/{dev_eui}
 def DeleteDevice(server, api_token, dev_eui):
     url = f"http://{server}/api/devices/{dev_eui}"
     auth_token = {"authorization": f"Bearer {api_token}"}
@@ -179,7 +179,7 @@ dev_eui = "{{dev_eui}}"
 
 DeleteDevice(server, api_token, dev_eui)
 
-# get /api/devices/{dev_eui}/activation 
+# GET /api/devices/{dev_eui}/activation 
 def GetDeviceActivation(api_token, server, device_id):
     url = f"http://{server}/api/devices/{device_id}/activation"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -199,7 +199,7 @@ device_activations = GetDeviceActivation(api_token, server, device_id)
 if device_activations:
     print("Device Activations:", device_activations)
 
-# delete /api/devices/{dev_eui}/activation 
+# DELETE /api/devices/{dev_eui}/activation 
 def DeleteDeviceActivation(api_token, server, dev_eui):
     url = f"http://{server}/api/devices/{dev_eui}/activation"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -215,7 +215,7 @@ dev_eui = "{{dev_eui}}"
 
 DeleteDeviceActivation(api_token, server, dev_eui)
 
-# post /api/devices/{device_activation.dev_eui}/activate 
+# POST /api/devices/{device_activation.dev_eui}/activate 
 def PostDeviceActivation(api_token, server, dev_eui, activation_data):
     url = f"http://{server}/api/devices/{dev_eui}/activate"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -245,7 +245,7 @@ activation_data = {
 
 PostDeviceActivation(api_token, server, dev_eui, activation_data)
 
-# get /api/devices/{dev_eui}/events 
+# GET /api/devices/{dev_eui}/events 
 def GetDeviceEvents(api_token, server, device_id):
     # Define the API endpoint to get events for a specific device.
     url = f"http://{server}/api/devices/{device_id}/events"
@@ -274,7 +274,7 @@ if events is not None:
     for event in events:
         print(f"Event ID: {event['id']}, Type: {event['type']}, Timestamp: {event['timestamp']}, Data: {event['data']}")
 
-# get /api/devices/{dev_eui}/frames 
+# GET /api/devices/{dev_eui}/frames 
 def GetDeviceFrames(api_token, server, device_id):
     # Define the API endpoint to get frames for a specific device.
     url = f"http://{server}/api/devices/{device_id}/frames"
@@ -303,7 +303,7 @@ if frames is not None:
     for frame in frames:
         print(f"Timestamp: {frame['timestamp']}, Data: {frame['data']}")
 
-# post /api/devices/{dev_eui}/getRandomDevAddr
+# POST /api/devices/{dev_eui}/getRandomDevAddr
 def GetRandomDevAddr(dev_eui, server, api_token):
     url = f"http://{server}/api/devices/{dev_eui}/getRandomDevAddr"
     auth_token = {"Authorization": f"Bearer {api_token}"}
@@ -321,7 +321,7 @@ dev_eui = "{{dev_eui}}"
 
 GetRandomDevAddr(dev_eui, server, api_token)
 
-# get /api/devices/{dev_eui}/stats
+# GET /api/devices/{dev_eui}/stats
 def GetDeviceStats():
     device_data = {
         "device_id": "{{dev_eui}}",
@@ -352,7 +352,7 @@ def GetDeviceStats():
 
 GetDeviceStats()
 
-# get /api/devices/{dev_eui}/keys 
+# GET /api/devices/{dev_eui}/keys 
 def GetDeviceKeys(api_token, server, device_id):
     url = f"http://{server}/api/devices/{device_id}/keys"
     auth_token = {"authorization": f"Bearer {api_token}"}
@@ -372,7 +372,7 @@ device_keys = GetDeviceKeys(api_token, server, device_id)
 if device_keys:
     print("Device Keys:", device_keys)
 
-# post /api/devices/{device_keys.dev_eui}/keys
+# POST /api/devices/{device_keys.dev_eui}/keys
 def PostDeviceKeys(server, api_token, device_id, keys):
     url = f"http://{server}/api/devices/{device_id}/keys"
     auth_token = {"authorization": f"Bearer {api_token}"}
@@ -398,7 +398,7 @@ keys = {
 
 PostDeviceKeys(server, api_token, device_id, keys)
 
-# put /api/devices/{device_keys.dev_eui}/keys
+# PUT /api/devices/{device_keys.dev_eui}/keys
 def PutDeviceKeys(server, api_token, device_id, keys):
     url = f"http://{server}/api/devices/{device_id}/keys"
     auth_token = {"authorization": f"Bearer {api_token}"}
@@ -423,7 +423,7 @@ keys = {
 
 PutDeviceKeys(server, api_token, device_id, keys)
 
-# delete /api/devices/{dev_eui}/keys 
+# DELETE /api/devices/{dev_eui}/keys 
 def DeleteDeviceKeys(api_token, server, dev_eui):
     url = f"http://{server}/api/devices/{dev_eui}/keys"
     auth_token = [("authorization", "Bearer %s" % api_token)]
