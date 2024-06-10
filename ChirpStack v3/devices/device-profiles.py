@@ -3,7 +3,7 @@ import requests
 server = "localhost:8080"
 api_token = "{{token_chirpstack}}"
 
-# get /api/device-profiles/{id}
+# GET /api/device-profiles/{id}
 def GetDeviceProfiles(server, api_token, device_id):
     url = f"http://{server}/api/device-profiles/{device_id}"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -25,7 +25,7 @@ if device_profiles:
     for key, value in device_profiles.items():
         print(f"{key}: {value}")
 
-# post /api/device-profiles
+# POST /api/device-profiles
 def PostDeviceProfile(server, api_token, device_profile_data):
     url = f"http://{server}/api/device-profiles"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -80,7 +80,7 @@ if response:
     print("Device Profile:")
     print(response)
 
-# put /api/device-profiles/{device_profile.id}
+# PUT /api/device-profiles/{device_profile.id}
 def PutDeviceProfile(server, api_token, dev_eui, device_profile_data):
     url = f"http://{server}/api/device-profiles/{dev_eui}"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -131,7 +131,7 @@ device_profile_data = {
 
 PutDeviceProfile(server, api_token, dev_eui, device_profile_data)
 
-# delete /api/device-profiles/{id}
+# DELETE /api/device-profiles/{id}
 def DeleteDeviceProfile(api_token, server, profile_id):
     url = f"http://{server}/api/device-profiles/{profile_id}"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -146,4 +146,5 @@ def DeleteDeviceProfile(api_token, server, profile_id):
         print(f"Error al eliminar el perfil de dispositivo con ID {profile_id}. Código de error: {response.status_code}")
 
 profile_id = "{{profile_id}}"
+
 DeleteDeviceProfile(api_token, server, profile_id)
