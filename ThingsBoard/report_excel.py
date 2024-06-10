@@ -2,10 +2,10 @@ import requests
 import openpyxl
 
 def obtener_token_de_acceso_thingsboard():
-    login_endpoint = "http://thingsboard.chemik.es/api/auth/login"
+    login_endpoint = "{{thingsboard_host}}/api/auth/login"
     auth_data = {
-        "username": "info@inartecnologias.es",
-        "password": "Inar.2019"
+        "username": "{{username}}",
+        "password": "{{password}}"
     }
     try:
         response = requests.post(login_endpoint, json=auth_data)
@@ -22,7 +22,7 @@ def obtener_token_de_acceso_thingsboard():
         return None
 
 def obtener_valores_atributos(device_id, access_token, keys=None):
-    url = f"http://thingsboard.chemik.es/api/plugins/telemetry/DEVICE/{device_id}/values/attributes"
+    url = f"{{thingsboard_host}}/api/plugins/telemetry/DEVICE/{device_id}/values/attributes"
     headers = {"X-Authorization": f"Bearer {access_token}"}
     
     if keys:
@@ -38,7 +38,7 @@ def obtener_valores_atributos(device_id, access_token, keys=None):
 
 access_token = obtener_token_de_acceso_thingsboard()
 if access_token:
-    device_id = "0d537d60-21b4-11ef-a4b5-cd877a1ebdc9"
+    device_id = "{{device_id}}"
     keys = ["activeDevices", "inactiveDevices", "neverSeenDevices", "activeGateways", "inactiveGateways", "neverSeenGateways"]
 
     valores_atributos = obtener_valores_atributos(device_id, access_token, keys)
