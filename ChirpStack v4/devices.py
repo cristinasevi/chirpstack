@@ -3,7 +3,7 @@ import requests
 server = "localhost:8090"
 api_token = "{{token_chirpstack}}"
 
-# get /api/devices/{dev_eui}  
+# GET /api/devices/{dev_eui}  
 def GetDeviceData(api_token, server, device_id):
     # Define the API endpoint to get data for a specific device.
     url = f"http://{server}/api/devices/{device_id}"
@@ -32,7 +32,7 @@ if device_data is not None:
     print("Device Data:")
     print(device_data)
 
-# post /api/devices
+# POST /api/devices
 def PostDevice(server, api_token, device_data):
     url = f"http://{server}/api/devices"
     headers = {
@@ -67,7 +67,7 @@ device_data = {
 
 PostDevice(server, api_token, device_data)
 
-# delete /api/devices/{dev_eui}
+# DELETE /api/devices/{dev_eui}
 def DeleteDevice(server, api_token, dev_eui):
     url = f"http://{server}/api/devices/{dev_eui}"
     auth_token = {"authorization": f"Bearer {api_token}"}
