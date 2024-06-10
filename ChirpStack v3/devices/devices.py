@@ -1,20 +1,9 @@
 import grpc
 from chirpstack_api.as_pb.external import api
-from datetime import datetime
-import time
-import openpyxl
-import os
-import configparser
-
 import requests 
 
 server = "localhost:8080"
 api_token = "{{token_chirpstack}}"
-
-# Leer configuraciones desde config.ini
-config = configparser.ConfigParser()
-config.read('config.ini')
-
 
 def GetDevicesSummary():
     # The API token (retrieved using the web-interface).
@@ -447,6 +436,5 @@ def DeleteDeviceKeys(api_token, server, dev_eui):
         print(f"Error al eliminar las claves del dispositivo {dev_eui}. Código de estado: {response.status_code}")
 
 dev_eui = "{{dev_eui}}"
-# key: 43 68 65 6d 69 6b 20 5a 61 72 61 67 6f 7a 61 20
 
 DeleteDeviceKeys(api_token, server, dev_eui)
