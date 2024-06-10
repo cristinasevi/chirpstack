@@ -56,7 +56,7 @@ def GetGateways():
     return gateway_services
 GetGateways()
 
-# get /api/internal/gateways/summary 
+# GET /api/internal/gateways/summary 
 def GetGatewayStatus(server, api_token):
     url = f"http://{server}/api/internal/gateways/summary"
     auth_token = {"Authorization": f"Bearer {api_token}"}
@@ -72,7 +72,7 @@ def GetGatewayStatus(server, api_token):
 
 GetGatewayStatus(server, api_token)
 
-# get /api/gateways/{id} 
+# GET /api/gateways/{id} 
 def GetGateways(api_token, server, gateway_id):
     url = f"http://{server}/api/gateways/{gateway_id}"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -93,7 +93,7 @@ if gateway_data is not None:
     print("Gateway Data:")
     print(gateway_data)
 
-# post /api/gateways 
+# POST /api/gateways 
 def PostGateway(api_token, server, gateway_data):
     url = f"http://{server}/api/gateways/{gateway_id}"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -130,7 +130,7 @@ gateway_data = {
 
 PostGateway(api_token, server, gateway_data)
 
-# put /api/gateways/{gateway.id} 
+# PUT /api/gateways/{gateway.id} 
 def PutGateways(server, api_token, gateway_id, gateway_body):
     url = f'http://{server}/api/gateways/{gateway_id}'
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -180,7 +180,7 @@ if gateway_info:
     print("Información del gateway actualizado:")
     print(gateway_info)
 
-# delete /api/gateways/{id} 
+# DELETE /api/gateways/{id} 
 def DeleteGateway(gateway_id, server, api_token):
     url = f"http://{server}/api/gateways/{gateway_id}"
 
@@ -202,7 +202,7 @@ gateway_id = "{{gateway_id}}"
 
 DeleteGateway(gateway_id, server, api_token)
 
-# get /api/gateways/{gateway_id}/frames 
+# GET /api/gateways/{gateway_id}/frames 
 def GetGatewayFrames(gateway_id, server, api_token):
     auth_token = [("authorization", "Bearer %s" % api_token)]
     try:
@@ -221,7 +221,7 @@ gateway_id = "{{gateway_id}}"
 
 GetGatewayFrames(gateway_id, server, api_token)
 
-# post /api/gateways/{gateway_id}/generate-certificate 
+# POST /api/gateways/{gateway_id}/generate-certificate 
 def PostGatewayGenerateCertificate(server, api_token, gateway_id):
     url = f"http://{server}/api/gateways/{gateway_id}/generate-certificate"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -263,7 +263,7 @@ gateway_id =  "{{gateway_id}}"
 
 GetGatewayPings()
 
-# get /api/gateways/{gateway_id}/stats 
+# GET /api/gateways/{gateway_id}/stats 
 def GetGatewayStats():
     gateway_data = {
     "gateway_id": "{{gateway_id}}",
