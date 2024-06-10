@@ -3,7 +3,7 @@ import requests
 server = "localhost:8080"
 api_token = "{{token_chirpstack}}"
 
-# get /api/gateway-profiles/{id} 
+# GET /api/gateway-profiles/{id} 
 def GetGatewayProfiles(server, api_token, gateway_id):
     url = f"http://{server}/api/gateway-profiles/{gateway_id}"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -25,7 +25,7 @@ if gateway_profiles:
     for key, value in gateway_profiles.items():
         print(f"{key}: {value}")
 
-# post /api/gateway-profiles 
+# POST /api/gateway-profiles 
 def PostGatewayProfile(server, api_token, gateway_profile_data):
     url = f"http://{server}/api/gateway-profiles"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -67,7 +67,7 @@ if response:
     print("Gateway Profile:")
     print(response)
 
-# put /api/gateway-profiles/{gateway_profile.id} 
+# PUT /api/gateway-profiles/{gateway_profile.id} 
 def PutGatewayProfile(server, api_token, gateway_id, gateway_profile_data):
     url = f"http://{server}/api/gateway-profiles/{gateway_id}"
     auth_token = [("authorization", "Bearer %s" % api_token)]
@@ -106,7 +106,7 @@ gateway_profile_data = {
 
 PutGatewayProfile(server, api_token, gateway_id, gateway_profile_data)
 
-# delete /api/gateway-profiles/{id} 
+# DELETE /api/gateway-profiles/{id} 
 def DeleteGatewayProfile(api_token, server, profile_id):
     url = f"http://{server}/api/gateway-profiles/{profile_id}"
     auth_token = [("authorization", "Bearer %s" % api_token)]
