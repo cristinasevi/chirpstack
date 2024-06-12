@@ -1,0 +1,8 @@
+#Desplazarte a la carpeta Thingsboard
+cd Solarplantgenerator
+
+#Activar entorno virtual para cargar
+source venv/bin/activate
+
+#Ejecutar el código para cargar dispostivos del CSV en el cliente de ThingsBoard
+python main.py -f devices.csv dc8383c0-f0d9-11ee-a9f5-675b85d8bd3b
