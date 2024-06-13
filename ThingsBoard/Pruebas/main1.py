@@ -12,7 +12,7 @@ from tb_rest_client.rest import ApiException
 import pandas
 import configparser
 
-print("Solar plant generator version: 1.8")
+print("Solar plant generator version: 2.0")
 
 class DeviceChemik:
     campo = None
@@ -33,11 +33,12 @@ class DeviceChemik:
     longitud = None
     inactivityTimeout = None
 
-    def __init__(self, campo, power_station, inversor, caja_string, eui,
-                 canal1, canal2, canal3, canal4, ubicacion, fecha_hora, n_chekness, harness, latitud, longitud, inactivityTimeout):
+    def __init__(self, campo, power_station, inversor, inactivityTimeout, caja_string, eui,
+                 canal1, canal2, canal3, canal4, ubicacion, fecha_hora, n_chekness, harness, latitud, longitud):
         self.campo = campo
         self.power_station = power_station
         self.inversor = inversor
+        self.inactivityTimeout = inactivityTimeout
         self.caja_string = caja_string
         self.eui = eui
         self.canal1 = canal1
@@ -50,7 +51,6 @@ class DeviceChemik:
         self.harness = harness
         self.latitud = latitud
         self.longitud = longitud
-        self.inactivityTimeout = inactivityTimeout
 
     def set_campo(self, campo):
         self.campo = campo
@@ -74,6 +74,8 @@ class DeviceChemik:
         self.fecha_hora = fecha_hora
     def set_inversor(self, inversor):
         self.inversor = inversor
+    def set_inactivityTimeout(self, inactivityTimeout):
+        self.inactivityTimeout = inactivityTimeout
     def set_n_chekness(self, n_chekness):
         self.n_chekness = n_chekness
     def set_token(self, token):
@@ -84,8 +86,6 @@ class DeviceChemik:
         self.harness = harness
     def set_latitud(self, latitud):
         self.latitud = latitud
-    def set_inactivityTimeout(self, inactivityTimeout):
-        self.inactivityTimeout = inactivityTimeout
 
     def get_campo(self):
         return self.campo
@@ -95,6 +95,8 @@ class DeviceChemik:
         return self.caja_string
     def get_inversor(self):
         return self.inversor
+    def get_inactivityTimeout(self):
+        return self.inactivityTimeout
     def get_eui(self):
         return self.eui
     def get_canal1(self):
@@ -119,8 +121,6 @@ class DeviceChemik:
         return self.latitud
     def get_longitud(self):
         return self.longitud
-    def get_inactivityTimeout(self):
-        return self.inactivityTimeout
 
 def getExistentDevices():
     # The API token (retrieved using the web-interface).
@@ -341,12 +341,12 @@ def set_attributes(devices, device):
         canal4 = "NaN"
     else:
         canal4 = int(devices[devices.columns[11]][device])
-    print(devices[devices.columns[11]][device])
+    #print(devices[devices.columns[12]][device])
     if devices[devices.columns[12]][device] == "":
         ubicacion = "NaN"
         latitud = "NaN"
         longitud = "NaN"
-    elif isinstance(devices[devices.columns[12]][device], float) or isinstance(devices[devices.columns[11]][device], int):
+    elif isinstance(devices[devices.columns[12]][device], float) or isinstance(devices[devices.columns[12]][device], int):
         if math.isnan(devices[devices.columns[12]][device]):
             ubicacion = "NaN"
             latitud = "NaN"
@@ -359,7 +359,7 @@ def set_attributes(devices, device):
         fecha_hora = "NaN"
     else:
         fecha_hora = devices[devices.columns[13]][device]
-    
+
     return [campo, power_station, inversor, inactivityTimeout, caja_string, eui, \
         canal1, canal2, canal3, canal4, ubicacion, fecha_hora, n_chekness, harness, latitud, longitud]
 
@@ -367,9 +367,9 @@ def parse_devices(devices):
     list_devices = []
     for device in devices.index:
         attributes = set_attributes(devices, device)
-        list_devices.append(DeviceChemik(attributes[0], attributes[1], attributes[2], attributes[3], attributes[4],
-                 attributes[5], attributes[6], attributes[7], attributes[8], attributes[9], attributes[10],
-                                         attributes[11], attributes[12], attributes[13], attributes[14], attributes[15]))
+        list_devices.append(DeviceChemik(attributes[0], attributes[1], attributes[2], attributes[3], attributes[4], attributes[5],
+                 attributes[6], attributes[7], attributes[8], attributes[9], attributes[10], attributes[11],
+                                         attributes[12], attributes[13], attributes[14], attributes[15]))
     return list_devices
 
 
@@ -467,6 +467,7 @@ def update_attributes(devicesData, device, d, option, rest_client, i):
         json = {'eui': d.get_eui(),
                 'campo': d.get_campo(),
                 'inversor': d.get_inversor(),
+                'inactivityTimeout': d.get_inactivityTimeout(),
                 'caja string': d.get_caja_string(),
                 'N chekness': d.get_n_chekness(),
                 'canal 1': d.get_canal1(),
@@ -478,8 +479,7 @@ def update_attributes(devicesData, device, d, option, rest_client, i):
                 'power station': d.get_power_station(),
                 'harness': d.get_harness(),
                 'latitude': d.get_latitud(),
-                'longitude': d.get_longitud(),
-                'inactivityTimeout': d.get_inactivityTimeout()}
+                'longitude': d.get_longitud()}
         print(device.id)
         try:
             rest_client.save_device_attributes(DeviceId(device.id, 'DEVICE'), 'SERVER_SCOPE', json)
@@ -610,28 +610,28 @@ def check_devices(devices):
 flags = sys.argv[1:]
 
 if not flags:
-    print("El uso del bebe programa debe de ser el siguiente:")
-    print("python device_creation.py [-m] [fichero.csv] -> opción de crear csv TB")
-    print("python device_creation.py [-u] [fichero.csv] -> opción de actualizar csv TB")
-    print("python device_creation.py [-f] [fichero.csv] -> opción de sincronizacion csv TB")
+    print("El uso del programa debe de ser el siguiente:")
+    print("python main.py [-m] [fichero.csv] -> opción de crear csv TB")
+    print("python main.py [-u] [fichero.csv] -> opción de actualizar csv TB")
+    print("python main.py [-f] [fichero.csv] -> opción de sincronizacion csv TB")
     print("Esta ultima opción si se añade -f forzará que en TB esten tan solo los dispositivos del fichero csv.")
     exit()
 
 if flags[0]!="-m" and flags[0]!="-u" and flags[0]!="-f":
-    print("El uso del bebe programa debe de ser el siguiente:")
-    print("python device_creation.py [-m] [fichero.csv] -> opción de crear csv TB")
-    print("python device_creation.py [-u] [fichero.csv] -> opción de actualizar csv TB")
-    print("python device_creation.py [-f] [fichero.csv] -> opción de sincronizacion csv TB")
+    print("El uso del programa debe de ser el siguiente:")
+    print("python main.py [-m] [fichero.csv] -> opción de crear csv TB")
+    print("python main.py [-u] [fichero.csv] -> opción de actualizar csv TB")
+    print("python main.py [-f] [fichero.csv] -> opción de sincronizacion csv TB")
     print("Esta ultima opción si se añade -f forzará que en TB esten tan solo los dispositivos del fichero csv.")
     exit()
 
 if len(flags) < 2:
-    print("El uso del bebe programa debe de ser el siguiente:")
-    print("python device_creation.py [-m] [fichero.csv] -> opción de crear csv TB")
-    print("python device_creation.py [-u] [fichero.csv] -> opción de actualizar csv TB")
-    print("python device_creation.py [-f] [fichero.csv] -> opción de sincronizacion csv TB")
+    print("El uso del programa debe de ser el siguiente:")
+    print("python main.py [-m] [fichero.csv] -> opción de crear csv TB")
+    print("python main.py [-u] [fichero.csv] -> opción de actualizar csv TB")
+    print("python main.py [-f] [fichero.csv] -> opción de sincronizacion csv TB")
     print("Esta ultima opción si se añade -f forzará que en TB esten tan solo los dispositivos del fichero csv.")
-    print("El uso del baba programa debe de ser el siguiente:")
+    print("El uso del programa debe de ser el siguiente:")
     exit()
 
 if flags[0] == "-m" and ".csv" in flags[1] and len(flags)==2:
@@ -656,9 +656,9 @@ elif flags[0] == "-f" and ".csv" in flags[1] and len(flags)==3:
         exit(1)
     thingsboard_device_creation(devices, flags[0], flags[2])
 else:
-    print("El uso del bebe programa debe de ser el siguiente:")
-    print("python device_creation.py [-s] [fichero.json] -> opción de sincronización json Chirpstack")
-    print("python device_creation.py [-add] [-f] [fichero.json] -> opción de añadir json Chirpstack")
+    print("El uso del programa debe de ser el siguiente:")
+    print("python main.py [-s] [fichero.json] -> opción de sincronización json Chirpstack")
+    print("python main.py [-add] [-f] [fichero.json] -> opción de añadir json Chirpstack")
     print("Esta ultima opción si se añade -f forzará aunque existan los dipositivos a que sean actualizados.")
     exit()
 
