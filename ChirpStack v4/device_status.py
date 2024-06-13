@@ -1,13 +1,12 @@
 import requests
 
-application_id = "d56beb5c-5f84-4916-b54b-18c6dd7b2178"
+application_id = "{{application_id}}"
 
 # URL para obtener el estado de los dispositivos
-url = f"http://localhost:8090/api/devices?limit=1000&offset=0&applicationId={application_id}"
-
+url = f"{{chirpstack_host}}/api/devices?limit=1000&offset=0&applicationId={application_id}"
 
 # Token de acceso para autenticación
-token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjaGlycHN0YWNrIiwiaXNzIjoiY2hpcnBzdGFjayIsInN1YiI6IjJjYmZjOWIxLWIzZDgtNDU3NC1hMTJjLWVmNzhiYWIwZTAyOCIsInR5cCI6ImtleSJ9.4Qzq6v_KcOvKEgXzewMNbRPS4uxE-pwcGKNjemDsRrk"
+token = "{{token_chirpstack}}"
 
 # Encabezados de la solicitud con el token de acceso
 headers = {
