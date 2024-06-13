@@ -306,61 +306,62 @@ def set_attributes(devices, device):
     else:
         inversor = int(devices[devices.columns[2]][device])
     if math.isnan(devices[devices.columns[3]][device]):
+        inactivityTimeout = "NaN"
+    else:
+        inactivityTimeout = int(devices[devices.columns[3]][device])
+    if math.isnan(devices[devices.columns[4]][device]):
         caja_string = "NaN"
     else:
-        caja_string = int(devices[devices.columns[3]][device])
-    if devices[devices.columns[4]][device] == "":
+        caja_string = int(devices[devices.columns[4]][device])
+    if devices[devices.columns[5]][device] == "":
         eui = "NaN"
     else:
-        eui = devices[devices.columns[4]][device]
-    if devices[devices.columns[5]][device] == "":
+        eui = devices[devices.columns[5]][device]
+    if devices[devices.columns[6]][device] == "":
         n_chekness = "NA"
     else:
-        n_chekness = str(devices[devices.columns[5]][device])
-    if math.isnan(devices[devices.columns[6]][device]):
+        n_chekness = str(devices[devices.columns[6]][device])
+    if math.isnan(devices[devices.columns[7]][device]):
         harness = "NaN"
     else:
-        harness = int(devices[devices.columns[6]][device])
-    if math.isnan(devices[devices.columns[7]][device]):
+        harness = int(devices[devices.columns[7]][device])
+    if math.isnan(devices[devices.columns[8]][device]):
         canal1 = "NA"
     else:
-        canal1 = int(devices[devices.columns[7]][device])
-    if math.isnan(devices[devices.columns[8]][device]):
+        canal1 = int(devices[devices.columns[8]][device])
+    if math.isnan(devices[devices.columns[9]][device]):
         canal2 = "NaN"
     else:
-        canal2 = int(devices[devices.columns[8]][device])
-    if math.isnan(devices[devices.columns[9]][device]):
+        canal2 = int(devices[devices.columns[9]][device])
+    if math.isnan(devices[devices.columns[10]][device]):
         canal3 = "NaN"
     else:
-        canal3 = int(devices[devices.columns[9]][device])
-    if math.isnan(devices[devices.columns[10]][device]):
+        canal3 = int(devices[devices.columns[10]][device])
+    if math.isnan(devices[devices.columns[11]][device]):
         canal4 = "NaN"
     else:
-        canal4 = int(devices[devices.columns[10]][device])
+        canal4 = int(devices[devices.columns[11]][device])
     print(devices[devices.columns[11]][device])
-    if devices[devices.columns[11]][device] == "":
+    if devices[devices.columns[12]][device] == "":
         ubicacion = "NaN"
         latitud = "NaN"
         longitud = "NaN"
-    elif isinstance(devices[devices.columns[11]][device], float) or isinstance(devices[devices.columns[11]][device], int):
-        if math.isnan(devices[devices.columns[11]][device]):
+    elif isinstance(devices[devices.columns[12]][device], float) or isinstance(devices[devices.columns[11]][device], int):
+        if math.isnan(devices[devices.columns[12]][device]):
             ubicacion = "NaN"
             latitud = "NaN"
             longitud = "NaN"
     else:
-        ubicacion = devices[devices.columns[11]][device]
-        latitud = devices[devices.columns[11]][device].split(', ')[0]
-        longitud = devices[devices.columns[11]][device].split(', ')[1]
-    if isinstance(devices[devices.columns[12]][device], float):
+        ubicacion = devices[devices.columns[12]][device]
+        latitud = devices[devices.columns[12]][device].split(', ')[0]
+        longitud = devices[devices.columns[12]][device].split(', ')[1]
+    if isinstance(devices[devices.columns[13]][device], float):
         fecha_hora = "NaN"
     else:
-        fecha_hora = devices[devices.columns[12]][device]
-    if math.isnan(devices[devices.columns[15]][device]):
-        inactivityTimeout = "NaN"
-    else:
-        inactivityTimeout = int(devices[devices.columns[15]][device])
-    return [campo, power_station, inversor, caja_string, eui, \
-        canal1, canal2, canal3, canal4, ubicacion, fecha_hora, n_chekness, harness, latitud, longitud, inactivityTimeout]
+        fecha_hora = devices[devices.columns[13]][device]
+    
+    return [campo, power_station, inversor, inactivityTimeout, caja_string, eui, \
+        canal1, canal2, canal3, canal4, ubicacion, fecha_hora, n_chekness, harness, latitud, longitud]
 
 def parse_devices(devices):
     list_devices = []
@@ -553,7 +554,7 @@ def check_only_client(devices):
 def check_eui_vacia(devices):
     correcto = True
     for device in devices.index:
-        if devices[devices.columns[4]][device] == "":
+        if devices[devices.columns[5]][device] == "":
             correcto = False
             print("Encontrado eui vacio en la fila " + str(device+1))
             print("No puede ser vacio")
@@ -563,7 +564,7 @@ def check_eui_vacia(devices):
 def check_eui_formato(devices):
     correcto = True
     for device in devices.index:
-        s = devices[devices.columns[4]][device]
+        s = devices[devices.columns[5]][device]
         if not (re.match("^[A-Za-z0-9]*$", s)) and len(s) != 16:
             correcto = False
             print("Encontrado eui con formato no valido en fila " + str(device+1))
@@ -574,9 +575,9 @@ def check_eui_formato(devices):
 def check_eui_repetida(devices):
     correcto = True
     for device in devices.index[0:]:
-        eui_aux = devices[devices.columns[4]][device]
+        eui_aux = devices[devices.columns[5]][device]
         for device_aux in devices.index[device+1:]:
-            if devices[devices.columns[4]][device_aux] == eui_aux:
+            if devices[devices.columns[5]][device_aux] == eui_aux:
                 correcto = False
                 print("Encontrado eui repetida en la fila " + str(device+1) + "eui " + eui_aux)
                 print("No puede haber dos filas con misma eui")

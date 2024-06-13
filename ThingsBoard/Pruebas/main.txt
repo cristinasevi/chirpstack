@@ -5,4 +5,4 @@ cd Solarplantgenerator
 source venv/bin/activate
 
 #Ejecutar el código para cargar dispostivos del CSV en el cliente de ThingsBoard
-python main.py -f devices.csv dc8383c0-f0d9-11ee-a9f5-675b85d8bd3b
+python3 main1.py -f devices.csv dc8383c0-f0d9-11ee-a9f5-675b85d8bd3b
