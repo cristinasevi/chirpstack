@@ -5,13 +5,13 @@ limit = 100
 offset = 0
 
 # URL base de la API de ChirpStack
-base_url = "http://localhost:8090/api/devices"
+base_url = "{{chirpstack_host}}/api/devices"
 
 # ID de la aplicación
-application_id = "d56beb5c-5f84-4916-b54b-18c6dd7b2178"
+application_id = "application_id"
 
 # Token de acceso
-token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjaGlycHN0YWNrIiwiaXNzIjoiY2hpcnBzdGFjayIsInN1YiI6IjJjYmZjOWIxLWIzZDgtNDU3NC1hMTJjLWVmNzhiYWIwZTAyOCIsInR5cCI6ImtleSJ9.4Qzq6v_KcOvKEgXzewMNbRPS4uxE-pwcGKNjemDsRrk"
+token = "{{token_chirpstack}}"
 
 # Encabezados de la solicitud con el token de acceso
 headers = {
