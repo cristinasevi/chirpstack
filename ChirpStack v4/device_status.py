@@ -3,7 +3,7 @@ import requests
 application_id = "{{application_id}}"
 
 # URL para obtener el estado de los dispositivos
-url = f"{{chirpstack_host}}/api/devices?limit=1000&offset=0&applicationId={application_id}"
+url = f"http://localhost:8090/api/devices?limit=1000&offset=0&applicationId={application_id}"
 
 # Token de acceso para autenticación
 token = "{{token_chirpstack}}"
