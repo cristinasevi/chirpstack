@@ -5,7 +5,7 @@ limit = 100
 offset = 0
 
 # URL base de la API de ChirpStack
-base_url = "{{chirpstack_host}}/api/devices"
+base_url = "http://localhost:8090/api/devices"
 
 # ID de la aplicación
 application_id = "application_id"
