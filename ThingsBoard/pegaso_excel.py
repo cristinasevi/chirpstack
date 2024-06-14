@@ -3,14 +3,14 @@ import json
 import pandas as pd
 import openpyxl
 
-client_id = "583a31f0-0d48-11ef-8724-b1dfb72e4ebd"
+client_id = "{{client_id}}"
 
 # Función para obtener el token de acceso de ThingsBoard
 def obtener_token_de_acceso_thingsboard():
-    login_endpoint = "http://thingsboard.chemik.es/api/auth/login"
+    login_endpoint = "{{thingsboard_host}}/api/auth/login"
     auth_data = {
-        "username": "info@inartecnologias.es",
-        "password": "Inar.2019"
+        "username": "{{username}}",
+        "password": "{{password}}"
     }
     try:
         response = requests.post(login_endpoint, json=auth_data)
@@ -28,7 +28,7 @@ def obtener_token_de_acceso_thingsboard():
 
 # Función para obtener la lista de dispositivos de un cliente
 def obtener_dispositivos_de_cliente(cliente_id, access_token):
-    url = f"http://thingsboard.chemik.es/api/customer/{cliente_id}/devices"
+    url = f"{{thingsboard_host}}/api/customer/{cliente_id}/devices"
     headers = {
         "Content-Type": "application/json",
         "X-Authorization": f"Bearer {access_token}"
@@ -57,7 +57,7 @@ def obtener_dispositivos_de_cliente(cliente_id, access_token):
 
 # Función para obtener los valores de atributos de un dispositivo
 def obtener_telemetria_dispositivo(device_id, access_token, keys=None):
-    url = f"http://thingsboard.chemik.es/api/plugins/telemetry/DEVICE/{device_id}/values/attributes"
+    url = f"{{thingsboard_host}}/api/plugins/telemetry/DEVICE/{device_id}/values/attributes"
     headers = {"X-Authorization": f"Bearer {access_token}"}
     
     if keys:
@@ -77,7 +77,7 @@ access_token = obtener_token_de_acceso_thingsboard()
 # Obtener el token de acceso
 access_token = obtener_token_de_acceso_thingsboard()
 if access_token:
-    device_id = "0d537d60-21b4-11ef-a4b5-cd877a1ebdc9"
+    device_id = "{{device_id}}"
     keys = ["eui", "active", "caja string", "campo", "canal 1", "canal 2", "canal 3", "canal 4", "fecha hora", "harness"]
 
     valores_atributos = obtener_telemetria_dispositivo(device_id, access_token, keys)
