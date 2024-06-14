@@ -881,115 +881,6 @@
 			]
 		},
 		{
-			"name": "device attributes",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					},
-					{
-						"key": "X-Authorization",
-						"value": "Bearer {{access_token}}"
-					}
-				],
-				"url": {
-					"raw": "{{thingsboard_host}}/api/v1/{{dev_access_token}}/attributes",
-					"host": [
-						"{{thingsboard_host}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"{{dev_access_token}}",
-						"attributes"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "device attributes",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "X-Authorization",
-								"value": "Bearer {{access_token}}"
-							}
-						],
-						"url": {
-							"raw": "{{thingsboard_host}}/api/v1/{{dev_access_token}}/attributes",
-							"host": [
-								"{{thingsboard_host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"{{dev_access_token}}",
-								"attributes"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "vary",
-							"value": "Origin"
-						},
-						{
-							"key": "vary",
-							"value": "Access-Control-Request-Method"
-						},
-						{
-							"key": "vary",
-							"value": "Access-Control-Request-Headers"
-						},
-						{
-							"key": "x-content-type-options",
-							"value": "nosniff"
-						},
-						{
-							"key": "x-xss-protection",
-							"value": "1; mode=block"
-						},
-						{
-							"key": "cache-control",
-							"value": "no-cache, no-store, max-age=0, must-revalidate"
-						},
-						{
-							"key": "pragma",
-							"value": "no-cache"
-						},
-						{
-							"key": "expires",
-							"value": "0"
-						},
-						{
-							"key": "content-type",
-							"value": "application/json"
-						},
-						{
-							"key": "content-length",
-							"value": "138"
-						},
-						{
-							"key": "date",
-							"value": "Wed, 29 May 2024 06:40:09 GMT"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"client\": {\n        \"application_id\": 1,\n        \"application_name\": \"PV_San_Andres_Telesto02\",\n        \"dev_eui\": \"0004a30b00f98b47\",\n        \"device_name\": \"0004a30b00f98b47\"\n    }\n}"
-				}
-			]
-		},
-		{
 			"name": "device telemetry",
 			"request": {
 				"method": "POST",
@@ -1112,7 +1003,7 @@
 			"response": []
 		},
 		{
-			"name": "device server attributes",
+			"name": "device attributes client_scope",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -1150,7 +1041,7 @@
 			},
 			"response": [
 				{
-					"name": "device server attributes",
+					"name": "device attributes client_scope",
 					"originalRequest": {
 						"method": "GET",
 						"header": [
@@ -1237,6 +1128,125 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"client\": {\n        \"application_id\": 1,\n        \"application_name\": \"PRUEBA\",\n        \"dev_eui\": \"0004a30b01055537\",\n        \"device_name\": \"0004a30b01055537\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "device attributes server_scope",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{thingsboard_host}}/api/plugins/telemetry/DEVICE/{{disp_id}}/values/attributes",
+					"host": [
+						"{{thingsboard_host}}"
+					],
+					"path": [
+						"api",
+						"plugins",
+						"telemetry",
+						"DEVICE",
+						"{{disp_id}}",
+						"values",
+						"attributes"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "device attributes server_scope",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{thingsboard_host}}/api/plugins/telemetry/DEVICE/{{disp_id}}/values/attributes",
+							"host": [
+								"{{thingsboard_host}}"
+							],
+							"path": [
+								"api",
+								"plugins",
+								"telemetry",
+								"DEVICE",
+								"{{disp_id}}",
+								"values",
+								"attributes"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "vary",
+							"value": "Origin"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "x-content-type-options",
+							"value": "nosniff"
+						},
+						{
+							"key": "x-xss-protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "expires",
+							"value": "0"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "transfer-encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "date",
+							"value": "Fri, 14 Jun 2024 07:32:17 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"lastUpdateTs\": 1718292729055,\n        \"key\": \"N chekness\",\n        \"value\": \"22_22367-748\"\n    },\n    {\n        \"lastUpdateTs\": 1718293350968,\n        \"key\": \"active\",\n        \"value\": false\n    },\n    {\n        \"lastUpdateTs\": 1718292729055,\n        \"key\": \"caja string\",\n        \"value\": 16\n    },\n    {\n        \"lastUpdateTs\": 1718292729055,\n        \"key\": \"campo\",\n        \"value\": \"THERMISTO\"\n    },\n    {\n        \"lastUpdateTs\": 1718292729055,\n        \"key\": \"canal 1\",\n        \"value\": 1\n    },\n    {\n        \"lastUpdateTs\": 1718292729055,\n        \"key\": \"canal 2\",\n        \"value\": 2\n    },\n    {\n        \"lastUpdateTs\": 1718292729055,\n        \"key\": \"canal 3\",\n        \"value\": \"NaN\"\n    },\n    {\n        \"lastUpdateTs\": 1718292729055,\n        \"key\": \"canal 4\",\n        \"value\": \"NaN\"\n    },\n    {\n        \"lastUpdateTs\": 1718292729055,\n        \"key\": \"eui\",\n        \"value\": \"0004a30b01000bee\"\n    },\n    {\n        \"lastUpdateTs\": 1718292729055,\n        \"key\": \"fecha hora\",\n        \"value\": \"NaN\"\n    },\n    {\n        \"lastUpdateTs\": 1718292729055,\n        \"key\": \"harness\",\n        \"value\": 1\n    },\n    {\n        \"lastUpdateTs\": 1718293350968,\n        \"key\": \"inactivityAlarmTime\",\n        \"value\": 1718293350959\n    },\n    {\n        \"lastUpdateTs\": 1718292729055,\n        \"key\": \"inversor\",\n        \"value\": 2\n    },\n    {\n        \"lastUpdateTs\": 1718292729055,\n        \"key\": \"latitude\",\n        \"value\": \"40.6762832\"\n    },\n    {\n        \"lastUpdateTs\": 1718292729055,\n        \"key\": \"longitude\",\n        \"value\": \"-2.7863738\"\n    },\n    {\n        \"lastUpdateTs\": 1718292729055,\n        \"key\": \"modulo_inversor\",\n        \"value\": 1\n    },\n    {\n        \"lastUpdateTs\": 1718292729055,\n        \"key\": \"power station\",\n        \"value\": 6\n    },\n    {\n        \"lastUpdateTs\": 1718292729055,\n        \"key\": \"ubicacion\",\n        \"value\": \"40.6762832, -2.7863738\"\n    }\n]"
 				}
 			]
 		},
