@@ -4,8 +4,8 @@ import time
 # Parámetros de la API de ChirpStack
 server = "localhost:8090"
 base_url = f"http://{server}/api/devices"
-application_id = "d56beb5c-5f84-4916-b54b-18c6dd7b2178"
-token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjaGlycHN0YWNrIiwiaXNzIjoiY2hpcnBzdGFjayIsInN1YiI6IjJjYmZjOWIxLWIzZDgtNDU3NC1hMTJjLWVmNzhiYWIwZTAyOCIsInR5cCI6ImtleSJ9.4Qzq6v_KcOvKEgXzewMNbRPS4uxE-pwcGKNjemDsRrk"
+application_id = "{{application_id}}"
+token = "{{token_chirpstack}}"
 
 # Encabezados de la solicitud con el token de acceso
 headers = {
