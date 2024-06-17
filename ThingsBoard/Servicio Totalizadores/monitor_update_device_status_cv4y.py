@@ -2,9 +2,9 @@ import requests
 import time
 
 # Parámetros de la API de ChirpStack
-tenant_id = "{{tenant_id}}"
-base_url = "http://localhost:8090/api/gateways"
-token = "{{token_chirpstack}}"
+application_id = "d56beb5c-5f84-4916-b54b-18c6dd7b2178"
+base_url = "http://localhost:8090/api/devices"
+token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjaGlycHN0YWNrIiwiaXNzIjoiY2hpcnBzdGFjayIsInN1YiI6IjJjYmZjOWIxLWIzZDgtNDU3NC1hMTJjLWVmNzhiYWIwZTAyOCIsInR5cCI6ImtleSJ9.4Qzq6v_KcOvKEgXzewMNbRPS4uxE-pwcGKNjemDsRrk"
 
 # Encabezados de la solicitud con el token de acceso
 headers = {
@@ -12,9 +12,9 @@ headers = {
     "Content-Type": "application/json"
 }
 
-def obtener_status_gateways(base_url, headers, tenant_id, limit=100, offset=0):
+def obtener_status_devices(base_url, headers, application_id, limit=100, offset=0):
     try:
-        url = f"{base_url}?limit={limit}&offset={offset}&tenantId={tenant_id}"
+        url = f"{base_url}?limit={limit}&offset={offset}&applicationId={application_id}"
         response = requests.get(url, headers=headers)
         response.raise_for_status()
         return response.json()
@@ -28,29 +28,29 @@ def imprimir_status(status):
     inactive_count = 0
     never_seen_count = 0
 
-    for gateway in status["result"]:
-        if gateway.get("lastSeenAt") is None:
+    for device in status["result"]:
+        if device.get("lastSeenAt") is None:
             never_seen_count += 1
-        elif gateway.get("status", {}).get("active", False):
+        elif device.get("status", {}).get("active", False):
             active_count += 1
         else:
             inactive_count += 1
 
-    print(f"activeGateways: {active_count}")
-    print(f"inactiveGateways: {inactive_count}")
-    print(f"neverSeenGateways: {never_seen_count}")
+    print(f"activeDevices: {active_count}")
+    print(f"inactiveDevices: {inactive_count}")
+    print(f"neverSeenDevices: {never_seen_count}")
 
     return {
-        "activeGateways": active_count,
-        "inactiveGateways": inactive_count,
-        "neverSeenGateways": never_seen_count
+        "activeDevices": active_count,
+        "inactiveDevices": inactive_count,
+        "neverSeenDevices": never_seen_count
     }
 
 def obtener_token_de_acceso_thingsboard():
-    login_endpoint = "{{thingsboard_host}}"
+    login_endpoint = "http://thingsboard.chemik.es/api/auth/login"
     auth_data = {
-        "username": "{{username}}",
-        "password": "{{password}}"
+        "username": "info@inartecnologias.es",
+        "password": "Inar.2019"
     }
     try:
         response = requests.post(login_endpoint, json=auth_data)
@@ -86,7 +86,7 @@ def enviar_telemetria_thingsboard(telemetry_url, telemetry_data):
     else:
         print("No se pudo obtener el token de acceso de ThingsBoard.")
 
-def actualizar_status_cada_minuto(base_url, headers, tenant_id, telemetry_url):
+def actualizar_status_cada_minuto(base_url, headers, application_id, telemetry_url):
     while True:
         limit = 100
         offset = 0
@@ -95,7 +95,7 @@ def actualizar_status_cada_minuto(base_url, headers, tenant_id, telemetry_url):
         never_seen_count = 0
         
         while True:
-            status = obtener_status_gateways(base_url, headers, tenant_id, limit, offset)
+            status = obtener_status_devices(base_url, headers, application_id, limit, offset)
             if not status:
                 break
 
@@ -111,5 +111,5 @@ def actualizar_status_cada_minuto(base_url, headers, tenant_id, telemetry_url):
         time.sleep(60)  # Espera 1 minuto antes de actualizar nuevamente
 
 if __name__ == "__main__":
-    telemetry_url = "{{thingsboard_host}}/api/plugins/telemetry/DEVICE/{{device_id}}/SERVER_SCOPE"
-    actualizar_status_cada_minuto(base_url, headers, tenant_id, telemetry_url)
+    telemetry_url = "http://thingsboard.chemik.es/api/plugins/telemetry/DEVICE/1669c6d0-2cad-11ef-ae64-65281f8d87bd/SERVER_SCOPE"
+    actualizar_status_cada_minuto(base_url, headers, application_id, telemetry_url)
