@@ -2,9 +2,9 @@ import requests
 import time
 
 # Parámetros de la API de ChirpStack
-application_id = "d56beb5c-5f84-4916-b54b-18c6dd7b2178"
+application_id = "{{application_id}}"
 base_url = "http://localhost:8090/api/devices"
-token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjaGlycHN0YWNrIiwiaXNzIjoiY2hpcnBzdGFjayIsInN1YiI6IjJjYmZjOWIxLWIzZDgtNDU3NC1hMTJjLWVmNzhiYWIwZTAyOCIsInR5cCI6ImtleSJ9.4Qzq6v_KcOvKEgXzewMNbRPS4uxE-pwcGKNjemDsRrk"
+token = "{{token_chirpstack}}"
 
 # Encabezados de la solicitud con el token de acceso
 headers = {
@@ -47,10 +47,10 @@ def imprimir_status(status):
     }
 
 def obtener_token_de_acceso_thingsboard():
-    login_endpoint = "http://thingsboard.chemik.es/api/auth/login"
+    login_endpoint = "{{thingsboard_host}}/api/auth/login"
     auth_data = {
-        "username": "info@inartecnologias.es",
-        "password": "Inar.2019"
+        "username": "{{username}}",
+        "password": "{{password}}"
     }
     try:
         response = requests.post(login_endpoint, json=auth_data)
@@ -111,5 +111,5 @@ def actualizar_status_cada_minuto(base_url, headers, application_id, telemetry_u
         time.sleep(60)  # Espera 1 minuto antes de actualizar nuevamente
 
 if __name__ == "__main__":
-    telemetry_url = "http://thingsboard.chemik.es/api/plugins/telemetry/DEVICE/1669c6d0-2cad-11ef-ae64-65281f8d87bd/SERVER_SCOPE"
+    telemetry_url = "{{thingsboard_host}}/api/plugins/telemetry/DEVICE/{{device_id}}/SERVER_SCOPE"
     actualizar_status_cada_minuto(base_url, headers, application_id, telemetry_url)
