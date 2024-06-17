@@ -98,7 +98,7 @@ if access_token:
         ws = wb.active
         
         # Añadir encabezados
-        headers = ["Power station", "Inversor", "Caja string", "Harness", "N Chekness", "EUI", "Estado", "Corriente 1", "Corriente 2", "Corriente 3", "Corriente 4", "RSSI", "Contador msj", "Ubicación", "lastActivityTime"]
+        headers = ["EUI", "Estado", "Caja string", "Campo", "Canal 1", "Canal 2", "Canal 3", "Canal 4", "Fecha Hora", "Harness", "Power station", "Inversor", "Ubicación", "N Chekness", "lastActivityTime", "Corriente 1", "Corriente 2", "Corriente 3", "Corriente 4", "RSSI", "Date 1", "Date 2", "firstMsg", "Contador msj", "SNR"]
         ws.append(headers)
         
         # Iterar sobre los dispositivos
@@ -109,47 +109,60 @@ if access_token:
             valores_atributos = obtener_telemetria_dispositivo(device_id, access_token)
             timeseries_data = obtener_timeseries_dispositivo(device_id, access_token)
             
-            # Inicializar los datos de la fila con valores vacíos
-            row_data = [""] * len(headers)  # Inicializar con celdas vacías
-            
-            # Llenar datos de atributos si están disponibles
-            if valores_atributos:
+            if valores_atributos and timeseries_data:
+                row_data = [nombre_dispositivo] + [""] * 24  # 25 columnas en total
                 for item in valores_atributos:
-                    if item['key'] == 'power station':
-                        row_data[headers.index('Power station')] = item['value']
-                    elif item['key'] == 'inversor':
-                        row_data[headers.index('Inversor')] = item['value']
+                    if item['key'] == 'active':
+                        row_data[1] = item['value']
                     elif item['key'] == 'caja string':
-                        row_data[headers.index('Caja string')] = item['value']
+                        row_data[2] = item['value']
+                    elif item['key'] == 'campo':
+                        row_data[3] = item['value']
+                    elif item['key'] == 'canal 1':
+                        row_data[4] = item['value']
+                    elif item['key'] == 'canal 2':
+                        row_data[5] = item['value']
+                    elif item['key'] == 'canal 3':
+                        row_data[6] = item['value']
+                    elif item['key'] == 'canal 4':
+                        row_data[7] = item['value']
+                    elif item['key'] == 'fecha hora':
+                        row_data[8] = item['value']
                     elif item['key'] == 'harness':
-                        row_data[headers.index('Harness')] = item['value']
-                    elif item['key'] == 'N chekness':
-                        row_data[headers.index('N Chekness')] = item['value']
-                    elif item['key'] == 'active':
-                        row_data[headers.index('Estado')] = item['value']
+                        row_data[9] = item['value']
+                    elif item['key'] == 'power station':
+                        row_data[10] = item['value']
+                    elif item['key'] == 'inversor':
+                        row_data[11] = item['value']
                     elif item['key'] == 'ubicacion':
-                        row_data[headers.index('Ubicación')] = item['value']
+                        row_data[12] = item['value']
+                    elif item['key'] == 'N chekness':
+                        row_data[13] = item['value']
                     elif item['key'] == 'lastActivityTime':
-                        row_data[headers.index('lastActivityTime')] = item['value']
-
-            # Llenar datos de series temporales si están disponibles
-            if timeseries_data:
+                        row_data[14] = item['value']
+                        
+            if timeseries_data: # -1 hace referencia al último valor de la serie
                 for ts_key, ts_values in timeseries_data.items():
                     if ts_key == 'data_corriente1' and ts_values:
-                        row_data[headers.index('Corriente 1')] = ts_values[-1]['value']
+                        row_data[15] = ts_values[-1]['value']
                     elif ts_key == 'data_corriente2' and ts_values:
-                        row_data[headers.index('Corriente 2')] = ts_values[-1]['value']
+                        row_data[16] = ts_values[-1]['value']
                     elif ts_key == 'data_corriente3' and ts_values:
-                        row_data[headers.index('Corriente 3')] = ts_values[-1]['value']
+                        row_data[17] = ts_values[-1]['value']
                     elif ts_key == 'data_corriente4' and ts_values:
-                        row_data[headers.index('Corriente 4')] = ts_values[-1]['value']
+                        row_data[18] = ts_values[-1]['value']
                     elif ts_key == 'rssi' and ts_values:
-                        row_data[headers.index('RSSI')] = ts_values[-1]['value']
+                        row_data[19] = ts_values[-1]['value']
+                    elif ts_key == 'date1' and ts_values:
+                        row_data[20] = ts_values[-1]['value']
+                    elif ts_key == 'date2' and ts_values:
+                        row_data[21] = ts_values[-1]['value']
+                    elif ts_key == 'firstMsg' and ts_values:
+                        row_data[22] = ts_values[-1]['value']
                     elif ts_key == 'msgDailyCounter' and ts_values:
-                        row_data[headers.index('Contador msj')] = ts_values[-1]['value']
-            
-            # Insertar el nombre del dispositivo en la sexta columna
-            row_data[headers.index('EUI')] = nombre_dispositivo
+                        row_data[23] = ts_values[-1]['value']
+                    elif ts_key == 'snr' and ts_values:
+                        row_data[24] = ts_values[-1]['value']
 
             # Añadir fila al libro de Excel
             ws.append(row_data)
