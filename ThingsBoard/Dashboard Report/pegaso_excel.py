@@ -1,15 +1,16 @@
 import requests
 import json
 import openpyxl
+import datetime
 
-client_id = "{{client_id}}"
+client_id = "583a31f0-0d48-11ef-8724-b1dfb72e4ebd"
 
 # Función para obtener el token de acceso de ThingsBoard
 def obtener_token_de_acceso_thingsboard():
-    login_endpoint = "{{thingsboard_host}}/api/auth/login"
+    login_endpoint = "http://thingsboard.chemik.es/api/auth/login"
     auth_data = {
-        "username": "{{username}}",
-        "password": "{{password}"
+        "username": "info@inartecnologias.es",
+        "password": "Inar.2019"
     }
     try:
         response = requests.post(login_endpoint, json=auth_data)
@@ -27,7 +28,7 @@ def obtener_token_de_acceso_thingsboard():
 
 # Función para obtener la lista de dispositivos de un cliente
 def obtener_dispositivos_de_cliente(cliente_id, access_token):
-    url = f"{{thingsboard_host}}/api/customer/{cliente_id}/devices"
+    url = f"http://thingsboard.chemik.es/api/customer/{cliente_id}/devices"
     headers = {
         "Content-Type": "application/json",
         "X-Authorization": f"Bearer {access_token}"
@@ -56,7 +57,7 @@ def obtener_dispositivos_de_cliente(cliente_id, access_token):
 
 # Función para obtener los valores de atributos de un dispositivo
 def obtener_telemetria_dispositivo(device_id, access_token, keys=None):
-    url = f"{{thingsboard_host}}/api/plugins/telemetry/DEVICE/{device_id}/values/attributes"
+    url = f"http://thingsboard.chemik.es/api/plugins/telemetry/DEVICE/{device_id}/values/attributes"
     headers = {"X-Authorization": f"Bearer {access_token}"}
     
     if keys:
@@ -72,7 +73,7 @@ def obtener_telemetria_dispositivo(device_id, access_token, keys=None):
 
 # Función para obtener los valores de telemetría de un dispositivo
 def obtener_timeseries_dispositivo(device_id, access_token, keys=None):
-    url = f"{{thingsboard_host}}/api/plugins/telemetry/DEVICE/{device_id}/values/timeseries"
+    url = f"http://thingsboard.chemik.es/api/plugins/telemetry/DEVICE/{device_id}/values/timeseries"
     headers = {"X-Authorization": f"Bearer {access_token}"}
     
     if keys:
@@ -85,6 +86,10 @@ def obtener_timeseries_dispositivo(device_id, access_token, keys=None):
     else:
         print(f"Error al obtener los valores de telemetría. Código de estado: {response.status_code}")
         return None
+
+# Convertir tiempo Unix a formato de fecha y hora
+def convertir_unix_a_fecha_hora(unix_time):
+    return datetime.datetime.fromtimestamp(unix_time / 1000).strftime('%Y-%m-%d %H:%M:%S')
 
 # Obtener el token de acceso
 access_token = obtener_token_de_acceso_thingsboard()
@@ -130,7 +135,7 @@ if access_token:
                     elif item['key'] == 'ubicacion':
                         row_data[headers.index('Ubicación')] = item['value']
                     elif item['key'] == 'lastActivityTime':
-                        row_data[headers.index('lastActivityTime')] = item['value']
+                        row_data[headers.index('lastActivityTime')] = convertir_unix_a_fecha_hora(item['value'])
 
             # Llenar datos de series temporales si están disponibles
             if timeseries_data:
@@ -155,5 +160,5 @@ if access_token:
             ws.append(row_data)
         
         # Guardar el archivo de Excel
-        wb.save("report.xlsx")
+        wb.save("report0.xlsx")
         print("Archivo de Excel creado exitosamente.")
