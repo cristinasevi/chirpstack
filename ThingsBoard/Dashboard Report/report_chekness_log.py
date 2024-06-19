@@ -25,3 +25,7 @@ output_file = os.path.join(output_dir, f"Report_{fecha_ayer}.xlsx")
 df_filtrado.to_excel(output_file, index=False)
 
 print(f"Datos filtrados guardados en {output_file}")
+
+# Programar con crontab para que se ejecute automáticamente todos los días a las 00:01h
+# m h  dom mon dow   command
+# 01 00 * * * /usr/bin/python3 /home/ckcm/Pruebas/report_chekness_log.py
