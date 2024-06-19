@@ -27,5 +27,6 @@ df_filtrado.to_excel(output_file, index=False)
 print(f"Datos filtrados guardados en {output_file}")
 
 # Programar con crontab para que se ejecute automáticamente todos los días a las 00:01h
+# sudo crontab -e -u root
 # m h  dom mon dow   command
 # 01 00 * * * /usr/bin/python3 /home/ckcm/Pruebas/report_chekness_log.py
