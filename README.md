@@ -16,5 +16,5 @@ Este repositorio integra ChirpStack y ThingsBoard, aprovechando varias herramien
 - **Swagger UI**: Interfaz para explorar y probar APIs.
 - **MQTT Explorer** y **MQTTX**: Herramientas para trabajar con el protocolo MQTT.
 - **Postman API**: Herramienta para probar y desarrollar APIs. [Workspace en Postman](https://www.postman.com/cristinasevi/workspace/chirpstack-thingsboard/overview)
-
+- **Node-RED**: 
 ---
