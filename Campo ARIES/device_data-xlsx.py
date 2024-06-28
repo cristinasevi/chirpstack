@@ -45,5 +45,5 @@ def mqtt_subscribe_and_write_to_excel(euis):
     wb.save('device_data.xlsx')
 
 if __name__ == "__main__":
-    euis = ['device_eui1', 'device_eui2', 'device_eui3']
+    euis = ['{{dev_eui1}}', '{{dev_eui2}}', '{{dev_eui3}}']
     mqtt_subscribe_and_write_to_excel(euis)
